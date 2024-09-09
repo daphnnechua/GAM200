@@ -48,7 +48,6 @@ public class IngredientPickUp : MonoBehaviour
                         ingredientHeld.GetComponent<Rigidbody2D>().simulated = false;
                     }
                 }
-                Debug.Log(pickupIngredient);
             }
         }
     }
