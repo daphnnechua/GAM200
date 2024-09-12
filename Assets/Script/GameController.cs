@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        player.transform.position = Vector2.zero;
+        //player.transform.position = Vector2.zero;
         foreach(PlayerScript playerScript in player.GetComponents<PlayerScript>())
         {
             playerScript.Initialize(this);
