@@ -1,0 +1,5 @@
+workStationID,workstationName,actionID,requiredNumber
+WORK_1,Cutting Station,ACT_1,1
+WORK_2,Frying Station,ACT_2,1
+WORK_3,Trash,ACT_3,1
+WORK_4,Normal Tabletop,null,1

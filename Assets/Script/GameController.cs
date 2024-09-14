@@ -5,12 +5,14 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public InputHandler inputHandler;
-
+    public DataManager dataManager;
     public GameObject player;
     
     // Start is called before the first frame update
     void Start()
     {
+        dataManager = FindObjectOfType<DataManager>();
+        dataManager.LoadAllData();
         player = GameObject.FindWithTag("Player");
         inputHandler = FindObjectOfType<InputHandler>();
 

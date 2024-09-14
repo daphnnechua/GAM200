@@ -1,0 +1,4 @@
+actionID,actionName,timeRequired,workstationID
+ACT_1,Cutting,5,WORK_1
+ACT_2,Frying,7,WORK_2
+ACT_3,Trashing,3,WORK_3

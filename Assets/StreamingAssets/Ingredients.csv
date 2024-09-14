@@ -1,0 +1,8 @@
+causeActionID,prevStateID,ingredientID,name,canCut,canCook,isReady,prefabPath
+null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,Prefabs/Lettuce
+ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,TRUE,Prefabs/Lettuce_Cut
+null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,Prefabs/Tomato
+ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,Prefabs/Tomato_Cut
+null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,Prefabs/Shrimp
+ACT_1,INGR_5,INGR_6,Sashimi,FALSE,TRUE,TRUE,Prefabs/Sashimi
+ACT_2,INGR_6,INGR_7,Fried shrimp,FALSE,FALSE,TRUE,Prefabs/Fried_Shrimp

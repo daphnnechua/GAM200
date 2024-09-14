@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CuttingStation : MonoBehaviour
 {
+    [SerializeField] private string stationID = "WORK_1";
     [SerializeField] private float cutTimer = 5f;
-    [SerializeField] GameObject cutObjPrefab;
     private GameObject ingredientObj;
 
     private GameObject player;
@@ -14,6 +14,7 @@ public class CuttingStation : MonoBehaviour
     private float cutProgress = 0;
 
     private IngredientPickUp ingredientPickUp;
+    private IngredientSO ingredientSO;
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +26,17 @@ public class CuttingStation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ingredientPickUp.isCuttingStation && ingredientObj)
+        if(ingredientPickUp.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
         {
             if(Input.GetKey(KeyCode.E))
             {
                 CutIngredient();
             }
             
+        }
+        if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
+        {
+            Debug.Log(ingredientObj.name + " cannot be cut!");
         }
     }
 
@@ -42,7 +47,7 @@ public class CuttingStation : MonoBehaviour
         {
             cutProgress += Time.deltaTime;
 
-            Debug.Log(cutProgress/cutTimer);
+            //Debug.Log(cutProgress/cutTimer);
 
             // Check if cutting is complete
             if (cutProgress >= cutTimer)
@@ -56,14 +61,31 @@ public class CuttingStation : MonoBehaviour
     
     private void CompleteCutting()
     {
+        Debug.Log("Cutting Complete!");
         if (ingredientObj != null)
         {
-            Instantiate(cutObjPrefab, transform.position, ingredientObj.transform.rotation); // Instantiate the cut object
-            Destroy(ingredientObj); // Destroy the original ingredient
+            var ingredientData = ingredientObj.GetComponent<IngredientManager>().ingredientSO;
+
+            if(ingredientData!=null)
+            {
+                var resultingIngredient = Game.GetIngredientByPrevStateID(ingredientData.ingredientID);
+                Debug.Log("Result is:" + resultingIngredient.name);
+
+                if(resultingIngredient != null)
+                {
+                    GameObject ingredientPrefab = Resources.Load<GameObject>(resultingIngredient.prefabPath);
+                    Instantiate(ingredientPrefab, transform.position, ingredientObj.transform.rotation); // Instantiate the cut object
+                    Destroy(ingredientObj); // Destroy the original ingredient
+
+                }
+
+            }
+            else{
+                Debug.Log("no ingredient data found!");
+            }
+
         }
         cutProgress = 0f; //reset progress
-
-        ingredientObj = null; //cannot cut anynmore --> do scriptable obj to set cancut bool to false
     }
 
     private void OnTriggerEnter2D(Collider2D other)
