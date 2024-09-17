@@ -10,11 +10,14 @@ public class DataManager : MonoBehaviour
     public List<Actions> cookingActions = new List<Actions>();
     public List<Stations> workstations = new List<Stations>();
 
+    public List<Recipe> recipes = new List<Recipe>();
+
     public void LoadAllData() //called at the start of game 
     {
         LoadIngredients();
         LoadCookingActions();
         LoadWorkstations();
+        LoadRecipes();
     }
 
     #region Ingredients
@@ -105,4 +108,33 @@ public class DataManager : MonoBehaviour
     }
 
     #endregion workstations
+
+    #region recipes
+
+    public void LoadRecipes()
+    {
+        string filePath = Application.streamingAssetsPath + "/Recipe.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {','});
+
+            RefRecipe refData = new RefRecipe();
+            refData.recipeID = columnData[0];
+            refData.recipeName = columnData[1];
+            refData.ingredientIDs = columnData[2].Split('@');
+            refData.reward = int.Parse(columnData[3]);
+            refData.expiryTimer = float.Parse(columnData[4]);
+
+            Recipe recipe = new Recipe(refData.recipeID, refData.recipeName, refData.ingredientIDs, refData.reward, refData.expiryTimer);
+
+            recipes.Add(recipe);
+
+            Game.SetRecipeList(recipes);
+
+        }
+    }
+
+    #endregion recipes
 }

@@ -1,0 +1,4 @@
+recipeID,recipeName,ingredientIDs,reward,expiryTimer
+REC_1,Salad,INGR_2@INGR_2,10,20
+REC_2,Tomato salad,INGR_2@INGR_4,10,20
+REC_3,Shrimp Salad,INGR_2@INGR_6,10,20

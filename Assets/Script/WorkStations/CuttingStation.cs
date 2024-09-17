@@ -13,20 +13,20 @@ public class CuttingStation : MonoBehaviour
 
     private float cutProgress = 0;
 
-    private IngredientPickUp ingredientPickUp;
+    private PickUpObjs pickUpObjs;
     private IngredientSO ingredientSO;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        ingredientPickUp = player.GetComponent<IngredientPickUp>();
+        pickUpObjs = player.GetComponent<PickUpObjs>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(ingredientPickUp.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
+        if(pickUpObjs.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
         {
             if(Input.GetKey(KeyCode.E))
             {
@@ -47,7 +47,7 @@ public class CuttingStation : MonoBehaviour
         {
             cutProgress += Time.deltaTime;
 
-            //Debug.Log(cutProgress/cutTimer);
+            Debug.Log(cutProgress/cutTimer);
 
             // Check if cutting is complete
             if (cutProgress >= cutTimer)
@@ -74,7 +74,9 @@ public class CuttingStation : MonoBehaviour
                 if(resultingIngredient != null)
                 {
                     GameObject ingredientPrefab = Resources.Load<GameObject>(resultingIngredient.prefabPath);
-                    Instantiate(ingredientPrefab, transform.position, ingredientObj.transform.rotation); // Instantiate the cut object
+                    GameObject cutIngredient = Instantiate(ingredientPrefab, transform.position, ingredientObj.transform.rotation); // Instantiate the cut object
+                    cutIngredient.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    Debug.Log(transform.position);
                     Destroy(ingredientObj); // Destroy the original ingredient
 
                 }

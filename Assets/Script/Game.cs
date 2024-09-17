@@ -14,6 +14,9 @@ public static class Game
     private static Stations workstation;
     private static List<Stations> workstationList;
 
+    private static Recipe recipe;
+    private static List<Recipe> recipeList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -99,4 +102,33 @@ public static class Game
     }
 
     #endregion workstations
+
+    #region recipes
+
+    public static Recipe GetRecipe()
+    {
+        return recipe;
+    }
+
+    public static void SetRecipe(Recipe aRecipe)
+    {
+        recipe = aRecipe;
+    }
+
+    public static void SetRecipeList(List<Recipe> aList)
+    {
+        recipeList = aList;
+    }
+
+    public static List<Recipe> GetRecipeList()
+    {
+        return recipeList;
+    }
+
+    public static Recipe GetRecipeByID(string ID)
+    {
+        return recipeList.Find(i => i.recipeID == ID);
+    }
+
+    #endregion recipes
 }
