@@ -7,6 +7,13 @@ public class GameController : MonoBehaviour
     public InputHandler inputHandler;
     public DataManager dataManager;
     public GameObject player;
+
+    public bool gameStart = false;
+
+    public int points = 0;
+    public bool isGameLoopActive = false;
+    public bool isPaused = true;
+
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +34,9 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        gameStart = true;
+        isGameLoopActive = true;
+        isPaused = false;
         //player.transform.position = Vector2.zero;
         foreach(PlayerScript playerScript in player.GetComponents<PlayerScript>())
         {
@@ -35,4 +45,18 @@ public class GameController : MonoBehaviour
         inputHandler.SetInputReceiver(player.GetComponent<PlayerMovement>());
 
     }
+
+    public void AddPoints(int reward)
+    {
+        points+=reward;
+        Debug.Log("Submitted correct order! Add:" + reward + " current points:" + points);
+    }
+
+    public void DeductPoints(int deduct)
+    {
+        points-=deduct;
+        Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
+
+    }
+
 }

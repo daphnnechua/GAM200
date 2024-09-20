@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CuttingStation : MonoBehaviour
 {
-    [SerializeField] private string stationID = "WORK_1";
     [SerializeField] private float cutTimer = 5f;
     private GameObject ingredientObj;
 
@@ -47,7 +46,7 @@ public class CuttingStation : MonoBehaviour
         {
             cutProgress += Time.deltaTime;
 
-            Debug.Log(cutProgress/cutTimer);
+            // Debug.Log(cutProgress/cutTimer);
 
             // Check if cutting is complete
             if (cutProgress >= cutTimer)

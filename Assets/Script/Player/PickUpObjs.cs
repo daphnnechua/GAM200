@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PickUpObjs : MonoBehaviour
@@ -15,6 +16,8 @@ public class PickUpObjs : MonoBehaviour
     private Transform tableTopPos;
     public bool accessTable = false;
     public bool isCuttingStation = false;
+    public bool isStockStation = false;
+    public bool isServingStation = false; 
 
     public bool isTrashCan = false;
 
@@ -31,13 +34,13 @@ public class PickUpObjs : MonoBehaviour
         pickUpMask = LayerMask.GetMask("KitchenObjs");
         trashCan = GameObject.FindGameObjectWithTag("TrashCan");
         trashScript = trashCan.GetComponent<Trash>();
-        plateScript = FindAnyObjectByType<Plate>();
+        plateScript = FindObjectOfType<Plate>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(closestObj);
+        //Debug.Log(closestObj);
         // Collider2D[] nearbyIngredients = Physics2D.OverlapCircleAll(transform.position + dir, 0.75f, pickUpMask); //all nearby ingredients
 
         // if (nearbyIngredients.Length > 0) //if there are ingredient nearby
@@ -67,7 +70,7 @@ public class PickUpObjs : MonoBehaviour
             }
             else //pickup ingredient
             {
-                PickUpIngredient();
+                PickUpAllObjs();
                 
             }
         }
@@ -98,7 +101,7 @@ public class PickUpObjs : MonoBehaviour
             objHeld = null;
             dir = new Vector2(0, 0);
         }
-        else if(accessTable && IsCounterOccupied()) //station or counter top is occupied --> cannot place down
+        else if(accessTable && IsCounterOccupied() ) //station or counter top is occupied --> cannot place down
         {
             Debug.Log("Counter Occupied!");
             return;
@@ -109,6 +112,10 @@ public class PickUpObjs : MonoBehaviour
             {
                 Debug.Log("Cutting station! Cannot put plate down!");
                 return;
+            }
+            if(isServingStation && plateScript.readyToServe && objHeld.CompareTag("Plate"))
+            {
+                plateScript.ServePlate();
             }
             if(closestObj)
             {
@@ -125,11 +132,11 @@ public class PickUpObjs : MonoBehaviour
                 objHeld = null;
             }
         }
-
         else if(isTrashCan) //accessing trash can
         {
             trashScript.TrashIngredient(objHeld);
         }   
+
     }
 
     private void IngredientsAssembly()
@@ -157,6 +164,45 @@ public class PickUpObjs : MonoBehaviour
         return false;
     }
 
+    private void PickUpAllObjs()
+    {
+        if (isStockStation && closestObj.gameObject.CompareTag("StockStation") && !objHeld) // If player is interacting with a StockStation
+        {
+            Collider2D objOnStation = Physics2D.OverlapCircle(closestObj.position, 0.1f, pickUpMask);
+            if(objOnStation && !objHeld)
+            {
+                PickUpIngredient();
+            }
+            else if(!objOnStation && !objHeld)
+            {
+                GameObject newObj = closestObj.gameObject.GetComponent<StockStation>().GetNewObj(); // Get new object from StockStation
+                if (newObj != null)
+                {
+                    PickUpNewObj(newObj); // Handle picking up the new object
+                }
+
+            }
+        }
+        else
+        {
+            PickUpIngredient(); // Otherwise, pick up the ingredient normally
+        }
+    }
+
+    private void PickUpNewObj(GameObject gameObject)
+    {
+        objHeld = gameObject;
+        objHeld.transform.position = objPlacement.position;
+        objHeld.transform.parent = transform;
+
+        if (objHeld.GetComponent<Rigidbody2D>())
+        {
+            objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            objHeld.GetComponent<Rigidbody2D>().simulated = false;
+        }
+    }
+
     private void PickUpIngredient()
     {
         //find the closest ingredient
@@ -179,6 +225,7 @@ public class PickUpObjs : MonoBehaviour
         
             if(closestObj!=null)
             {
+                
                 objHeld = closestObj;
                 objHeld.transform.position = objPlacement.position;
                 objHeld.transform.parent = transform;
@@ -201,7 +248,7 @@ public class PickUpObjs : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation"))
+        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation"))
         {
             accessTable = true;
             // tableTopPos = other.transform;
@@ -209,6 +256,16 @@ public class PickUpObjs : MonoBehaviour
             if(other.CompareTag("CuttingStation"))
             {
                 isCuttingStation = true;
+            }
+
+            if(other.CompareTag("StockStation"))
+            {
+                isStockStation = true;
+            }
+
+            if(other.CompareTag("ServingStation"))
+            {
+                isServingStation = true;
             }
         }
 
@@ -226,11 +283,12 @@ public class PickUpObjs : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") || other.CompareTag("TrashCan"))
+        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") || other.CompareTag("TrashCan") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation"))
         {
             accessTable = false;
             isCuttingStation = false;
             isTrashCan = false;
+            isStockStation = false;
         }
 
         closestObj = null;

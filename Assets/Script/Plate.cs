@@ -9,12 +9,24 @@ public class Plate : MonoBehaviour
     private List<GameObject> ingredientsOnPlate = new List<GameObject>(); 
     public bool readyToServe = false;
     public Recipe currentRecipe;
+    private GameController gameController;
+    private OrderManager orderManager;
+
+    private StockStation stockStation;
+
+    void Start()
+    {
+        gameController = FindObjectOfType<GameController>();
+        orderManager = FindObjectOfType<OrderManager>();
+        stockStation = FindObjectOfType<StockStation>();
+    }
     
     public void PlaceIngredient(GameObject ingredient)
     {
         if(!ingredientsOnPlate.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.isReady)
         {
             ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
+            readyToServe = true;
 
             Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
             CheckRecipe();
@@ -22,7 +34,7 @@ public class Plate : MonoBehaviour
         }
     }
 
-    private void CheckRecipe()
+    public void CheckRecipe()
     {
         if(Game.GetRecipeList()!=null)
         {
@@ -31,20 +43,14 @@ public class Plate : MonoBehaviour
                 if(MatchRecipe(recipe.ingredientIDs))
                 {
                     currentRecipe = recipe;
-                    readyToServe = true;
                     return;
                 }
             }
         }
-        else
-        {
-            Debug.Log("Recipe list is null");
-        }
-
 
     }
 
-    private bool MatchRecipe(string[] recipe)
+    public bool MatchRecipe(string[] recipe)
     {
         Dictionary<string, int> plateIngredients = ingredientsOnPlateIDs.GroupBy(id => id).ToDictionary(id => id.Key, id => id.Count()); //count how many of the same ingredients are on the plate
 
@@ -68,4 +74,33 @@ public class Plate : MonoBehaviour
         return false;
 
     }
+
+    public void ServePlate()
+    {
+        if(readyToServe)
+        {
+            Recipe orderOfInterest = orderManager.GetCurrentOrder();
+
+            if(currentRecipe!=null && orderOfInterest.recipeID == currentRecipe.recipeID)
+            {
+                //add reward
+                Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
+                gameController.AddPoints(currentRecipe.reward);
+            }
+            else
+            {
+                //deduct points
+                Debug.Log("Submitted is not matching!");
+                gameController.DeductPoints(5);
+            }
+        }
+
+        Destroy(gameObject);
+        if(stockStation.stockSO.stationName == "Plate_Stocking_Station")
+        {
+            stockStation.stockCount++;
+            Debug.Log("Plate has returned! Count: " + stockStation.stockCount);
+        }
+    }
+
 }
