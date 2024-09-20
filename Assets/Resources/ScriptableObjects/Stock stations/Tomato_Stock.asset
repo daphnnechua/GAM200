@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Tomato_Stock
   m_EditorClassIdentifier: 
   stationName: Tomato_Stocking_Station
+  objType: Tomato
   prefab: {fileID: 3720659863476319673, guid: e78bcaee64b4bfa44a9ede7192b37b55, type: 3}
-  availableStock: 5

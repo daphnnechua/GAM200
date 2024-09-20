@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Shrimp_Stock
   m_EditorClassIdentifier: 
   stationName: Shrimp_Stocking_Station
+  objType: Ingredient
   prefab: {fileID: 3720659863476319673, guid: b7549dfb25fe1814e95e694ba88cd2e7, type: 3}
-  availableStock: 5

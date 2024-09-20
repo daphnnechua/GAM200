@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a976bbd557d51644f8890037503544fa, type: 3}
   m_Name: Plate_Stock
   m_EditorClassIdentifier: 
-  stationName: Tomato_Stocking_Station
-  prefab: {fileID: 3720659863476319673, guid: e78bcaee64b4bfa44a9ede7192b37b55, type: 3}
-  availableStock: 5
+  stationName: Plate_Stocking_Station
+  objType: Plate
+  prefab: {fileID: 7373545082658842854, guid: f2b29a6153c65c34bb915ac61f535c3b, type: 3}

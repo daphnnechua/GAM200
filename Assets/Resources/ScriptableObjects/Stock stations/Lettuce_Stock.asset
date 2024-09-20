@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a976bbd557d51644f8890037503544fa, type: 3}
   m_Name: Lettuce_Stock
   m_EditorClassIdentifier: 
-  stationID: 
   stationName: Lettuce_Stocking_Station
+  objType: Ingredient
   prefab: {fileID: 8040750181862833215, guid: fb3d687a869ffbe489616cf958f865cb, type: 3}
-  availableStock: 5
