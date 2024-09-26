@@ -20,8 +20,8 @@ public class WireTask : MonoBehaviour, IMinigame
 
     private GameObject wireTaskInterface;
     [SerializeField] private GameObject droneMenu;
-    [SerializeField] private TextMeshProUGUI completionText;
-    [SerializeField] private GameObject completionWindow;
+    // [SerializeField] private TextMeshProUGUI completionText;
+    // [SerializeField] private GameObject completionWindow;
     private OverloadBar overloadBar;
     private DroneStation droneStation;
     private bool isOpen = true;
@@ -42,7 +42,7 @@ public class WireTask : MonoBehaviour, IMinigame
         droneMenu.SetActive(false);
 
         wireTaskInterface.SetActive(true);
-        completionWindow.SetActive(false);
+        // completionWindow.SetActive(false);
     }
     
     public void InitializeMinigame()
@@ -104,8 +104,8 @@ public class WireTask : MonoBehaviour, IMinigame
             if(successfulMatches >= leftWires.Count)
             {
                 Debug.Log("Task complete");
-                completionWindow.SetActive(true);
-                completionText.text = "Task Complete!";
+                // completionWindow.SetActive(true);
+                // completionText.text = "Task Complete!";
                 isTaskComplete = true;
                 StartCoroutine(CloseTimer());
             }
