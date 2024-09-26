@@ -38,10 +38,10 @@ public class OrderManager : MonoBehaviour
         }
         
 
-        for(int i =0; i<activeRecipe.Count; i++)
-        {
-            Debug.Log("Count:" + i + " Recipe Name:" + activeRecipe[i].recipeName);
-        }
+        // for(int i =0; i<activeRecipe.Count; i++)
+        // {
+        //     Debug.Log("Count:" + i + " Recipe Name:" + activeRecipe[i].recipeName);
+        // }
     }
 
     private void GenerateNewOrder()

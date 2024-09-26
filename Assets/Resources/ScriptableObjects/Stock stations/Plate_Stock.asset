@@ -15,3 +15,4 @@ MonoBehaviour:
   stationName: Plate_Stocking_Station
   objType: Plate
   prefab: {fileID: 7373545082658842854, guid: f2b29a6153c65c34bb915ac61f535c3b, type: 3}
+  IngredientID: null

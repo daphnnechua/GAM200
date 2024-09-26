@@ -49,13 +49,13 @@ public class GameController : MonoBehaviour
     public void AddPoints(int reward)
     {
         points+=reward;
-        Debug.Log("Submitted correct order! Add:" + reward + " current points:" + points);
+        // Debug.Log("Submitted correct order! Add:" + reward + " current points:" + points);
     }
 
     public void DeductPoints(int deduct)
     {
         points-=deduct;
-        Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
+        // Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
 
     }
 

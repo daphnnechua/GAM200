@@ -23,6 +23,11 @@ public static class Game
         return ingredient;
     }
 
+    public static Ingredient GetIngredientByID(string ingredientID)
+    {
+        return ingredientList.Find(i => i.id == ingredientID);
+    }
+
     public static void SetIngredient(Ingredient aIngredient)
     {
         ingredient = aIngredient;
