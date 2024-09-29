@@ -58,7 +58,7 @@ public class RestockingController : MonoBehaviour
         allStockStations = FindObjectsOfType<StockStation>().ToList();
         UpdateButtons();
 
-        InitializeRestockButtons();
+        
 
         confirmationButton = GameObject.FindGameObjectWithTag("RestockConfirmationButton").GetComponent<Button>();
         confirmationButton.onClick.AddListener(()=>SendDroneForRestock());
@@ -98,17 +98,23 @@ public class RestockingController : MonoBehaviour
 
     public void UpdateButtons()
     {
-        string prefabPath = "Prefabs/RestockBtn";
-        GameObject prefab = Resources.Load<GameObject>(prefabPath);
+        string prefabPath = "RestockBtn";
 
         if(!restockButtonsActive)
         {
-            foreach(var e in allStockStations)
+             AssetManager.LoadPrefab(prefabPath, (prefab) =>
             {
-                GameObject restockButton = Instantiate(prefab, restockPos);
-                restockButtons.Add(restockButton);
-            }
-            restockButtonsActive = true;
+                if (prefab != null)
+                {
+                    foreach (var e in allStockStations)
+                    {
+                        GameObject restockButton = Instantiate(prefab, restockPos);
+                        restockButtons.Add(restockButton);
+                    }
+                    restockButtonsActive = true;
+                    InitializeRestockButtons();
+                }
+            });
         }
 
         if(toUpdateDisplayButtons)
@@ -119,15 +125,22 @@ public class RestockingController : MonoBehaviour
             }
             displayButtons.Clear(); 
 
-            for (int i = 0; i < selectedIngredientID.Count; i++)
+            AssetManager.LoadPrefab(prefabPath, (prefab) =>
             {
-                GameObject displayButton = Instantiate(prefab, displayPos);
-                displayButtons.Add(displayButton);
-                
-                int currentIndex = i; 
-                displayButton.GetComponent<Button>().onClick.AddListener(() => RemoveSelectedIngredients(currentIndex));
-            }
-            toUpdateDisplayButtons = false;
+                if (prefab != null)
+                {
+                    for (int i = 0; i < selectedIngredientID.Count; i++)
+                    {
+                        GameObject displayButton = Instantiate(prefab, displayPos);
+                        displayButtons.Add(displayButton);
+
+                        int currentIndex = i;
+                        displayButton.GetComponent<Button>().onClick.AddListener(() => RemoveSelectedIngredients(currentIndex));
+                    }
+                    toUpdateDisplayButtons = false;
+                }
+            });
+
         }
     }
 
@@ -179,6 +192,7 @@ public class RestockingController : MonoBehaviour
 
     public void InitializeRestockButtons()
     {
+        Debug.Log(restockButtons.Count);
         for(int i =0; i<allStockStations.Count;i++)
         {
             string id = allStockStations[i].stockSO.ingredientID;
@@ -243,4 +257,5 @@ public class RestockingController : MonoBehaviour
         Debug.Log($"ingredients clears! currentt count: {selectedIngredientID.Count}");
 
     }
+
 }

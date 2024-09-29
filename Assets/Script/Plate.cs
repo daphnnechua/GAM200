@@ -85,12 +85,14 @@ public class Plate : MonoBehaviour
             {
                 //add reward
                 Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
+                orderManager.RemoveOrder(0, Color.green);
                 gameController.AddPoints(currentRecipe.reward);
             }
             else
             {
                 //deduct points
                 Debug.Log("Submitted is not matching!");
+                orderManager.RemoveOrder(0, Color.red);
                 gameController.DeductPoints(5);
             }
         }

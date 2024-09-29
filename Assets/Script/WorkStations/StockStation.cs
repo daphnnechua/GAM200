@@ -20,6 +20,9 @@ public class StockStation : MonoBehaviour
         {
             //instantiate new obj which will be picked up by the player
             newObj = Instantiate(stockSO.prefab);
+            IngredientManager ingredientManager = newObj.GetComponent<IngredientManager>();
+            ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
+
             stockCount--;
             Debug.Log("Remaining:"+ stockCount);
         }

@@ -146,7 +146,7 @@ public class PickUpObjs : MonoBehaviour
             if(objHeld.GetComponent<IngredientManager>().ingredientSO.isReady)
             {
                 Collider2D collider = Physics2D.OverlapCircle(transform.position + dir, 0.75f, pickUpMask);
-                if(collider.CompareTag("Plate"))
+                if(collider!=null && collider.CompareTag("Plate"))
                 {
                     plateScript.PlaceIngredient(objHeld);
                 }

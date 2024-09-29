@@ -9,8 +9,9 @@ public class Recipe
     public string[] ingredientIDs {get;}
     public int reward {get;}
     public float expiryTimer {get;}
+    public string imageFilePath{get;}
 
-    public Recipe(string recipeID, string recipeName, string[] ingredientIDs, int reward, float expiryTimer)
+    public Recipe(string recipeID, string recipeName, string[] ingredientIDs, int reward, float expiryTimer, string imageFilePath)
     {
         this.recipeID = recipeID;
         this.recipeName = recipeName;
@@ -18,5 +19,6 @@ public class Recipe
         this.ingredientIDs = ingredientIDs;
         this.reward = reward;
         this.expiryTimer = expiryTimer;
+        this.imageFilePath = imageFilePath;
     }
 }

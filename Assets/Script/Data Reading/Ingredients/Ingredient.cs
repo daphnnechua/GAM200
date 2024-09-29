@@ -18,8 +18,9 @@ public class Ingredient
     public bool isReady {get; set;}
 
     public string prefabPath {get;}
+    public string imageFilePath {get;}
 
-    public Ingredient(string causeID, string prevStateID, string id, string name, bool canCut, bool canCook, bool isReady, string prefabPath)
+    public Ingredient(string causeID, string prevStateID, string id, string name, bool canCut, bool canCook, bool isReady, string prefabPath, string imageFilePath)
     {
         this.causeID = causeID;
         this.prevStateID = prevStateID;
@@ -29,6 +30,7 @@ public class Ingredient
         this.canCook = canCook;
         this.isReady = isReady;
         this.prefabPath = prefabPath;
+        this.imageFilePath = imageFilePath;
     }
 
 }

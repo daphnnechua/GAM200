@@ -1,8 +1,8 @@
-causeActionID,prevStateID,ingredientID,name,canCut,canCook,isReady,prefabPath
-null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,Prefabs/Ingredients/Lettuce
-ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,TRUE,Prefabs/Ingredients/Lettuce_Cut
-null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,Prefabs/Ingredients/Tomato
-ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,Prefabs/Ingredients/Tomato_Cut
-null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,Prefabs/Ingredients/Shrimp
-ACT_1,INGR_5,INGR_6,Sashimi,FALSE,TRUE,TRUE,Prefabs/Ingredients/Sashimi
-ACT_2,INGR_6,INGR_7,Fried shrimp,FALSE,FALSE,TRUE,Prefabs/Ingredients/Fried_Shrimp
+causeActionID,prevStateID,ingredientID,name,canCut,canCook,isReady,prefabPath,imageFilePath
+null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,Ingredients/Lettuce,Food Assets/Ingredients/lettuce
+ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,TRUE,Ingredients/Lettuce_Cut,Food Assets/Ingredients/cut_lettuce
+null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,Ingredients/Tomato,Food Assets/Ingredients/tomato
+ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,Ingredients/Tomato_Cut,Food Assets/Ingredients/tomato_cut
+null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,Ingredients/Shrimp,Food Assets/Ingredients/shrimp
+ACT_1,INGR_5,INGR_6,Sashimi,FALSE,TRUE,TRUE,Ingredients/Sashimi,Food Assets/Ingredients/cut_shrimp
+ACT_2,INGR_6,INGR_7,Fried shrimp,FALSE,FALSE,TRUE,Ingredients/Fried_Shrimp,

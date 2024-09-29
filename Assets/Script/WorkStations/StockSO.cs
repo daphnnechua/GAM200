@@ -11,4 +11,6 @@ public class StockSO : ScriptableObject
     public GameObject prefab;  
     
     public string ingredientID;
+
+    public string prefabName;
 }

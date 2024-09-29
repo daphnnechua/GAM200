@@ -72,12 +72,7 @@ public class CuttingStation : MonoBehaviour
 
                 if(resultingIngredient != null)
                 {
-                    GameObject ingredientPrefab = Resources.Load<GameObject>(resultingIngredient.prefabPath);
-                    GameObject cutIngredient = Instantiate(ingredientPrefab, transform.position, ingredientObj.transform.rotation); // Instantiate the cut object
-                    cutIngredient.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                    Debug.Log(transform.position);
-                    Destroy(ingredientObj); // Destroy the original ingredient
-
+                    ReplaceIngredient(resultingIngredient.prefabPath);
                 }
 
             }
@@ -95,6 +90,25 @@ public class CuttingStation : MonoBehaviour
         {
             ingredientObj = other.gameObject;
         }
+    }
+    private void ReplaceIngredient(string prefabPath)
+    {
+        AssetManager.LoadPrefab(prefabPath, (GameObject cutPrefab) =>
+        {
+
+            GameObject cutIngredient = Instantiate(cutPrefab, ingredientObj.transform.position, ingredientObj.transform.rotation);
+                
+            IngredientManager ingredientManager = cutIngredient.GetComponent<IngredientManager>();
+            ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
+
+            Rigidbody2D rb2D = cutIngredient.GetComponent<Rigidbody2D>();
+            if (rb2D != null)
+            {
+                rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+
+            Destroy(ingredientObj);
+        });
     }
 
 

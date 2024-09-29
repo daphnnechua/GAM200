@@ -9,4 +9,6 @@ public class RefRecipe
     public string[] ingredientIDs;
     public int reward;
     public float expiryTimer;
+    public string imageFilePath;
+    
 }

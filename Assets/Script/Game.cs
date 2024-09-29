@@ -17,6 +17,9 @@ public static class Game
     private static Recipe recipe;
     private static List<Recipe> recipeList;
 
+    private static Minigames minigames;
+    private static List<Minigames> minigameList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -136,4 +139,33 @@ public static class Game
     }
 
     #endregion recipes
+
+    #region minigame
+
+    public static Minigames GetMinigames()
+    {
+        return minigames;
+    }
+
+    public static void SetMinigame(Minigames aMinigame)
+    {
+        minigames = aMinigame;
+    }
+
+    public static void SetMinigameList(List<Minigames> aList)
+    {
+        minigameList = aList;
+    }
+
+    public static List<Minigames> GetMinigameList()
+    {
+        return minigameList;
+    }
+
+    public static Minigames GetMinigameByID(string ID)
+    {
+        return minigameList.Find(i => i.minigameID == ID);
+    }
+
+    #endregion minigame
 }
