@@ -26,6 +26,7 @@ public class Plate : MonoBehaviour
         if(!ingredientsOnPlate.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.isReady)
         {
             ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
+            LoadPlateGraphics();
             readyToServe = true;
 
             Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
@@ -103,6 +104,35 @@ public class Plate : MonoBehaviour
             stockStation.stockCount++;
             Debug.Log("Plate has returned! Count: " + stockStation.stockCount);
         }
+    }
+
+    private void LoadPlateGraphics()
+    {
+        List<PlateGraphics> plateGraphicsList = Game.GetPlateGraphicsList();
+
+        foreach (var p in plateGraphicsList)
+        {
+            List<string> ingredientsNeeded = new List<string>(p.ingredientIDs);
+            List<string> currentIDs = new List<string>();
+
+            foreach(string ids in ingredientsOnPlateIDs)
+            {
+                currentIDs.Add(ids);
+            }
+            ingredientsNeeded.Sort();
+            currentIDs.Sort();
+
+            if (ingredientsNeeded.SequenceEqual(currentIDs))
+            {
+                string filePath = p.imageFilePath;
+
+                AssetManager.LoadSprite(filePath, (Sprite sp) =>
+                {
+                    this.GetComponent<SpriteRenderer>().sprite = sp;
+                });
+                break;
+            }
+        }    
     }
 
 }

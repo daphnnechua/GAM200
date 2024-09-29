@@ -1380,7 +1380,7 @@ MonoBehaviour:
   currentDragged: {fileID: 0}
   currentHovered: {fileID: 0}
   droneMenu: {fileID: 0}
-  completionWindowPrefab: {fileID: 2708095091732885974, guid: 705b1965fba08f74c93f39e3e53b7dd1, type: 3}
+  completionWindowPrefab: {fileID: 2708095091732885974, guid: b4c33dbc377ebfe42893442080dcba9a, type: 3}
 --- !u!1 &4611403115763198159
 GameObject:
   m_ObjectHideFlags: 0

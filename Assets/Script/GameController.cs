@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
         pointTracker = FindObjectOfType<PointTracker>();
 
         StartGame(); //testing purposes, change to accomodate gameplay flow
+
     }
 
     // Update is called once per frame

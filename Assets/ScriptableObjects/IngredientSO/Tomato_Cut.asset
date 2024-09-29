@@ -20,4 +20,4 @@ MonoBehaviour:
   canCook: 0
   isReady: 1
   ingredientPrefab: {fileID: 3720659863476319673, guid: e8ee383349d2d544cb72e8c40fbafb8d, type: 3}
-  imageName: Food Assets/Ingredients/cut_tomato
+  imageName: Food Assets/Ingredients/tomato_cut

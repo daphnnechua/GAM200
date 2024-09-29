@@ -6,4 +6,5 @@ public class RefMinigames
 {
     public string minigameID;
     public string minigameName;
+    public string filePath;
 }

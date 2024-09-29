@@ -7,12 +7,14 @@ public class DroneStation : MonoBehaviour
 {
     private bool canAccessDrone;
     private RestockingController restockingController;
+    private GameController gameController;
     private MaintenanceManager maintenanceManager;
     [SerializeField] private GameObject droneMenu;
     [SerializeField] private Button closeButton;
 
     private GameObject player;
     public bool isinteracting;
+    private bool hasBeenInitialized  = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +24,26 @@ public class DroneStation : MonoBehaviour
 
         restockingController = FindObjectOfType<RestockingController>();
         maintenanceManager = FindObjectOfType<MaintenanceManager>();
-        maintenanceManager.Initialize();
-        restockingController.InitializeRestockingController();
+        gameController = FindObjectOfType<GameController>();
 
 
-        droneMenu.SetActive(false);
         player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(gameController.gameStart && !hasBeenInitialized)
+        {
+            maintenanceManager.Initialize();
+            restockingController.InitializeRestockingController();
+            droneMenu.SetActive(false);
+
+            hasBeenInitialized = true;
+            
+            // Debug.Log("initializing...");
+        }
+
         if(Input.GetKeyDown(KeyCode.F) && canAccessDrone)
         {
             droneMenu.SetActive(true);

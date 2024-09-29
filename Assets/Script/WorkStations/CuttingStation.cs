@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CuttingStation : MonoBehaviour
 {
-    [SerializeField] private float cutTimer = 5f;
+    [SerializeField] public float cutTimer = 5f;
     private GameObject ingredientObj;
 
     private GameObject player;
 
-    private float cutProgress = 0;
-
     private PickUpObjs pickUpObjs;
-    private IngredientSO ingredientSO;
+
+    private IngredientManager ingredientManager;
+    public bool ingredientOnStation = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class CuttingStation : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E))
             {
+                
                 CutIngredient();
             }
             
@@ -41,16 +43,22 @@ public class CuttingStation : MonoBehaviour
 
     private void CutIngredient()
     {
-
+        if(!ingredientManager.startedPrep)
+        {
+            //instantiate progress bar here
+            ingredientManager.SpawnProgressBar();
+            ingredientManager.startedPrep = true;
+        }
         if (ingredientObj != null)
         {
-            cutProgress += Time.deltaTime;
-
-            // Debug.Log(cutProgress/cutTimer);
+            ingredientManager.prepProgress += Time.deltaTime;
+            ingredientManager.UpdateCuttingProgressBar(this);
 
             // Check if cutting is complete
-            if (cutProgress >= cutTimer)
+            if (ingredientManager.prepProgress >= cutTimer)
             {
+                ingredientManager.DestroyProgressBar(cutTimer);
+
                 CompleteCutting();
             }
         }
@@ -60,7 +68,7 @@ public class CuttingStation : MonoBehaviour
     
     private void CompleteCutting()
     {
-        Debug.Log("Cutting Complete!");
+
         if (ingredientObj != null)
         {
             var ingredientData = ingredientObj.GetComponent<IngredientManager>().ingredientSO;
@@ -68,7 +76,6 @@ public class CuttingStation : MonoBehaviour
             if(ingredientData!=null)
             {
                 var resultingIngredient = Game.GetIngredientByPrevStateID(ingredientData.ingredientID);
-                Debug.Log("Result is:" + resultingIngredient.name);
 
                 if(resultingIngredient != null)
                 {
@@ -76,12 +83,9 @@ public class CuttingStation : MonoBehaviour
                 }
 
             }
-            else{
-                Debug.Log("no ingredient data found!");
-            }
-
         }
-        cutProgress = 0f; //reset progress
+        ingredientManager.prepProgress = 0f; //reset progress
+        ingredientManager.startedPrep = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -89,8 +93,21 @@ public class CuttingStation : MonoBehaviour
         if (other.CompareTag("Ingredient"))
         {
             ingredientObj = other.gameObject;
+            ingredientManager = ingredientObj.GetComponent<IngredientManager>();
+            ingredientOnStation = true;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ingredient"))
+        {
+            ingredientObj = null;
+            ingredientManager = null;
+            ingredientOnStation = false;
+        }
+    }
+
     private void ReplaceIngredient(string prefabPath)
     {
         AssetManager.LoadPrefab(prefabPath, (GameObject cutPrefab) =>
@@ -108,8 +125,10 @@ public class CuttingStation : MonoBehaviour
             }
 
             Destroy(ingredientObj);
+
         });
     }
+
 
 
 }

@@ -11,7 +11,7 @@ public class MaintenanceManager : MonoBehaviour
     [SerializeField] private Button maintenanceButton;
     [SerializeField] private TextMeshProUGUI maintenanceTextUI;
 
-    private List<IMinigame> minigames = new List<IMinigame>();  //store all minigames
+    private List<string> minigameFilePaths = new List<string>();
     [SerializeField] private List<GameObject> minigamePrefabs = new List<GameObject>();
 
     private OverloadBar overloadBar;
@@ -36,14 +36,32 @@ public class MaintenanceManager : MonoBehaviour
 
     public void Initialize()
     {
-        minigames = FindObjectsOfType<MonoBehaviour>().OfType<IMinigame>().ToList();
+        List<Minigames> minigameList = new List<Minigames>();
+        // if(Game.GetMinigameList() == null)
+        // {
+        //     Debug.Log("minigame list is null");
+        // }
+        foreach(Minigames minigames in Game.GetMinigameList())
+        {
+            minigameList.Add(minigames);
+        }
+
+        // Debug.Log($"minigame number: {minigameList.Count}");
+
+
+        foreach(Minigames minigame in minigameList)
+        {
+            minigameFilePaths.Add(minigame.filePath);
+        }
+        LoadMinigames();
+
         maintenanceButton.onClick.AddListener(()=> OpenMinigame());
     }
 
     private void OpenMinigame()
     {
 
-        Debug.Log("Clicking");
+        // Debug.Log("Clicking");
         overloadBar = FindObjectOfType<OverloadBar>();
         restockingController = FindObjectOfType<RestockingController>();
         if(overloadBar.currentOverloadCount > 0 && restockingController.droneAvailable)
@@ -84,6 +102,21 @@ public class MaintenanceManager : MonoBehaviour
         else if(overloadBar.currentOverloadCount == overloadBar.maxOverloadCount)
         {
             maintenanceTextUI.text = "Overload Status: <color=red>Critical</color> \nMaintenance Priority: <color=red>Extreme</color>";
+        }
+
+    }
+
+    private void LoadMinigames()
+    {
+        foreach(string filePath in minigameFilePaths)
+        {
+            AssetManager.LoadPrefab(filePath, (GameObject prefab) =>
+            {
+                if (prefab != null)
+                {
+                    minigamePrefabs.Add(prefab); 
+                }
+            });
         }
 
     }

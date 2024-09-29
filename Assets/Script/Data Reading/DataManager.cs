@@ -13,6 +13,8 @@ public class DataManager : MonoBehaviour
     public List<Recipe> recipes = new List<Recipe>();
     public List<Minigames> minigamesList = new List<Minigames>();
 
+    public List<PlateGraphics> plateGrahpicsList = new List<PlateGraphics>();
+
     public void LoadAllData() //called at the start of game 
     {
         LoadIngredients();
@@ -20,6 +22,7 @@ public class DataManager : MonoBehaviour
         LoadWorkstations();
         LoadRecipes();
         LoadMinigames();
+        LoadPlateGraphics();
     }
 
     #region Ingredients
@@ -156,8 +159,9 @@ public class DataManager : MonoBehaviour
             RefMinigames refData = new RefMinigames();
             refData.minigameID = columnData[0];
             refData.minigameName = columnData[1];
+            refData.filePath = columnData[2];
 
-            Minigames minigames = new Minigames(refData.minigameID, refData.minigameName);
+            Minigames minigames = new Minigames(refData.minigameID, refData.minigameName, refData.filePath);
 
             minigamesList.Add(minigames);
 
@@ -167,4 +171,29 @@ public class DataManager : MonoBehaviour
     }
 
     #endregion minigames
+    #region plate graphics
+
+    public void LoadPlateGraphics()
+    {
+        string filePath = Application.streamingAssetsPath + "/Plate_Graphics.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {','});
+
+            RefPlateGraphics refData = new RefPlateGraphics();
+            refData.recipeID = columnData[0];
+            refData.ingredientIDs = columnData[1].Split('@');
+            refData.imageFilePath = columnData[2];
+
+            PlateGraphics graphics = new PlateGraphics(refData.recipeID, refData.ingredientIDs, refData.imageFilePath);
+
+            plateGrahpicsList.Add(graphics);
+
+            Game.SetPlateGraphicsList(plateGrahpicsList);
+
+        }
+    }
+    #endregion plate graphics
 }

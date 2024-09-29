@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Game
@@ -19,6 +20,9 @@ public static class Game
 
     private static Minigames minigames;
     private static List<Minigames> minigameList;
+
+    private static PlateGraphics plateGraphics;
+    private static List<PlateGraphics> plateGraphicsList;
 
     #region ingredient related
     public static Ingredient GetIngredient()
@@ -168,4 +172,36 @@ public static class Game
     }
 
     #endregion minigame
+    #region  plate graphics
+    public static PlateGraphics GetPlateGraphics()
+    {
+        return plateGraphics;
+    }
+
+    public static void SetPlateGraphics(PlateGraphics aGraphics)
+    {
+        plateGraphics = aGraphics;
+    }
+
+    public static void SetPlateGraphicsList(List<PlateGraphics> aList)
+    {
+        plateGraphicsList = aList;
+    }
+
+    public static List<PlateGraphics> GetPlateGraphicsList()
+    {
+        return plateGraphicsList;
+    }
+
+    public static PlateGraphics GePlateGraphicsByRecipeID(string ID)
+    {
+        return plateGraphicsList.Find(i => i.recipeID == ID);
+    }
+
+    public static PlateGraphics GetPlateGraphicsByIngredientIDs(string id)
+    {
+        return plateGraphicsList.Find(i => i.ingredientIDs.Contains(id));
+    }
+
+    #endregion plate graphics
 }

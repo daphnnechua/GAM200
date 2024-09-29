@@ -33,6 +33,8 @@ public class RestockingController : MonoBehaviour
     void Start()
     {
         droneStation = FindObjectOfType<DroneStation>();
+        tabController = FindObjectOfType<TabController>();
+
     }
 
     // Update is called once per frame
@@ -56,6 +58,14 @@ public class RestockingController : MonoBehaviour
         displayPos = GameObject.FindWithTag("IngredientsDisplay").transform;
         restockPos = GameObject.FindWithTag("IngredientRestockButton").transform;
         allStockStations = FindObjectsOfType<StockStation>().ToList();
+        for(int i =0; i<allStockStations.Count;i++)
+        {
+            if(allStockStations[i].stockSO.objType == "Plate")
+            {
+                allStockStations.RemoveAt(i);
+            }
+        }
+
         UpdateButtons();
 
         
@@ -148,10 +158,13 @@ public class RestockingController : MonoBehaviour
     {
         for(int i =0; i<allStockStations.Count;i++) //update button text for restock buttons
         {
-            string id = allStockStations[i].stockSO.ingredientID;
-            string ingredientName = Game.GetIngredientByID(id).name;
-            TextMeshProUGUI restockButtonText = restockButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            restockButtonText.text = ingredientName;
+            if(allStockStations[i].stockSO.objType == "Ingredient")
+            {
+                string id = allStockStations[i].stockSO.ingredientID;
+                string ingredientName = Game.GetIngredientByID(id).name;
+                TextMeshProUGUI restockButtonText = restockButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+                restockButtonText.text = ingredientName;
+            }
         }
 
         if(displayButtons.Count>0)
@@ -192,19 +205,20 @@ public class RestockingController : MonoBehaviour
 
     public void InitializeRestockButtons()
     {
-        Debug.Log(restockButtons.Count);
         for(int i =0; i<allStockStations.Count;i++)
         {
-            string id = allStockStations[i].stockSO.ingredientID;
-            if(!ingredientRestockButtons.ContainsKey(id))
+            if(allStockStations[i].stockSO.objType == "Ingredient")
             {
-                Button button = restockButtons[i].GetComponent<Button>();
-                ingredientRestockButtons.Add(id, button);
+                string id = allStockStations[i].stockSO.ingredientID;
+                if(!ingredientRestockButtons.ContainsKey(id))
+                {
+                    Button button = restockButtons[i].GetComponent<Button>();
+                    ingredientRestockButtons.Add(id, button);
 
-                button.onClick.AddListener(()=>SelectIngredients(id));
+                    button.onClick.AddListener(()=>SelectIngredients(id));
+                }
             }
         }
-
     }
 
     public void SendDroneForRestock()
@@ -231,7 +245,11 @@ public class RestockingController : MonoBehaviour
     {
         for(int i =0; i<allStockStations.Count;i++)
         {
-            string id = allStockStations[i].stockSO.ingredientID;
+            string id = null;
+            if(allStockStations[i].stockSO.objType == "Ingredient")
+            {
+                id = allStockStations[i].stockSO.ingredientID;
+            }
 
             for(int j =0; j<selectedIngredientID.Count;j++)
             {

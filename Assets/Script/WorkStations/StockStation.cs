@@ -20,8 +20,18 @@ public class StockStation : MonoBehaviour
         {
             //instantiate new obj which will be picked up by the player
             newObj = Instantiate(stockSO.prefab);
-            IngredientManager ingredientManager = newObj.GetComponent<IngredientManager>();
-            ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
+
+            if(stockSO.objType == "Ingredient")
+            {
+                IngredientManager ingredientManager = newObj.GetComponent<IngredientManager>();
+                ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
+            }
+            else if(stockSO.objType == "Plate")
+            {
+                //load plate image here
+                PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs("null");
+                LoadPlateImage(emptyPlate.imageFilePath, newObj);
+            }
 
             stockCount--;
             Debug.Log("Remaining:"+ stockCount);
@@ -40,10 +50,18 @@ public class StockStation : MonoBehaviour
         {
             stockCount = 5;
         }
-        else if(stockSO.objType == " Plate")
+        else if(stockSO.objType == "Plate")
         {
             stockCount = 999;
         }
+    }
+
+    private void LoadPlateImage(string imagePath, GameObject newObj)
+    {
+        AssetManager.LoadSprite(imagePath, (Sprite sp) =>
+        {
+            newObj.GetComponent<SpriteRenderer>().sprite = sp;
+        });
     }
 
 
