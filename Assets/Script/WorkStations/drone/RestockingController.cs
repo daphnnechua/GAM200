@@ -29,6 +29,8 @@ public class RestockingController : MonoBehaviour
     [SerializeField] private TabController tabController;
     private DroneStation droneStation;
 
+    [SerializeField] private GameObject displayBtnPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,11 +110,12 @@ public class RestockingController : MonoBehaviour
 
     public void UpdateButtons()
     {
-        string prefabPath = "RestockBtn";
+        string restockBtnPath = "RestockBtn";
+        string displayBtnPath = "DisplayBtn 1";
 
         if(!restockButtonsActive)
         {
-             AssetManager.LoadPrefab(prefabPath, (prefab) =>
+             AssetManager.LoadPrefab(restockBtnPath, (prefab) =>
             {
                 if (prefab != null)
                 {
@@ -134,22 +137,23 @@ public class RestockingController : MonoBehaviour
                 Destroy(displayButton);
             }
             displayButtons.Clear(); 
-
-            AssetManager.LoadPrefab(prefabPath, (prefab) =>
+            for (int i = 0; i < selectedIngredientID.Count; i++)
             {
-                if (prefab != null)
-                {
-                    for (int i = 0; i < selectedIngredientID.Count; i++)
-                    {
-                        GameObject displayButton = Instantiate(prefab, displayPos);
-                        displayButtons.Add(displayButton);
+                GameObject displayButton = Instantiate(displayBtnPrefab, displayPos);
+                displayButtons.Add(displayButton);
 
-                        int currentIndex = i;
-                        displayButton.GetComponent<Button>().onClick.AddListener(() => RemoveSelectedIngredients(currentIndex));
-                    }
-                    toUpdateDisplayButtons = false;
-                }
-            });
+                int currentIndex = i;
+                displayButton.GetComponent<Button>().onClick.AddListener(() => RemoveSelectedIngredients(currentIndex));
+            }
+            toUpdateDisplayButtons = false;
+
+            // AssetManager.LoadPrefab(displayBtnPath, (prefab) =>
+            // {
+            //     if (prefab != null)
+            //     {
+                    
+            //     }
+            // });
 
         }
     }
@@ -162,8 +166,10 @@ public class RestockingController : MonoBehaviour
             {
                 string id = allStockStations[i].stockSO.ingredientID;
                 string ingredientName = Game.GetIngredientByID(id).name;
+                Debug.Log($"{i} index, {ingredientName}");
                 TextMeshProUGUI restockButtonText = restockButtons[i].GetComponentInChildren<TextMeshProUGUI>();
                 restockButtonText.text = ingredientName;
+                
             }
         }
 
@@ -174,6 +180,7 @@ public class RestockingController : MonoBehaviour
                 string name = Game.GetIngredientByID(selectedIngredientID[i]).name;
                 TextMeshProUGUI displayButtonText = displayButtons[i].GetComponentInChildren<TextMeshProUGUI>();
                 displayButtonText.text = name;
+
             }
 
         }

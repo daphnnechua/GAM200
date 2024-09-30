@@ -102,7 +102,7 @@ public class PickUpObjs : MonoBehaviour
             objHeld = null;
             dir = new Vector2(0, 0);
         }
-        else if(accessTable && IsCounterOccupied() || isServingStation) //station or counter top is occupied --> cannot place down
+        else if(accessTable && IsCounterOccupied() || isServingStation && !plateScript.readyToServe) //station or counter top is occupied --> cannot place down
         {
             return;
         }

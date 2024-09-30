@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CuttingStation : MonoBehaviour
 {
-    [SerializeField] public float cutTimer = 5f;
+    [SerializeField] public float cutTimer = 1f;
     private GameObject ingredientObj;
 
     private GameObject player;
@@ -51,8 +51,9 @@ public class CuttingStation : MonoBehaviour
         }
         if (ingredientObj != null)
         {
+            Debug.Log(cutTimer);
             ingredientManager.prepProgress += Time.deltaTime;
-            ingredientManager.UpdateCuttingProgressBar(this);
+            ingredientManager.UpdateCuttingProgressBar(this, cutTimer);
 
             // Check if cutting is complete
             if (ingredientManager.prepProgress >= cutTimer)

@@ -6,7 +6,7 @@ public class OrderManager : MonoBehaviour
 {
     public List<Recipe> activeRecipe = new List<Recipe>();
     public float spawnInterval = 10f;
-    public float expiryInterval = 25f;
+    public float expiryInterval = 35f;
 
     private WaitForSeconds generationTimer;
     private WaitForSeconds expiryTimer;

@@ -56,12 +56,12 @@ public class IngredientManager : MonoBehaviour
         return transform.position + new Vector3(0, 0.75f, 0);
     }
 
-    public void UpdateCuttingProgressBar(CuttingStation cuttingStation)
+    public void UpdateCuttingProgressBar(CuttingStation cuttingStation, float timer)
     {
         if(cuttingStation.ingredientOnStation && progressBar!=null)
         {
             Slider slider = progressBar.GetComponent<Slider>();
-            slider.value = prepProgress/cuttingStation.cutTimer;
+            slider.value = prepProgress/timer;
         }
     }
 

@@ -7,7 +7,7 @@ public class PlayerMovement : PlayerScript, InputReceiver
     private GameController gameController;
     Rigidbody2D rb;
 
-    public float movementSpeed = 5f;
+    public float movementSpeed = 1f;
     private Vector2 oriPos;
 
 

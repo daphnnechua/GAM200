@@ -22,6 +22,7 @@ TagManager:
   - OrderUI
   - RecipeIngredientImage
   - RecipeImage
+  - ButtonImage
   layers:
   - Default
   - TransparentFX
