@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu()]
 public class IngredientSO : ScriptableObject
@@ -14,4 +16,8 @@ public class IngredientSO : ScriptableObject
     public bool canCook;
     public bool isReady;
     public GameObject ingredientPrefab;
+
+    public string imageName;
+
+
 }

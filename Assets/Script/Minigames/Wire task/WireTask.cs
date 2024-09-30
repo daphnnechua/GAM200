@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,18 +21,16 @@ public class WireTask : MonoBehaviour, IMinigame
 
     private GameObject wireTaskInterface;
     [SerializeField] private GameObject droneMenu;
-    // [SerializeField] private TextMeshProUGUI completionText;
-    // [SerializeField] private GameObject completionWindow;
+    [SerializeField] private GameObject completionWindowPrefab;
     private OverloadBar overloadBar;
     private DroneStation droneStation;
     private bool isOpen = true;
+    private GameObject completionWindow;
 
     void Start()
     {
-        // wireTaskInterface = GameObject.FindWithTag("WireTask");
         overloadBar = FindObjectOfType<OverloadBar>();
         droneStation = FindObjectOfType<DroneStation>();
-        // wireTaskInterface.SetActive(false);
     }
 
     public void StartMinigame()
@@ -41,10 +40,15 @@ public class WireTask : MonoBehaviour, IMinigame
         droneMenu = GameObject.FindWithTag("DroneMenu");
         droneMenu.SetActive(false);
 
+        //setting sorting order to completion window
+        completionWindow = Instantiate(completionWindowPrefab);
+        completionWindow.transform.SetParent(wireTaskInterface.transform, false);
+        completionWindow.GetComponent<Canvas>().overrideSorting = true;
+        completionWindow.GetComponent<Canvas>().sortingOrder = 10;
+
         wireTaskInterface.SetActive(true);
-        // completionWindow.SetActive(false);
-    }
-    
+        completionWindow.SetActive(false);
+    }    
     public void InitializeMinigame()
     {
         wireTaskInterface = GameObject.FindWithTag("WireTask");
@@ -104,8 +108,8 @@ public class WireTask : MonoBehaviour, IMinigame
             if(successfulMatches >= leftWires.Count)
             {
                 Debug.Log("Task complete");
-                // completionWindow.SetActive(true);
-                // completionText.text = "Task Complete!";
+                completionWindow.SetActive(true);
+                completionWindow.GetComponentInChildren<TextMeshProUGUI>().text = "Task Complete!";
                 isTaskComplete = true;
                 StartCoroutine(CloseTimer());
             }
@@ -134,7 +138,7 @@ public class WireTask : MonoBehaviour, IMinigame
         {
             wire.ResetWires(); // Ensure this method exists in your Wires class
         }
-        wireTaskInterface.SetActive(false);
+        // wireTaskInterface.SetActive(false);
         isOpen = false;
 
         if(isTaskComplete)
@@ -145,5 +149,6 @@ public class WireTask : MonoBehaviour, IMinigame
         isTaskComplete = false;
         droneMenu.SetActive(true);
         droneStation.isinteracting = true;
+        Destroy(gameObject);
     }
 }

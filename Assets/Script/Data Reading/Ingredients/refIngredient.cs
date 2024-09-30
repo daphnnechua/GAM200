@@ -18,4 +18,5 @@ public class refIngredient
     public bool isReady;
 
     public string prefabPath;
+    public string imageFilePath;
 }

@@ -14,12 +14,18 @@ public class OrderManager : MonoBehaviour
 
     private bool hasBeenInitialized = false;
     private bool hasCoroutineBeenStarted = false;
+
+    public bool toUpdateOrderUI = false;
+
+    public OrderUI orderUI;
+    
     // Start is called before the first frame update
     void Start()
     {
         generationTimer = new WaitForSeconds(spawnInterval);
         expiryTimer = new WaitForSeconds(expiryInterval);
         gameController = FindObjectOfType<GameController>();
+        orderUI = FindObjectOfType<OrderUI>();
     }
 
     // Update is called once per frame
@@ -37,7 +43,7 @@ public class OrderManager : MonoBehaviour
             }
         }
         
-
+ 
         // for(int i =0; i<activeRecipe.Count; i++)
         // {
         //     Debug.Log("Count:" + i + " Recipe Name:" + activeRecipe[i].recipeName);
@@ -51,13 +57,17 @@ public class OrderManager : MonoBehaviour
             int random = Random.Range(0, Game.GetRecipeList().Count);
             Recipe newOrderRecipe = Game.GetRecipeList()[random];
             activeRecipe.Add(newOrderRecipe);
-            StartCoroutine(ExpiryTimer(activeRecipe.Count-1));
+            toUpdateOrderUI = true;
+            StartCoroutine(ExpiryTimer(newOrderRecipe));
+
         }
     }
 
-    public void RemoveOrder(int index)
+    public void RemoveOrder(int index, Color uiColor)
     {
+        orderUI.UpdateUIStatus(index, uiColor);
         activeRecipe.RemoveAt(index);
+        // toUpdateOrderUI = true;
     }
 
     public Recipe GetCurrentOrder()
@@ -82,14 +92,15 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    IEnumerator ExpiryTimer(int index)
+    IEnumerator ExpiryTimer(Recipe recipe)
     {
         if(!gameController.isPaused)
         {
             yield return expiryTimer;
-            if(index< activeRecipe.Count)
+            if(activeRecipe.Contains(recipe))
             {
-                RemoveOrder(index);
+                int index = activeRecipe.IndexOf(recipe);
+                RemoveOrder(index, Color.red);
                 gameController.DeductPoints(5);
             }
         }
@@ -98,4 +109,6 @@ public class OrderManager : MonoBehaviour
             yield return null;
         }
     }
+
+    
 }
