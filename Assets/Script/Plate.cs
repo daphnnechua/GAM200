@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Plate : MonoBehaviour
 {
@@ -13,12 +15,21 @@ public class Plate : MonoBehaviour
     private OrderManager orderManager;
 
     private StockStation stockStation;
+    private GameObject plateUI;
 
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
         orderManager = FindObjectOfType<OrderManager>();
         stockStation = FindObjectOfType<StockStation>();
+    }
+
+    void Update()
+    {
+        if(plateUI!=null)
+        {
+            plateUI.transform.position = PlateUIPos();
+        }
     }
     
     public void PlaceIngredient(GameObject ingredient)
@@ -27,6 +38,7 @@ public class Plate : MonoBehaviour
         {
             ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
             LoadPlateGraphics();
+            SpawnPlateUI();
             readyToServe = true;
 
             Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
@@ -80,24 +92,24 @@ public class Plate : MonoBehaviour
     {
         if(readyToServe)
         {
-            Recipe orderOfInterest = orderManager.GetCurrentOrder();
+            Recipe orderOfInterest = orderManager.GetCurrentOrder().Recipe;
 
             if(currentRecipe!=null && orderOfInterest.recipeID == currentRecipe.recipeID)
             {
                 //add reward
                 Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
-                orderManager.RemoveOrder(0, Color.green);
+                orderManager.RemoveOrder(Color.green);
                 gameController.AddPoints(currentRecipe.reward);
             }
             else
             {
                 //deduct points
                 Debug.Log("Submitted is not matching!");
-                orderManager.RemoveOrder(0, Color.red);
+                orderManager.RemoveOrder(Color.red);
                 gameController.DeductPoints(5);
             }
         }
-
+        Destroy(plateUI);
         Destroy(gameObject);
         if(stockStation.stockSO.stationName == "Plate_Stocking_Station")
         {
@@ -109,6 +121,17 @@ public class Plate : MonoBehaviour
     private void LoadPlateGraphics()
     {
         List<PlateGraphics> plateGraphicsList = Game.GetPlateGraphicsList();
+
+        if(ingredientsOnPlateIDs.Count <=0)
+        {
+            PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs("null");
+            string filePath = emptyPlate.imageFilePath;
+            AssetManager.LoadSprite(filePath, (Sprite sp) =>
+            {
+                this.GetComponent<SpriteRenderer>().sprite = sp;
+            });
+            return;
+        }
 
         foreach (var p in plateGraphicsList)
         {
@@ -133,6 +156,63 @@ public class Plate : MonoBehaviour
                 break;
             }
         }    
+    }
+
+    public void TrashPlate()
+    {
+        ingredientsOnPlate.Clear();
+        ingredientsOnPlateIDs.Clear();
+        LoadPlateGraphics();
+        Destroy(plateUI);
+
+        Debug.Log($"plate reset! ingredients on plate: {ingredientsOnPlate.Count}, ids: {ingredientsOnPlateIDs.Count}");
+    }
+
+    private void SpawnPlateUI()
+    {
+        Destroy(plateUI);
+
+        if(ingredientsOnPlateIDs.Count>0)
+        {
+            AssetManager.LoadPrefab("UI/Plate_Ingredients", (GameObject prefab) =>
+            {
+                plateUI = Instantiate(prefab, GameObject.Find("Canvas").transform);
+                GameObject ingredientImages = plateUI.transform.Find("Image").gameObject;
+                
+                if(ingredientsOnPlateIDs.Count>1)
+                {
+                    List<Image> images = new List<Image>();
+                    images.Add(ingredientImages.GetComponent<Image>());
+                    for(int i =0; i<ingredientsOnPlateIDs.Count-1;i++)
+                    {
+                        GameObject image = Instantiate(ingredientImages, plateUI.transform);
+                        images.Add(image.GetComponent<Image>());
+                        Debug.Log(images[i]);
+                    }
+                    for(int i =0; i<images.Count;i++)
+                    {
+                        SetPlateUIImage(Game.GetIngredientByID(ingredientsOnPlateIDs[i]).imageFilePath, images[i]);
+                    }
+                }
+                else if(ingredientsOnPlateIDs.Count == 1)
+                {
+                    SetPlateUIImage(Game.GetIngredientByID(ingredientsOnPlateIDs[0]).imageFilePath, ingredientImages.GetComponent<Image>());
+                }
+            });
+        }
+    }
+
+    private void SetPlateUIImage(string filePath, Image image)
+    {
+        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
+    }
+
+    private Vector3 PlateUIPos()
+    {
+        return transform.position + new Vector3(0, 0.75f, 0);
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
-    public List<Recipe> activeRecipe = new List<Recipe>();
+    public List<Orders> activeOrders = new List<Orders>();
     public float spawnInterval = 10f;
     public float expiryInterval = 35f;
 
@@ -43,36 +43,32 @@ public class OrderManager : MonoBehaviour
             }
         }
         
- 
-        // for(int i =0; i<activeRecipe.Count; i++)
-        // {
-        //     Debug.Log("Count:" + i + " Recipe Name:" + activeRecipe[i].recipeName);
-        // }
-    }
+     }
 
     private void GenerateNewOrder()
     {
-        if(activeRecipe.Count < 5)
+        if(activeOrders.Count < 5)
         {
             int random = Random.Range(0, Game.GetRecipeList().Count);
             Recipe newOrderRecipe = Game.GetRecipeList()[random];
-            activeRecipe.Add(newOrderRecipe);
+            Orders newOrder = new Orders(newOrderRecipe, expiryInterval);
+            activeOrders.Add(newOrder);
             toUpdateOrderUI = true;
-            StartCoroutine(ExpiryTimer(newOrderRecipe));
+            StartCoroutine(ExpiryTimer(newOrder));
 
         }
     }
 
-    public void RemoveOrder(int index, Color uiColor)
+    public void RemoveOrder(Color uiColor)
     {
-        orderUI.UpdateUIStatus(index, uiColor);
-        activeRecipe.RemoveAt(index);
+        orderUI.UpdateUIStatus(0, uiColor);
+        activeOrders.RemoveAt(0); //always remove he first order!
         // toUpdateOrderUI = true;
     }
 
-    public Recipe GetCurrentOrder()
+    public Orders GetCurrentOrder()
     {
-        return activeRecipe[0];
+        return activeOrders[0];
     }
 
     IEnumerator orderGenerationTimer()
@@ -92,21 +88,28 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    IEnumerator ExpiryTimer(Recipe recipe)
+    IEnumerator ExpiryTimer(Orders order)
     {
-        if(!gameController.isPaused)
+        float expiryTimer = expiryInterval;
+        order.RemainingTime = expiryTimer;
+
+        while (order.RemainingTime > 0)
         {
-            yield return expiryTimer;
-            if(activeRecipe.Contains(recipe))
+            if (!gameController.isPaused)
             {
-                int index = activeRecipe.IndexOf(recipe);
-                RemoveOrder(index, Color.red);
-                gameController.DeductPoints(5);
+                order.RemainingTime -= Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+                yield return null;
             }
         }
-        else
+
+        if (activeOrders.Contains(order))
         {
-            yield return null;
+            RemoveOrder(Color.red);
+            gameController.DeductPoints(5);
         }
     }
 

@@ -16,8 +16,8 @@ public class RestockingController : MonoBehaviour
 
     private Transform restockPos;
     private Transform displayPos;
-    private List<GameObject> restockButtons = new List<GameObject>();
-    private List<GameObject> displayButtons = new List<GameObject>();
+    [SerializeField] private List<GameObject> restockButtons = new List<GameObject>();
+    [SerializeField] public List<GameObject> displayButtons = new List<GameObject>();
     [SerializeField] private Button confirmationButton;
 
     public List<string> selectedIngredientID = new List<string>();
@@ -30,6 +30,9 @@ public class RestockingController : MonoBehaviour
     private DroneStation droneStation;
 
     [SerializeField] private GameObject displayBtnPrefab;
+    [SerializeField] private GameObject timerCountdown;
+
+    private Coroutine textCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -110,8 +113,7 @@ public class RestockingController : MonoBehaviour
 
     public void UpdateButtons()
     {
-        string restockBtnPath = "RestockBtn";
-        string displayBtnPath = "DisplayBtn 1";
+        string restockBtnPath = "UI/RestockBtn";
 
         if(!restockButtonsActive)
         {
@@ -123,6 +125,7 @@ public class RestockingController : MonoBehaviour
                     {
                         GameObject restockButton = Instantiate(prefab, restockPos);
                         restockButtons.Add(restockButton);
+
                     }
                     restockButtonsActive = true;
                     InitializeRestockButtons();
@@ -147,14 +150,6 @@ public class RestockingController : MonoBehaviour
             }
             toUpdateDisplayButtons = false;
 
-            // AssetManager.LoadPrefab(displayBtnPath, (prefab) =>
-            // {
-            //     if (prefab != null)
-            //     {
-                    
-            //     }
-            // });
-
         }
     }
 
@@ -166,10 +161,14 @@ public class RestockingController : MonoBehaviour
             {
                 string id = allStockStations[i].stockSO.ingredientID;
                 string ingredientName = Game.GetIngredientByID(id).name;
-                Debug.Log($"{i} index, {ingredientName}");
+                // Debug.Log($"{i} index, {ingredientName}");
                 TextMeshProUGUI restockButtonText = restockButtons[i].GetComponentInChildren<TextMeshProUGUI>();
                 restockButtonText.text = ingredientName;
-                
+
+                Image restockButtonImage = restockButtons[i].transform.Find("Ingredient image").GetComponent<Image>();
+                string imagePath = Game.GetIngredientByID(id).imageFilePath;
+                SetButtonImage(imagePath, restockButtonImage);
+
             }
         }
 
@@ -181,6 +180,10 @@ public class RestockingController : MonoBehaviour
                 TextMeshProUGUI displayButtonText = displayButtons[i].GetComponentInChildren<TextMeshProUGUI>();
                 displayButtonText.text = name;
 
+                Image displayButtonImage = displayButtons[i].transform.Find("Ingredient image").GetComponent<Image>();
+                string imagePath = Game.GetIngredientByID(selectedIngredientID[i]).imageFilePath;
+                SetButtonImage(imagePath, displayButtonImage);
+
             }
 
         }
@@ -189,26 +192,43 @@ public class RestockingController : MonoBehaviour
         TextMeshProUGUI confirm = confirmationButton.GetComponentInChildren<TextMeshProUGUI>();
         if(selectedIngredientID.Count>0 && droneAvailable)
         {
+            if(textCoroutine!=null)
+            {
+                StopCoroutine(textCoroutine);
+                textCoroutine = null;
+            }
+
             confirm.text = $"Confirm ({2*selectedIngredientID.Count}s)";
         }
         else if(selectedIngredientID.Count<=0)
         {
+            if(textCoroutine!=null)
+            {
+                StopCoroutine(textCoroutine);
+                textCoroutine = null;
+            }
             confirm.text = "Confirm";
         }
         else if(!droneAvailable)
         {
-            confirm.text = "Retrieving Ingredients";
+            if(textCoroutine==null)
+            {
+                textCoroutine = DroneMenuController.Instance.UITextForRestock(confirm);
+            }
         }
-
+        
+        Image confirmBtnImage = GameObject.FindWithTag("RestockConfirmationButton").GetComponent<Image>();
         if(selectedIngredientID.Count >0 && droneAvailable)
         {
-            GameObject.FindWithTag("RestockConfirmationButton").GetComponent<Image>().color = Color.green;
+            
+            SetButtonImage("UI/confirm_button_green", confirmBtnImage);
         }
         else
         {
-            GameObject.FindWithTag("RestockConfirmationButton").GetComponent<Image>().color = Color.gray;
+            SetButtonImage("UI/confirm_button 1", confirmBtnImage);
         }
     }
+
 
     public void InitializeRestockButtons()
     {
@@ -233,7 +253,7 @@ public class RestockingController : MonoBehaviour
         if(selectedIngredientID.Count>0 && droneAvailable)
         {
             droneAvailable = false;
-            StartCoroutine(RestockTimer());
+            DroneMenuController.Instance.SendDroneOut(this, selectedIngredientID, timerCountdown);
         }
         else if(!droneAvailable)
         {
@@ -241,11 +261,10 @@ public class RestockingController : MonoBehaviour
         }
     }
 
-    private IEnumerator RestockTimer()
+
+    public Vector3 TimerPos()
     {
-        yield return new WaitForSeconds(2f*selectedIngredientID.Count);
-        RestockIngredients();
-        droneAvailable = true;
+        return droneStation.gameObject.transform.position;
     }
 
     public void RestockIngredients()
@@ -265,7 +284,7 @@ public class RestockingController : MonoBehaviour
                     allStockStations[i].stockCount++;
                 }
             }
-            Debug.Log("replenishing: " + allStockStations[i].name + " number replenished: " + allStockStations[i].stockCount);
+            // Debug.Log("replenishing: " + allStockStations[i].name + " number replenished: " + allStockStations[i].stockCount);
         }
         foreach (var displayButton in displayButtons)
         {
@@ -273,14 +292,36 @@ public class RestockingController : MonoBehaviour
         }
         displayButtons.Clear(); 
 
-        Debug.Log($"Adding to overload count! Adding: {selectedIngredientID.Count}");
+        // Debug.Log($"Adding to overload count! Adding: {selectedIngredientID.Count}");
         overloadBar.IncreaseOverloadValue(selectedIngredientID.Count);
         
-        Debug.Log($"Clearing ingredients soon! currentt count: {selectedIngredientID.Count}");
+        // Debug.Log($"Clearing ingredients soon! currentt count: {selectedIngredientID.Count}");
 
         selectedIngredientID.Clear();
-        Debug.Log($"ingredients clears! currentt count: {selectedIngredientID.Count}");
+        // Debug.Log($"ingredients clears! currentt count: {selectedIngredientID.Count}");
 
     }
+
+    private void SetButtonImage(string filePath, Image image)
+    {
+        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
+    }
+
+    public void ClearDisplayButtons()
+    {
+        if(droneAvailable)
+        {
+            selectedIngredientID.Clear();
+            foreach(var button in displayButtons)
+            {
+                Destroy(button);
+            }
+            displayButtons.Clear();
+        }
+    }
+
 
 }

@@ -148,7 +148,7 @@ public class PickUpObjs : MonoBehaviour
         {
             if(objHeld.GetComponent<IngredientManager>().ingredientSO.isReady)
             {
-                Collider2D collider = Physics2D.OverlapCircle(transform.position + dir, 0.75f, pickUpMask);
+                Collider2D collider = Physics2D.OverlapCircle(transform.position + dir, 1f, pickUpMask);
                 if(collider != null)
                 {
                     GameObject currentPlate = collider.gameObject;
@@ -158,6 +158,23 @@ public class PickUpObjs : MonoBehaviour
                         plateScript.PlaceIngredient(objHeld);
                     }
 
+                }
+            }
+        }
+        else if(objHeld.CompareTag("Plate"))
+        {
+            Vector2 placePosition = (Vector2)transform.position + new Vector2(0, -1f); ///calculation --> area below the player
+
+            Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
+            if(colliderAtPosition !=null && colliderAtPosition.gameObject.CompareTag("Ingredient"))
+            {
+                GameObject ingredient = colliderAtPosition.gameObject;
+                IngredientManager ingredientManager = ingredient.GetComponent<IngredientManager>();
+                if(ingredientManager.ingredientSO.isReady)
+                {
+                    plateScript = objHeld.GetComponent<Plate>();
+                    objHeld.transform.position = ingredient.transform.position;
+                    plateScript.PlaceIngredient(ingredient);
                 }
             }
         }
@@ -215,7 +232,7 @@ public class PickUpObjs : MonoBehaviour
     private void PickUpIngredient()
     {
         //find the closest ingredient
-        Collider2D[] nearbyObjs = Physics2D.OverlapCircleAll(transform.position + dir, 0.75f, pickUpMask); //all nearby ingredients
+        Collider2D[] nearbyObjs = Physics2D.OverlapCircleAll(transform.position + dir, 1f, pickUpMask); //all nearby ingredients
 
         if (nearbyObjs.Length > 0) //if there are ingredient nearby
         {
@@ -252,7 +269,7 @@ public class PickUpObjs : MonoBehaviour
     private void OnDrawGizmos() ///debugging purposes --> shows piickup range for player
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + dir, 0.75f);
+        Gizmos.DrawWireSphere(transform.position + dir, 1f);
     }
 
     void OnTriggerStay2D(Collider2D other)

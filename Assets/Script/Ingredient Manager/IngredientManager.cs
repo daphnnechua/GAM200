@@ -11,7 +11,7 @@ public class IngredientManager : MonoBehaviour
     public float prepProgress = 0;
     public bool startedPrep = false;
 
-    private bool hasUndergonePrep = false;
+    private bool hasUndergonePrep = false; 
 
     public GameObject progressBar;
 
@@ -72,7 +72,6 @@ public class IngredientManager : MonoBehaviour
             Destroy(progressBar);
         }
     }
-
 
 
 }

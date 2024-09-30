@@ -35,6 +35,7 @@ public class TabController : MonoBehaviour
         if(index == 0)
         {
             isRestockingPage = true;
+            
         }
         else
         {
@@ -44,11 +45,19 @@ public class TabController : MonoBehaviour
         for(int i =0; i<pages.Count ;i++)
         {
             pages[i].SetActive(false);
-            tabImage[i].color = Color.gray;
+            SetButtonImage("UI/inactive_button1", tabImage[i]);
         }
         pages[index].SetActive(true);
-        tabImage[index].color = Color.white;
+        SetButtonImage("UI/active_button1", tabImage[index]);
 
 
+    }
+
+    private void SetButtonImage(string filePath, Image image)
+    {
+        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
     }
 }

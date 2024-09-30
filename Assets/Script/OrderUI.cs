@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class OrderUI : MonoBehaviour
 {
     private OrderManager orderManager;
-    private List<Recipe> trackOrders = new List<Recipe>();
+    private List<Orders> trackOrders = new List<Orders>();
     public List<GameObject> trackOrderUI = new List<GameObject>();
     [SerializeField] private GameObject activeOrderUIPrefab;
     [SerializeField] private GameObject orderUIRoot;
@@ -27,12 +27,17 @@ public class OrderUI : MonoBehaviour
     {
         if(orderManager.toUpdateOrderUI)
         {
-            SpawnOrderUI(orderManager.activeRecipe);
+            SpawnOrderUI(orderManager.activeOrders);
             orderManager.toUpdateOrderUI = false;
+        }
+
+        for (int i = 0; i < trackOrders.Count; i++)
+        {
+            UpdateTimerUI(trackOrders[i], trackOrders[i].RemainingTime);
         }
     }
 
-    public void SpawnOrderUI(List<Recipe> currentOrders)
+    public void SpawnOrderUI(List<Orders> currentOrders)
     {
         // trackOrders = orderManager.activeRecipe;
 
@@ -41,15 +46,17 @@ public class OrderUI : MonoBehaviour
             Destroy(obj);
         }
         trackOrderUI.Clear();
+        trackOrders.Clear();
 
-        foreach(var orders in currentOrders)
+        for(int i =0; i<currentOrders.Count; i++)
         {
             newOrderUI = Instantiate(activeOrderUIPrefab, orderUIRoot.transform);
             trackOrderUI.Add(newOrderUI);
+            trackOrders.Add(currentOrders[i]);
             recipeImage = newOrderUI.transform.Find("Recipe Image").gameObject;
             requiredIngredientsRoot = newOrderUI.transform.Find("Ingredient Images").gameObject;
 
-            UpdateOrderUI(orders);
+            UpdateOrderUI(currentOrders[i].Recipe);
         }
     }
 
@@ -112,5 +119,30 @@ public class OrderUI : MonoBehaviour
         });
 
 
+    }
+
+    public void UpdateTimerUI(Orders order, float timeLeft)
+    {
+        for(int i =0; i<trackOrders.Count; i++)
+        {
+            if(trackOrders[i] == order)
+            {
+                Slider timer  = trackOrderUI[i].transform.Find("Timer").GetComponent<Slider>(); 
+                timer.value = timeLeft/orderManager.expiryInterval;
+
+                if(timer.value>0.5f)
+                {
+                    timer.fillRect.GetComponent<Image>().color = Color.green;
+                }
+                else if(timer.value<=0.5f)
+                {
+                    timer.fillRect.GetComponent<Image>().color = Color.yellow;
+                }
+                else if(timer.value<0.25f)
+                {
+                    timer.fillRect.GetComponent<Image>().color = Color.red;
+                }
+            }
+        }
     }
 }
