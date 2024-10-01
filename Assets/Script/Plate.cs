@@ -17,6 +17,8 @@ public class Plate : MonoBehaviour
     private StockStation stockStation;
     private GameObject plateUI;
 
+    public bool isHoldingPlate = false;
+
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
@@ -29,6 +31,15 @@ public class Plate : MonoBehaviour
         if(plateUI!=null)
         {
             plateUI.transform.position = PlateUIPos();
+
+            if(isHoldingPlate)
+            {
+                plateUI.SetActive(false);
+            }
+            else
+            {
+                plateUI.SetActive(true);
+            }
         }
     }
     

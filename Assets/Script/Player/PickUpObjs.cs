@@ -94,6 +94,11 @@ public class PickUpObjs : MonoBehaviour
             dir = new Vector2(0, -1f);
             objHeld.transform.position = transform.position + dir;
             objHeld.transform.parent = null;
+            if(objHeld.CompareTag("Plate"))
+            {
+                plateScript = objHeld.GetComponent<Plate>();
+                plateScript.isHoldingPlate = false;
+            }
 
             if(objHeld.GetComponent<Rigidbody2D>())
             {
@@ -117,13 +122,20 @@ public class PickUpObjs : MonoBehaviour
                 plateScript = objHeld.GetComponent<Plate>();
                 if(isServingStation && plateScript.readyToServe && objHeld.CompareTag("Plate"))
                 {
+                    plateScript.isHoldingPlate = false;
                     plateScript.ServePlate();
                 }
             }
             if(closestObj)
             {
+                if(objHeld.CompareTag("Plate"))
+                {
+                    plateScript = objHeld.GetComponent<Plate>();
+                    plateScript.isHoldingPlate = false;
+                }
                 objHeld.transform.position = closestObj.position;
                 objHeld.transform.parent = null;
+                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
                 if(objHeld.GetComponent<Rigidbody2D>())
                 {
@@ -174,6 +186,7 @@ public class PickUpObjs : MonoBehaviour
                 {
                     plateScript = objHeld.GetComponent<Plate>();
                     objHeld.transform.position = ingredient.transform.position;
+                    plateScript.isHoldingPlate = false;
                     plateScript.PlaceIngredient(ingredient);
                 }
             }
@@ -218,8 +231,14 @@ public class PickUpObjs : MonoBehaviour
     private void PickUpNewObj(GameObject gameObject)
     {
         objHeld = gameObject;
+        if(objHeld.CompareTag("Plate"))
+        {
+            plateScript = objHeld.GetComponent<Plate>();
+            plateScript.isHoldingPlate = true;
+        }
         objHeld.transform.position = objPlacement.position;
         objHeld.transform.parent = transform;
+        objHeld.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
         if (objHeld.GetComponent<Rigidbody2D>())
         {
@@ -253,8 +272,14 @@ public class PickUpObjs : MonoBehaviour
             {
                 
                 objHeld = closestObj;
+                if(objHeld.CompareTag("Plate"))
+                {
+                    plateScript = objHeld.GetComponent<Plate>();
+                    plateScript.isHoldingPlate = true;
+                }
                 objHeld.transform.position = objPlacement.position;
                 objHeld.transform.parent = transform;
+                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 2;
                 
                 if(objHeld.GetComponent<Rigidbody2D>())
                 {
