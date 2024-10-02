@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3723891149974812722}
   - component: {fileID: 600110378626576931}
   - component: {fileID: 7216123009504169146}
-  - component: {fileID: 6183727622695452145}
+  - component: {fileID: 3914005960060734373}
   m_Layer: 0
   m_Name: shrimp stock station
   m_TagString: StockStation
@@ -177,7 +177,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3853827, y: 1.4976355}
   m_EdgeRadius: 0
---- !u!114 &6183727622695452145
+--- !u!114 &3914005960060734373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,8 +186,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2848401775975805945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ae25c7bf710af489950d18784f18cf, type: 3}
+  m_Script: {fileID: 11500000, guid: f9c9ca77cae53c54cbc663de11a42650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stockSO: {fileID: 11400000, guid: 750639a8317e2e046aef9da280b78b1a, type: 2}
   stockCount: 0
+  stockStationUIPrefab: {fileID: 2598908463859204480, guid: 2bd1fdbb5609d6c4b93ea758311e7337, type: 3}

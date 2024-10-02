@@ -53,7 +53,7 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
         if(isHovered)
         {
             wireTask.currentHovered = this;
-            Debug.Log("hovering: " + wireTask.currentHovered.currentColor);
+            // Debug.Log("hovering: " + wireTask.currentHovered.currentColor);
         }
     }
 
@@ -89,7 +89,7 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
             // Check if the hovered wire is within the bounds of the dragged wire
             if (RectTransformUtility.RectangleContainsScreenPoint(hoveredRect, Input.mousePosition, canvas.worldCamera))
             {
-                if(wireTask.currentHovered.currentColor == currentColor)
+                if(wireTask.currentHovered.currentColor == currentColor && wireTask.currentDragged.isLeftWire != wireTask.currentHovered.isLeftWire)
                 {
                     wireTask.currentDragged.isCorrectMatch = true;
                     wireTask.currentHovered.isCorrectMatch = true;
@@ -97,7 +97,7 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
                     // Fix the line between the matched wires
                     wireTask.currentDragged.lineRenderer.SetPosition(0, wireTask.currentDragged.transform.position);
                     wireTask.currentDragged.lineRenderer.SetPosition(1, wireTask.currentHovered.transform.position);                
-                    Debug.Log($"successful match! {wireTask.currentHovered}");
+                    // Debug.Log($"successful match! {wireTask.currentHovered}");
                 }
             }
 

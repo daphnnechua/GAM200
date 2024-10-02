@@ -7,19 +7,6 @@ using UnityEngine.UI;
 
 public class DroneMenuController : MonoBehaviour
 {
-    public static DroneMenuController Instance {get; private set;}
-
-
-    private void Awake()
-    {
-        if(Instance!=null && Instance!=this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
     #region handle restocking
     private IEnumerator RestockTimer(RestockingController restockingController, List<string> ingredientIDList, GameObject timer)
@@ -53,22 +40,23 @@ public class DroneMenuController : MonoBehaviour
 
     #endregion handle restocking
     #region text ui for restocking
-    private IEnumerator RetrievingText(TextMeshProUGUI text)
+    private IEnumerator RetrievingText(RestockingController restockingController, TextMeshProUGUI text)
     {
         string retrieveText = "Retrieving";
         int dotCount = 0;
 
-        while (true)
+        while (!restockingController.droneAvailable)
         {
             text.text = retrieveText + new string('.', dotCount);
             dotCount = (dotCount + 1) % 4; 
             yield return new WaitForSeconds(0.5f); 
         }
+        
     }
 
-    public Coroutine UITextForRestock(TextMeshProUGUI text)
+    public Coroutine UITextForRestock(RestockingController restockingController, TextMeshProUGUI text)
     {
-        return StartCoroutine(RetrievingText(text));
+        return StartCoroutine(RetrievingText(restockingController, text));
     }
 
     #endregion text ui for restocking

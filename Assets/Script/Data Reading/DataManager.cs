@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
     public List<Minigames> minigamesList = new List<Minigames>();
 
     public List<PlateGraphics> plateGrahpicsList = new List<PlateGraphics>();
+    public List<StockStation> stockStationsList = new List<StockStation>();
 
     public void LoadAllData() //called at the start of game 
     {
@@ -23,6 +24,7 @@ public class DataManager : MonoBehaviour
         LoadRecipes();
         LoadMinigames();
         LoadPlateGraphics();
+        LoadStockStations();
     }
 
     #region Ingredients
@@ -196,4 +198,32 @@ public class DataManager : MonoBehaviour
         }
     }
     #endregion plate graphics
+
+    #region stock station
+    public void LoadStockStations()
+    {
+        string filePath = Application.streamingAssetsPath + "/StockStation.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {','});
+
+            RefStockStation refData = new RefStockStation();
+            refData.stockStationID = columnData[0];
+            refData.stockStationName = columnData[1];
+            refData.ingredientID = columnData[2];
+            refData.imageFilePath = columnData[3];
+
+            StockStation stockStations = new StockStation(refData.stockStationID, refData.stockStationName, refData.ingredientID, refData.imageFilePath);
+
+            stockStationsList.Add(stockStations);
+
+            Game.SetStockStationList(stockStationsList);
+
+        }
+    }
+
+
+    #endregion stock station
 }

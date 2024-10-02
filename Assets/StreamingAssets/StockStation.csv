@@ -1,0 +1,5 @@
+stockStationID,name,ingredientID,imageFIlePath
+SS01,Empty stock station,null,stations/empty_stock
+SS02,Lettuce stock station,INGR_1,stations/cabbage_stock
+SS03,Tomato stock station,INGR_3,stations/tomato_stock
+SS04,Shrimp stock station,INGR_5,stations/shrimp_stock

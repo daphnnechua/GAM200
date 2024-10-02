@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 613312326959608900}
   - component: {fileID: 3075614415705548597}
   - component: {fileID: 1570721253971504577}
-  - component: {fileID: 5542468955638288897}
+  - component: {fileID: 6343546735718933643}
   m_Layer: 0
   m_Name: plate stock station
   m_TagString: StockStation
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.44020534, g: 0.41312206, b: 0.7132075, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 87451d3f0da748a4ca904907b973e185, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,14 +123,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.4, y: 1.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.72, y: 1.63}
+  m_Size: {x: 0.96, y: 2.05}
   m_EdgeRadius: 0
 --- !u!61 &1570721253971504577
 BoxCollider2D:
@@ -168,16 +168,16 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.4, y: 1.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3853827, y: 1.4976355}
   m_EdgeRadius: 0
---- !u!114 &5542468955638288897
+--- !u!114 &6343546735718933643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,8 +186,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4471625430480132315}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ae25c7bf710af489950d18784f18cf, type: 3}
+  m_Script: {fileID: 11500000, guid: f9c9ca77cae53c54cbc663de11a42650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stockSO: {fileID: 11400000, guid: c048e463f9fb5e345917b5421fabdbdd, type: 2}
   stockCount: 0
+  stockStationUIPrefab: {fileID: 0}

@@ -28,7 +28,7 @@ public class OverloadBar : MonoBehaviour
     public void IncreaseOverloadValue(int ingredientsRestocked)
     {
         currentOverloadCount += ingredientsRestocked;
-        Debug.Log($"overload count increased! current: {currentOverloadCount}");
+        // Debug.Log($"overload count increased! current: {currentOverloadCount}");
     }
 
     public void DecreaseOverloadValue()

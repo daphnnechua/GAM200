@@ -24,6 +24,9 @@ public static class Game
     private static PlateGraphics plateGraphics;
     private static List<PlateGraphics> plateGraphicsList;
 
+    private static StockStation stockStation;
+    private static List<StockStation> stockStationList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -204,4 +207,39 @@ public static class Game
     }
 
     #endregion plate graphics
+
+    #region stock station 
+
+    public static StockStation GetStockStation()
+    {
+        return stockStation;
+    }
+
+    public static void SetStockStation(StockStation aStockStation)
+    {
+        stockStation = aStockStation;
+    }
+
+    public static void SetStockStationList(List<StockStation> aList)
+    {
+        stockStationList = aList;
+    }
+
+    public static List<StockStation> GetStockStationList()
+    {
+        return stockStationList;
+    }
+
+    public static StockStation GetStockStationByID(string ID)
+    {
+        return stockStationList.Find(i => i.stockStationID == ID);
+    }
+
+    public static StockStation GetStockStationByIngredientID(string id)
+    {
+        return stockStationList.Find(i => i.ingredientID.Contains(id));
+    }
+
+
+    #endregion stock station
 }

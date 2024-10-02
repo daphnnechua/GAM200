@@ -6,7 +6,7 @@ public class OrderManager : MonoBehaviour
 {
     public List<Orders> activeOrders = new List<Orders>();
     public float spawnInterval = 10f;
-    public float expiryInterval = 35f;
+    public float expiryInterval = 45f;
 
     private WaitForSeconds generationTimer;
     private WaitForSeconds expiryTimer;

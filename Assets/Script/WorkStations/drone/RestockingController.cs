@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RestockingController : MonoBehaviour
 {
-    public List<StockStation> allStockStations;
+    public List<StockStationManager> allStockStations;
     public int maxRestockLimit;
     public float restockTime = 2f;
 
@@ -33,12 +32,14 @@ public class RestockingController : MonoBehaviour
     [SerializeField] private GameObject timerCountdown;
 
     private Coroutine textCoroutine;
+    private DroneMenuController droneMenuController;
 
     // Start is called before the first frame update
     void Start()
     {
         droneStation = FindObjectOfType<DroneStation>();
         tabController = FindObjectOfType<TabController>();
+        droneMenuController = FindObjectOfType<DroneMenuController>();
 
     }
 
@@ -62,15 +63,30 @@ public class RestockingController : MonoBehaviour
         overloadBar = FindObjectOfType<OverloadBar>();
         displayPos = GameObject.FindWithTag("IngredientsDisplay").transform;
         restockPos = GameObject.FindWithTag("IngredientRestockButton").transform;
-        allStockStations = FindObjectsOfType<StockStation>().ToList();
+        allStockStations = FindObjectsOfType<StockStationManager>().ToList();
+        List<int> indexToRemove = new List<int>();
+        // Debug.Log($"Checking how many stations are there: {allStockStations.Count}");
         for(int i =0; i<allStockStations.Count;i++)
         {
             if(allStockStations[i].stockSO.objType == "Plate")
             {
+                indexToRemove.Add(i);
+                // Debug.Log($"index number: {i} is aa plate stock");
+            }
+
+        }
+        for (int i = allStockStations.Count - 1; i >= 0; i--)
+        {
+            if (allStockStations[i].stockSO.objType == "Plate")
+            {
                 allStockStations.RemoveAt(i);
+                // Debug.Log($"Removed index number: {i} as it is a plate stock");
             }
         }
-
+        // foreach(var e in allStockStations)
+        // {
+        //     Debug.Log(e.stockSO.ingredientID);
+        // }
         UpdateButtons();
 
         
@@ -194,7 +210,6 @@ public class RestockingController : MonoBehaviour
         {
             if(textCoroutine!=null)
             {
-                StopCoroutine(textCoroutine);
                 textCoroutine = null;
             }
 
@@ -204,7 +219,6 @@ public class RestockingController : MonoBehaviour
         {
             if(textCoroutine!=null)
             {
-                StopCoroutine(textCoroutine);
                 textCoroutine = null;
             }
             confirm.text = "Confirm";
@@ -213,7 +227,7 @@ public class RestockingController : MonoBehaviour
         {
             if(textCoroutine==null)
             {
-                textCoroutine = DroneMenuController.Instance.UITextForRestock(confirm);
+                textCoroutine = droneMenuController.UITextForRestock(this, confirm);
             }
         }
         
@@ -253,7 +267,7 @@ public class RestockingController : MonoBehaviour
         if(selectedIngredientID.Count>0 && droneAvailable)
         {
             droneAvailable = false;
-            DroneMenuController.Instance.SendDroneOut(this, selectedIngredientID, timerCountdown);
+            droneMenuController.SendDroneOut(this, selectedIngredientID, timerCountdown);
         }
         else if(!droneAvailable)
         {

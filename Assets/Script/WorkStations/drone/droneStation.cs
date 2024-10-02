@@ -35,6 +35,7 @@ public class DroneStation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log($"tabcontroller active? {tabController.isRestockingPage}");
         if(gameController.gameStart && !hasBeenInitialized)
         {
             maintenanceManager.Initialize();

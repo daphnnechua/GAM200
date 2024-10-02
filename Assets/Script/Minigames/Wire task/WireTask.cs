@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WireTask : MonoBehaviour, IMinigame
 {
@@ -26,6 +25,7 @@ public class WireTask : MonoBehaviour, IMinigame
     private DroneStation droneStation;
     private bool isOpen = true;
     private GameObject completionWindow;
+    private Button closeButton;
 
     void Start()
     {
@@ -44,6 +44,7 @@ public class WireTask : MonoBehaviour, IMinigame
         completionWindow = Instantiate(completionWindowPrefab);
         completionWindow.transform.SetParent(wireTaskInterface.transform, false);
         completionWindow.GetComponent<Canvas>().overrideSorting = true;
+        completionWindow.GetComponent<Canvas>().sortingLayerName = "UI";
         completionWindow.GetComponent<Canvas>().sortingOrder = 10;
 
         wireTaskInterface.SetActive(true);
@@ -52,6 +53,10 @@ public class WireTask : MonoBehaviour, IMinigame
     public void InitializeMinigame()
     {
         wireTaskInterface = GameObject.FindWithTag("WireTask");
+        closeButton = wireTaskInterface.GetComponentInChildren<Button>();
+
+        closeButton.onClick.AddListener(()=> CloseWindow());
+
         availableColor = new List<Color>(wireColors);
         availableLeftWireIndex = new List<int>();
         availableRightWireIndex = new List<int>();
@@ -109,6 +114,7 @@ public class WireTask : MonoBehaviour, IMinigame
             {
                 Debug.Log("Task complete");
                 completionWindow.SetActive(true);
+                Destroy(closeButton.gameObject);
                 completionWindow.GetComponentInChildren<TextMeshProUGUI>().text = "Task Complete!";
                 isTaskComplete = true;
                 StartCoroutine(CloseTimer());
@@ -121,7 +127,7 @@ public class WireTask : MonoBehaviour, IMinigame
     private IEnumerator CloseTimer()
     {
         // Debug.Log("taask complete. closing in 3");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         // Debug.Log("closing...");
         //close task window after 3 seconds
         CloseWindow();

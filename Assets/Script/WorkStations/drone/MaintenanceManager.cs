@@ -18,6 +18,7 @@ public class MaintenanceManager : MonoBehaviour
     private RestockingController restockingController;
 
     private DroneStation droneStation;
+    public bool hasButtonBeenUpdated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +31,12 @@ public class MaintenanceManager : MonoBehaviour
     {
         if(droneStation.isinteracting)
         {
+            
             UpdateUI();
+            UpdateMaintenanceButtonImage();
         }
+
+        
     }
 
     public void Initialize()
@@ -103,7 +108,8 @@ public class MaintenanceManager : MonoBehaviour
         {
             maintenanceTextUI.text = "Overload Status: <color=red>Critical</color> \nMaintenance Priority: <color=red>Extreme</color>";
         }
-
+        TabController tabController = FindObjectOfType<TabController>();  
+    
     }
 
     private void LoadMinigames()
@@ -121,5 +127,30 @@ public class MaintenanceManager : MonoBehaviour
 
     }
 
+    private void SetMaintenanceButtonImage(string filePath, Image image)
+    {
+        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
+    }
+
+    public void UpdateMaintenanceButtonImage()
+    {
+        OverloadBar overloadBar = FindObjectOfType<OverloadBar>();
+        restockingController = FindObjectOfType<RestockingController>();
+        string path = "";
+        if(overloadBar.currentOverloadCount>0 && restockingController.droneAvailable)
+        {
+            path = "UI/active_button1";
+        }
+        else
+        {
+            path = "UI/inactive_button1";
+        }
+        SetMaintenanceButtonImage(path, maintenanceButton.gameObject.GetComponent<Image>());
+        
+        hasButtonBeenUpdated = true; 
+    }
 
 }

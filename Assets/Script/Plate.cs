@@ -14,7 +14,7 @@ public class Plate : MonoBehaviour
     private GameController gameController;
     private OrderManager orderManager;
 
-    private StockStation stockStation;
+    private StockStationManager stockStationManager;
     private GameObject plateUI;
 
     public bool isHoldingPlate = false;
@@ -23,7 +23,7 @@ public class Plate : MonoBehaviour
     {
         gameController = FindObjectOfType<GameController>();
         orderManager = FindObjectOfType<OrderManager>();
-        stockStation = FindObjectOfType<StockStation>();
+        stockStationManager = FindObjectOfType<StockStationManager>();
     }
 
     void Update()
@@ -122,10 +122,10 @@ public class Plate : MonoBehaviour
         }
         Destroy(plateUI);
         Destroy(gameObject);
-        if(stockStation.stockSO.stationName == "Plate_Stocking_Station")
+        if(stockStationManager.stockSO.stationName == "Plate_Stocking_Station")
         {
-            stockStation.stockCount++;
-            Debug.Log("Plate has returned! Count: " + stockStation.stockCount);
+            stockStationManager.stockCount++;
+            Debug.Log("Plate has returned! Count: " + stockStationManager.stockCount);
         }
     }
 
@@ -188,6 +188,7 @@ public class Plate : MonoBehaviour
             AssetManager.LoadPrefab("UI/Plate_Ingredients", (GameObject prefab) =>
             {
                 plateUI = Instantiate(prefab, GameObject.Find("Canvas").transform);
+                plateUI.transform.SetAsFirstSibling();
                 GameObject ingredientImages = plateUI.transform.Find("Image").gameObject;
                 
                 if(ingredientsOnPlateIDs.Count>1)

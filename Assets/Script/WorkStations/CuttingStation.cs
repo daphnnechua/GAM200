@@ -26,7 +26,7 @@ public class CuttingStation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pickUpObjs.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
+        if(pickUpObjs.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut && !pickUpObjs.isHoldingObj)
         {
             if(Input.GetKey(KeyCode.E))
             {

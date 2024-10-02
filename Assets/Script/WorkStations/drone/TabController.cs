@@ -12,6 +12,8 @@ public class TabController : MonoBehaviour
 
     public bool isRestockingPage = false; //assuming first of the list is restocking page
 
+    public bool isToggled = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,27 +34,28 @@ public class TabController : MonoBehaviour
 
     public void UpdateTabVisuals(int index)
     {
-        if(index == 0)
+        isRestockingPage = (index == 0);
+
+        // Set all pages inactive and update button images
+        for (int i = 0; i < pages.Count; i++)
         {
-            isRestockingPage = true;
-            
-        }
-        else
-        {
-            isRestockingPage = false;
+            pages[i].SetActive(i == index);
+            string filePath = "";
+            if(i ==index)
+            {
+                filePath = "UI/active_button1";
+            }
+            else 
+            {
+                filePath = "UI/inactive_button1";
+            }
+            SetButtonImage(filePath, tabImage[i]);
         }
 
-        for(int i =0; i<pages.Count ;i++)
-        {
-            pages[i].SetActive(false);
-            SetButtonImage("UI/inactive_button1", tabImage[i]);
-        }
-        pages[index].SetActive(true);
-        SetButtonImage("UI/active_button1", tabImage[index]);
-
-
+        MaintenanceManager maintenanceManager = FindObjectOfType<MaintenanceManager>();
+        maintenanceManager.UpdateMaintenanceButtonImage();
+        
     }
-
     private void SetButtonImage(string filePath, Image image)
     {
         AssetManager.LoadSprite(filePath, (Sprite sp) =>
