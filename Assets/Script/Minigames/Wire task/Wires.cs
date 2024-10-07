@@ -26,6 +26,15 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
 
     void Update()
     {
+        if (canvas == null)
+        {
+            canvas = FindObjectOfType<Canvas>(); // Attempt to find a new canvas instance
+            if (canvas == null) 
+            {
+                Debug.Log("NO canvas found");
+                return; // Exit if no canvas is found
+            }
+        }
         if(isDragging)
         {
             Vector2 movePos;

@@ -95,7 +95,7 @@ public class PickUpObjs : MonoBehaviour
                 return; // Do not place the obj
             }
 
-            if(!accessTable && !isTrashCan) //not accessing any tables, stations or trash can --> place on floor
+            if(!accessTable && !isTrashCan || isServingStation && objHeld.CompareTag("Ingredient")) //not accessing any tables, stations or trash can --> place on floor. if holding ingredient and is accessing serving station, place on floor
             {
                 dir = new Vector2(0, -1f);
                 objHeld.transform.position = transform.position + dir;
@@ -114,7 +114,31 @@ public class PickUpObjs : MonoBehaviour
                 objHeld = null;
                 dir = new Vector2(0, 0);
             }
-            else if(accessTable && IsCounterOccupied() || isServingStation && !plateScript.readyToServe || isStockStation) //station or counter top is occupied --> cannot place down
+            else if(isServingStation && objHeld.CompareTag("Plate"))
+            {
+                plateScript = objHeld.GetComponent<Plate>();
+                if(plateScript.readyToServe)
+                {
+                    plateScript.isHoldingPlate = false;
+                    plateScript.ServePlate();
+                }
+                else //put plate down if there are no ingredients
+                {
+                    dir = new Vector2(0, -1f);
+                    objHeld.transform.position = transform.position + dir;
+                    objHeld.transform.parent = null;
+                    objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    plateScript.isHoldingPlate = false;
+
+                    if(objHeld.GetComponent<Rigidbody2D>())
+                    {
+                        objHeld.GetComponent<Rigidbody2D>().simulated = true;
+                    }
+                    objHeld = null;
+                    dir = new Vector2(0, 0);
+                }
+            }
+            else if(accessTable && IsCounterOccupied() || isStockStation) //station or counter top is occupied --> cannot place down
             {
                 return;
             }
@@ -122,20 +146,11 @@ public class PickUpObjs : MonoBehaviour
             {
                 if(isCuttingStation && objHeld.CompareTag("Plate"))
                 {
-                    return;
-                }
-                if(objHeld.CompareTag("Plate"))
-                {
-                    plateScript = objHeld.GetComponent<Plate>();
-                    if(isServingStation && plateScript.readyToServe && objHeld.CompareTag("Plate"))
-                    {
-                        plateScript.isHoldingPlate = false;
-                        plateScript.ServePlate();
-                    }
+                    return; //do not place plate down on cutting station
                 }
                 if(closestObj)
                 {
-                    if(objHeld.CompareTag("Plate"))
+                    if(objHeld.CompareTag("Plate")) //if holding plate and table is empty, place plate down
                     {
                         plateScript = objHeld.GetComponent<Plate>();
                         plateScript.isHoldingPlate = false;

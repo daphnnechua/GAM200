@@ -10,6 +10,9 @@ public class OverloadBar : MonoBehaviour
     public int currentOverloadCount = 0;
     public int maxOverloadCount = 10;
 
+    public int minigamesToComplete;
+    public int completedMinigames=0;
+
     private int routineOverloadReductionVal = 2;
     [SerializeField] private List<Slider> slider = new List<Slider>();
     [SerializeField] private List<Image> sliderFill = new List<Image>();
@@ -27,8 +30,22 @@ public class OverloadBar : MonoBehaviour
 
     public void IncreaseOverloadValue(int ingredientsRestocked)
     {
-        currentOverloadCount += ingredientsRestocked;
+        // currentOverloadCount += ingredientsRestocked;
+
+        currentOverloadCount = maxOverloadCount;
+
         // Debug.Log($"overload count increased! current: {currentOverloadCount}");
+
+        if(currentOverloadCount<maxOverloadCount)
+        {
+            completedMinigames=0;
+            minigamesToComplete=1;
+        }
+        else
+        {
+            completedMinigames=0;
+            minigamesToComplete=3;
+        }
     }
 
     public void DecreaseOverloadValue()

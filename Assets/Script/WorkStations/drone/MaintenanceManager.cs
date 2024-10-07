@@ -12,7 +12,7 @@ public class MaintenanceManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maintenanceTextUI;
 
     private List<string> minigameFilePaths = new List<string>();
-    [SerializeField] private List<GameObject> minigamePrefabs = new List<GameObject>();
+    [SerializeField] public List<GameObject> minigamePrefabs = new List<GameObject>();
 
     private OverloadBar overloadBar;
     private RestockingController restockingController;

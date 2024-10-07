@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5443271899239235756}
   - component: {fileID: 4013244896264760893}
   m_Layer: 5
-  m_Name: WireTaskCompletionWindow
+  m_Name: CompletionWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

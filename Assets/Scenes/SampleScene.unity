@@ -1756,6 +1756,7 @@ RectTransform:
   - {fileID: 1142442287}
   - {fileID: 1181685779}
   - {fileID: 1693716343}
+  - {fileID: 757839745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2178,7 +2179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9983b81e7b7dea439e3cf524611b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 15
+  spawnInterval: 10
   expiryInterval: 45
   toUpdateOrderUI: 0
   orderUI: {fileID: 0}
@@ -2196,6 +2197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentOverloadCount: 0
   maxOverloadCount: 10
+  minigamesToComplete: 0
+  completedMinigames: 0
   slider:
   - {fileID: 1561209666}
   - {fileID: 51645855}
@@ -2214,6 +2217,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfab8b28efe84254c89a39c1404e6073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &757839744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757839745}
+  - component: {fileID: 757839746}
+  m_Layer: 5
+  m_Name: Minigame Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &757839745
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757839744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 589282103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &757839746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757839744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e1af2ce505bb6418d9292c7211b415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overloadBar: {fileID: 0}
+  droneStation: {fileID: 0}
+  maintenanceManager: {fileID: 0}
+  isFirstMinigame: 0
 --- !u!1 &767358987
 GameObject:
   m_ObjectHideFlags: 0

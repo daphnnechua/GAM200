@@ -1,2 +1,3 @@
-minigameID,minigameName,minigameFilePath
-MINI_01,Wire Task,Minigames/WireTask/WireTask
+minigameID,minigameName,minigameFilePath,
+MINI_01,Wire Task,Minigames/WireTask/WireTask,
+MINI_02,Bug Destroyer,Minigames/BugDestroyer/BugDestroyer,

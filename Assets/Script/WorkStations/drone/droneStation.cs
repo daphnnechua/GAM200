@@ -9,7 +9,7 @@ public class DroneStation : MonoBehaviour
     private RestockingController restockingController;
     private GameController gameController;
     private MaintenanceManager maintenanceManager;
-    [SerializeField] private GameObject droneMenu;
+    [SerializeField] public GameObject droneMenu;
     [SerializeField] private Button closeButton;
 
     private GameObject player;

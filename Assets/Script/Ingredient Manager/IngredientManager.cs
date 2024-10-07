@@ -40,6 +40,7 @@ public class IngredientManager : MonoBehaviour
             AssetManager.LoadPrefab("UI/Progress bar", (GameObject prefab) =>
             {
                 progressBar= Instantiate(prefab, GameObject.Find("Canvas").transform);
+                progressBar.transform.SetAsFirstSibling();
                 Debug.Log($"new progress bar for {ingredientSO.ingredientName} created");
 
                 Slider slider = progressBar.GetComponent<Slider>();

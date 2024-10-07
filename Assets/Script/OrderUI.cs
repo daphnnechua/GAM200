@@ -107,7 +107,7 @@ public class OrderUI : MonoBehaviour
     {
         orderUI.GetComponent<Image>().color = change;
 
-        yield return new WaitForSeconds(0.5f); // Wait for a short duration
+        yield return new WaitForSeconds(1f); // Wait for a short duration
         orderManager.toUpdateOrderUI = true;
 
     }
@@ -134,11 +134,11 @@ public class OrderUI : MonoBehaviour
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.green;
                 }
-                else if(timer.value<=0.5f)
+                else if(timer.value<=0.5f && timer.value > 0.25f)
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.yellow;
                 }
-                else if(timer.value<0.25f)
+                else if(timer.value<=0.25f)
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.red;
                 }

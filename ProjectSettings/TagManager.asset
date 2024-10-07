@@ -23,6 +23,8 @@ TagManager:
   - RecipeIngredientImage
   - RecipeImage
   - ButtonImage
+  - BugDestroyer
+  - Bug
   layers:
   - Default
   - TransparentFX
