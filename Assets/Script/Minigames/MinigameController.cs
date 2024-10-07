@@ -9,11 +9,27 @@ public class MinigameController : MonoBehaviour
     public DroneStation droneStation;
     public MaintenanceManager maintenanceManager;
     public bool isFirstMinigame = false;
+
+    public int minigameIndex;
+    public bool exitedWithoutCompletion = false;
     void Start()
     {
         overloadBar = FindObjectOfType<OverloadBar>();
         droneStation = FindObjectOfType<DroneStation>();
         maintenanceManager = FindObjectOfType<MaintenanceManager>();
+    }
+
+    void Update()
+    {
+        if(overloadBar.completedMinigames ==0) //player has not completed any minigames, this is the first minigame that the player plays
+        {
+            isFirstMinigame = true;
+        }
+        else
+        {
+            isFirstMinigame= false;
+        }
+
     }
 
 
@@ -24,6 +40,7 @@ public class MinigameController : MonoBehaviour
             Destroy(currentMinigame);
 
             int random = Random.Range(0, maintenanceManager.minigamePrefabs.Count);
+            minigameIndex = random;
                 
             GameObject minigame = Instantiate(maintenanceManager.minigamePrefabs[random]);
                 

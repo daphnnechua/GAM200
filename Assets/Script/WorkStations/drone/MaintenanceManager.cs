@@ -16,14 +16,16 @@ public class MaintenanceManager : MonoBehaviour
 
     private OverloadBar overloadBar;
     private RestockingController restockingController;
-
+    private MinigameController minigameController;
     private DroneStation droneStation;
+
+    private int minigameIndex;
     public bool hasButtonBeenUpdated = false;
     // Start is called before the first frame update
     void Start()
     {
         droneStation = FindObjectOfType<DroneStation>();
-
+        minigameController = FindObjectOfType<MinigameController>();
     }
 
     // Update is called once per frame
@@ -69,22 +71,55 @@ public class MaintenanceManager : MonoBehaviour
         // Debug.Log("Clicking");
         overloadBar = FindObjectOfType<OverloadBar>();
         restockingController = FindObjectOfType<RestockingController>();
+
         if(overloadBar.currentOverloadCount > 0 && restockingController.droneAvailable)
         {
             // Debug.Log("Can do maintenance");
             // Debug.Log($"minigames available: {minigames.Count}");
             if(minigamePrefabs.Count>0)
             {
-                int random = Random.Range(0, minigamePrefabs.Count);
-                
-                GameObject minigame = Instantiate(minigamePrefabs[random]);
-                
-                RectTransform minigameRT = minigame.GetComponent<RectTransform>();
-                minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
-                
-                IMinigame game = minigame.GetComponent<IMinigame>();
-                game.StartMinigame();
-                droneStation.isinteracting = false;
+                if(!minigameController.exitedWithoutCompletion) //load any minigame
+                {
+                    int random = Random.Range(0, minigamePrefabs.Count);
+                    minigameIndex = random;
+                    GameObject minigame = Instantiate(minigamePrefabs[random]);
+                    
+                    RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                    minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                    
+                    IMinigame game = minigame.GetComponent<IMinigame>();
+                    game.StartMinigame();
+                    droneStation.isinteracting = false;
+                }
+                else if(minigameController.exitedWithoutCompletion) //load the same minigame if playyer did not complete the prev minigame
+                {
+                    if(minigameController.isFirstMinigame) //this is the first minigame that the player plays
+                    {
+                        GameObject minigame = Instantiate(minigamePrefabs[minigameIndex]); //load back the first minigame index
+                        
+                        RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                        minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                        
+                        IMinigame game = minigame.GetComponent<IMinigame>();
+                        game.StartMinigame();
+                        droneStation.isinteracting = false;
+                        minigameController.exitedWithoutCompletion = false; //reset bool
+                    }
+                    else //this is not the first minigame
+                    {
+                        GameObject minigame = Instantiate(minigamePrefabs[minigameController.minigameIndex]); //load minigame according to the index set by minigame controller
+                    
+                        RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                        minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                        
+                        IMinigame game = minigame.GetComponent<IMinigame>();
+                        game.StartMinigame();
+                        droneStation.isinteracting = false;
+                        minigameController.exitedWithoutCompletion = false; //reset bool
+
+                    }
+                }
+
             }
         }
     }

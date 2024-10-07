@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Bug : MonoBehaviour, IPointerClickHandler
 {
     private float minSpeed = 300f;
-    private float maxSpeed = 700f;
+    private float maxSpeed = 500f;
     [SerializeField] private RectTransform thisTransform;
     [SerializeField] private RectTransform canvasRt;
     private Vector3 targetPos;

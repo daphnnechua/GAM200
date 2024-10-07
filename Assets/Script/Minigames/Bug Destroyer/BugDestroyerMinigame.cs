@@ -37,7 +37,7 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && isOpen)
+        if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
             CloseWindow();
             droneMenu.SetActive(true);
@@ -140,6 +140,9 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
         {
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
             Destroy(gameObject);
         }
         
