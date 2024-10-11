@@ -9,6 +9,8 @@ public class CuttingStation : MonoBehaviour
     [SerializeField] public float cutTimer = 1f;
     private GameObject ingredientObj;
 
+    Rigidbody2D rb;
+
     private GameObject player;
 
     private PickUpObjs pickUpObjs;
@@ -20,6 +22,7 @@ public class CuttingStation : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        rb  = player.GetComponent<Rigidbody2D>();
         pickUpObjs = player.GetComponent<PickUpObjs>();
     }
 
@@ -30,10 +33,14 @@ public class CuttingStation : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E))
             {
-                
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 CutIngredient();
             }
             
+        }
+        if(Input.GetKeyUp(KeyCode.E))
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
         {
@@ -69,7 +76,8 @@ public class CuttingStation : MonoBehaviour
     
     private void CompleteCutting()
     {
-
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
         if (ingredientObj != null)
         {
             var ingredientData = ingredientObj.GetComponent<IngredientManager>().ingredientSO;

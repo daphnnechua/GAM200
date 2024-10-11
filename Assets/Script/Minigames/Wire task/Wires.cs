@@ -86,7 +86,7 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
         }
         isDragging = true;
         wireTask.currentDragged = this;
-        Debug.Log(wireTask.currentDragged);
+        // Debug.Log(wireTask.currentDragged);
     }
 
     public void OnEndDrag(PointerEventData eventData)

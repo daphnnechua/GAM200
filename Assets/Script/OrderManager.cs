@@ -38,7 +38,7 @@ public class OrderManager : MonoBehaviour
 
             if(!hasCoroutineBeenStarted)
             {
-                StartCoroutine(orderGenerationTimer());
+                StartCoroutine(OrderGenerationTimer());
                 hasCoroutineBeenStarted = true;
             }
         }
@@ -61,7 +61,7 @@ public class OrderManager : MonoBehaviour
 
     public void RemoveOrder(Color uiColor)
     {
-        orderUI.UpdateUIStatus(0, uiColor);
+        orderUI.UpdateUIStatus(0, uiColor); //to remove! testing purposes only 
         activeOrders.RemoveAt(0); //always remove he first order!
         // toUpdateOrderUI = true;
     }
@@ -71,7 +71,7 @@ public class OrderManager : MonoBehaviour
         return activeOrders[0];
     }
 
-    IEnumerator orderGenerationTimer()
+    IEnumerator OrderGenerationTimer()
     {
         while(gameController.isGameLoopActive)
         {
@@ -90,7 +90,8 @@ public class OrderManager : MonoBehaviour
 
     IEnumerator ExpiryTimer(Orders order)
     {
-        float expiryTimer = expiryInterval;
+        float expiryTimer = expiryInterval += (activeOrders.Count-1)*5; //scaling for order timers --> 
+
         order.RemainingTime = expiryTimer;
 
         while (order.RemainingTime > 0)
@@ -111,6 +112,26 @@ public class OrderManager : MonoBehaviour
             RemoveOrder(Color.red);
             gameController.DeductPoints(5);
         }
+    }
+
+    public void AddBonusTime()
+    {
+        foreach(Orders order in activeOrders)
+        {
+            order.RemainingTime += 5f; //add bonus time to all remaining orders
+
+            if(order.RemainingTime>expiryInterval)
+            {
+                order.RemainingTime = expiryInterval;
+            }
+
+        }
+    }
+
+    public void StopOrders() //called when level ends
+    {
+        StopAllCoroutines();
+        
     }
 
     

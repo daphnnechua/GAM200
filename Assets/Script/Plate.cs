@@ -110,6 +110,7 @@ public class Plate : MonoBehaviour
                 //add reward
                 Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
                 orderManager.RemoveOrder(Color.green);
+                orderManager.AddBonusTime();
                 gameController.AddPoints(currentRecipe.reward);
             }
             else

@@ -7,13 +7,11 @@ public class PickUpObjs : MonoBehaviour
 {
     public Transform objPlacement;
     public LayerMask pickUpMask;
-    public Vector3 dir {get; set;}
+    public Vector3 dir;
     private GameObject objHeld;
 
     private GameObject player;
     private GameObject trashCan;
-
-    private Transform tableTopPos;
     public bool accessTable = false;
     public bool isCuttingStation = false;
     public bool isStockStation = false;
@@ -26,6 +24,7 @@ public class PickUpObjs : MonoBehaviour
 
     private Trash trashScript;
     private Plate plateScript;
+    private PlayerMovement playerMovement;
 
     private Transform closestObj;
 
@@ -35,6 +34,7 @@ public class PickUpObjs : MonoBehaviour
     void Start()
     {        
         player = GameObject.FindWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
         objPlacement = GameObject.FindGameObjectWithTag("IngredientPlacement").transform; 
         pickUpMask = LayerMask.GetMask("KitchenObjs");
         trashCan = GameObject.FindGameObjectWithTag("TrashCan");
@@ -44,6 +44,7 @@ public class PickUpObjs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dir = playerMovement.FacingDirection();
         // Debug.Log(closestObj);
         // Collider2D[] nearbyIngredients = Physics2D.OverlapCircleAll(transform.position + dir, 0.75f, pickUpMask); //all nearby ingredients
 
@@ -86,7 +87,7 @@ public class PickUpObjs : MonoBehaviour
         {
             IngredientsAssembly();
             
-            Vector2 placePosition = (Vector2)transform.position + new Vector2(0, -1f); ///calculation --> area below the player
+            Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
 
             Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
 
@@ -97,7 +98,7 @@ public class PickUpObjs : MonoBehaviour
 
             if(!accessTable && !isTrashCan || isServingStation && objHeld.CompareTag("Ingredient")) //not accessing any tables, stations or trash can --> place on floor. if holding ingredient and is accessing serving station, place on floor
             {
-                dir = new Vector2(0, -1f);
+                // dir = new Vector2(0, -1f);
                 objHeld.transform.position = transform.position + dir;
                 objHeld.transform.parent = null;
                 objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
@@ -124,7 +125,7 @@ public class PickUpObjs : MonoBehaviour
                 }
                 else //put plate down if there are no ingredients
                 {
-                    dir = new Vector2(0, -1f);
+                    // dir = new Vector2(0, -1f);
                     objHeld.transform.position = transform.position + dir;
                     objHeld.transform.parent = null;
                     objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
@@ -148,7 +149,7 @@ public class PickUpObjs : MonoBehaviour
                 {
                     return; //do not place plate down on cutting station
                 }
-                if(closestObj)
+                if(closestObj && playerMovement.IsObjectInteractable(closestObj.transform))
                 {
                     if(objHeld.CompareTag("Plate")) //if holding plate and table is empty, place plate down
                     {
@@ -169,7 +170,7 @@ public class PickUpObjs : MonoBehaviour
                     objHeld = null;
                 }
             }
-            else if(isTrashCan) //accessing trash can
+            else if(isTrashCan && playerMovement.IsObjectInteractable(closestObj.transform)) //accessing trash can
             {
                 trashScript.TrashIngredient(objHeld);
             }   
@@ -186,11 +187,11 @@ public class PickUpObjs : MonoBehaviour
             {
                 if(objHeld.GetComponent<IngredientManager>().ingredientSO.isReady)
                 {
-                    Collider2D collider = Physics2D.OverlapCircle(transform.position + dir, 1f, pickUpMask);
+                    Collider2D collider = Physics2D.OverlapCircle(transform.position, 1f, pickUpMask);
                     if(collider != null)
                     {
                         GameObject currentPlate = collider.gameObject;
-                        if(collider!=null && collider.CompareTag("Plate"))
+                        if(collider!=null && collider.CompareTag("Plate") && playerMovement.IsObjectInteractable(currentPlate.transform))
                         {
                             plateScript = currentPlate.GetComponent<Plate>();
                             plateScript.PlaceIngredient(objHeld);
@@ -204,7 +205,7 @@ public class PickUpObjs : MonoBehaviour
                 Vector2 placePosition = (Vector2)transform.position + new Vector2(0, -1f); ///calculation --> area below the player
 
                 Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
-                if(colliderAtPosition !=null && colliderAtPosition.gameObject.CompareTag("Ingredient"))
+                if(colliderAtPosition !=null && colliderAtPosition.gameObject.CompareTag("Ingredient") && playerMovement.IsObjectInteractable(colliderAtPosition.transform))
                 {
                     GameObject ingredient = colliderAtPosition.gameObject;
                     IngredientManager ingredientManager = ingredient.GetComponent<IngredientManager>();
@@ -234,7 +235,7 @@ public class PickUpObjs : MonoBehaviour
     {
         if(!isDrone)
         {
-            if (isStockStation && closestObj.gameObject.CompareTag("StockStation") && !objHeld) // If player is interacting with a StockStation
+            if (isStockStation && closestObj.gameObject.CompareTag("StockStation") && !objHeld && playerMovement.IsObjectInteractable(closestObj.transform)) // If player is interacting with a StockStation
             {
                 Collider2D objOnStation = Physics2D.OverlapCircle(closestObj.position, 0.1f, pickUpMask);
                 if(objOnStation && !objHeld)
@@ -250,40 +251,45 @@ public class PickUpObjs : MonoBehaviour
                     }
 
                 }
+                isHoldingObj = true;
             }
             else
             {
                 PickUpIngredient(); // Otherwise, pick up the ingredient normally
+                isHoldingObj = true;
             }
-            isHoldingObj = true;
+            
         }
     }
 
     private void PickUpNewObj(GameObject gameObject)
     {
         objHeld = gameObject;
-        if(objHeld.CompareTag("Plate"))
-        {
-            plateScript = objHeld.GetComponent<Plate>();
-            plateScript.isHoldingPlate = true;
-        }
-        objHeld.transform.position = objPlacement.position;
-        objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        // if(playerMovement.IsObjectInteractable(closestObj.transform))
+        // {
+            if(objHeld.CompareTag("Plate"))
+            {
+                plateScript = objHeld.GetComponent<Plate>();
+                plateScript.isHoldingPlate = true;
+            }
+            objHeld.transform.position = objPlacement.position;
+            objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
 
-        objHeld.transform.parent = transform;
+            objHeld.transform.parent = transform;
 
-        if (objHeld.GetComponent<Rigidbody2D>())
-        {
-            objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-            objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-            objHeld.GetComponent<Rigidbody2D>().simulated = false;
-        }
+            if (objHeld.GetComponent<Rigidbody2D>())
+            {
+                objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                objHeld.GetComponent<Rigidbody2D>().simulated = false;
+            }
+        // }
     }
 
     private void PickUpIngredient()
     {
         //find the closest ingredient
-        Collider2D[] nearbyObjs = Physics2D.OverlapCircleAll(transform.position + dir, 1f, pickUpMask); //all nearby ingredients
+        Collider2D[] nearbyObjs = Physics2D.OverlapCircleAll(transform.position, 1f, pickUpMask); //all nearby ingredients
 
         if (nearbyObjs.Length > 0) //if there are ingredient nearby
         {
@@ -300,7 +306,7 @@ public class PickUpObjs : MonoBehaviour
                 }
             }
         
-            if(closestObj!=null)
+            if(closestObj!=null && playerMovement.IsObjectInteractable(closestObj.transform))
             {
                 
                 objHeld = closestObj;
@@ -326,7 +332,7 @@ public class PickUpObjs : MonoBehaviour
     private void OnDrawGizmos() ///debugging purposes --> shows piickup range for player
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + dir, 1f);
+        Gizmos.DrawWireSphere(transform.position, 1f);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -374,9 +380,6 @@ public class PickUpObjs : MonoBehaviour
             {
                 isTrashCan = true;
             }
-
-            
-
         }
 
     }

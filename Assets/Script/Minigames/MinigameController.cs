@@ -8,7 +8,11 @@ public class MinigameController : MonoBehaviour
     public OverloadBar overloadBar;
     public DroneStation droneStation;
     public MaintenanceManager maintenanceManager;
+    private GameController gameController;
     public bool isFirstMinigame = false;
+
+    public GameObject minigameParentObj;
+    private bool hasBeenInitialized = false;
 
     public int minigameIndex;
     public bool exitedWithoutCompletion = false;
@@ -17,10 +21,20 @@ public class MinigameController : MonoBehaviour
         overloadBar = FindObjectOfType<OverloadBar>();
         droneStation = FindObjectOfType<DroneStation>();
         maintenanceManager = FindObjectOfType<MaintenanceManager>();
+        minigameParentObj = GameObject.FindWithTag("Minigame");
+        gameController = FindObjectOfType<GameController>();
     }
 
     void Update()
     {
+        if(gameController.gameStart && !hasBeenInitialized)
+        {
+            minigameParentObj.SetActive(false);
+            hasBeenInitialized = true;
+            
+            // Debug.Log("initializing...");
+        }
+        
         if(overloadBar.completedMinigames ==0) //player has not completed any minigames, this is the first minigame that the player plays
         {
             isFirstMinigame = true;
@@ -28,6 +42,11 @@ public class MinigameController : MonoBehaviour
         else
         {
             isFirstMinigame= false;
+        }
+
+        if(droneStation.isinteracting && minigameParentObj.activeInHierarchy)
+        {
+            minigameParentObj.SetActive(false);
         }
 
     }
@@ -41,11 +60,12 @@ public class MinigameController : MonoBehaviour
 
             int random = Random.Range(0, maintenanceManager.minigamePrefabs.Count);
             minigameIndex = random;
+            
+            minigameParentObj.SetActive(true);
+            GameObject minigame = Instantiate(maintenanceManager.minigamePrefabs[random], minigameParentObj.transform);
                 
-            GameObject minigame = Instantiate(maintenanceManager.minigamePrefabs[random]);
-                
-            RectTransform minigameRT = minigame.GetComponent<RectTransform>();
-            minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+            // RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+            // minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
                 
             IMinigame game = minigame.GetComponent<IMinigame>();
             game.StartMinigame();

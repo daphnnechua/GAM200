@@ -14,7 +14,7 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
     [SerializeField] private GameObject completionWindowPrefab;
 
     private GameObject completionWindow;
-    private GameObject bugDestroyerInterface;
+    // private GameObject bugDestroyerInterface;
 
     private GameObject droneMenu;
     private Button closeButton;
@@ -47,7 +47,7 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
     public void InitializeMinigame()
     {
         isTaskComplete = false;
-        bugDestroyerInterface = GameObject.FindWithTag("BugDestroyer");
+        // bugDestroyerInterface = GameObject.FindWithTag("BugDestroyer");
 
         closeButton = gameObject.GetComponentInChildren<Button>();
         closeButton.onClick.AddListener(()=> CloseWindow());
@@ -66,14 +66,19 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
         }
         InitializeMinigame();
 
-        completionWindow = Instantiate(completionWindowPrefab);
-        completionWindow.transform.SetParent(bugDestroyerInterface.transform, false);
+        completionWindow = Instantiate(completionWindowPrefab, gameObject.transform);
+
+        //resize completion window to same size as minigame
+        RectTransform rt = completionWindow.GetComponent<RectTransform>();
+        RectTransform refRt = gameObject.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(refRt.rect.width, refRt.rect.height);
+
         completionWindow.GetComponent<Canvas>().overrideSorting = true;
         completionWindow.GetComponent<Canvas>().sortingLayerName = "UI";
         completionWindow.GetComponent<Canvas>().sortingOrder = 10;
 
         completionWindow.SetActive(false);
-        bugDestroyerInterface.SetActive(true);
+        // bugDestroyerInterface.SetActive(true);
     }
 
     private void SpawnBugs()

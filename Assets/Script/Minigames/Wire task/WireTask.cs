@@ -18,12 +18,14 @@ public class WireTask : MonoBehaviour, IMinigame
 
     private bool isTaskComplete =  false;
 
-    [SerializeField] private GameObject wireTaskInterface;
+    // [SerializeField] private GameObject wireTaskInterface;
     [SerializeField] private GameObject droneMenu;
     [SerializeField] private GameObject completionWindowPrefab;
     private OverloadBar overloadBar;
     private DroneStation droneStation;
     private bool isOpen = true;
+
+    [SerializeField] GameObject check;
     [SerializeField] private GameObject completionWindow;
     [SerializeField] private Button closeButton;
 
@@ -49,19 +51,26 @@ public class WireTask : MonoBehaviour, IMinigame
         }
 
         //setting sorting order to completion window
-        completionWindow = Instantiate(completionWindowPrefab);
-        completionWindow.transform.SetParent(wireTaskInterface.transform, false);
+
+        completionWindow = Instantiate(completionWindowPrefab, gameObject.transform);
+
+        //resize completion window to same size as minigame
+        RectTransform rt = completionWindow.GetComponent<RectTransform>();
+        RectTransform refRt = gameObject.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(refRt.rect.width, refRt.rect.height);
+
         completionWindow.GetComponent<Canvas>().overrideSorting = true;
         completionWindow.GetComponent<Canvas>().sortingLayerName = "UI";
         completionWindow.GetComponent<Canvas>().sortingOrder = 10;
 
-        wireTaskInterface.SetActive(true);
+        // wireTaskInterface.SetActive(true);
+
         completionWindow.SetActive(false);
     }    
     public void InitializeMinigame()
     {
         isTaskComplete = false;
-        wireTaskInterface = GameObject.Find("Minigame");
+        // wireTaskInterface = GameObject.FindWithTag("WireTask");
         closeButton = gameObject.GetComponentInChildren<Button>();
 
         closeButton.onClick.AddListener(()=> CloseWindow());
@@ -173,7 +182,7 @@ public class WireTask : MonoBehaviour, IMinigame
             else
             {
                 Debug.Log($"completed {overloadBar.completedMinigames} minigames. left: {overloadBar.minigamesToComplete - overloadBar.completedMinigames} minigames to complette!");
-                MinigameController minigameController = FindObjectOfType<MinigameController>();
+                MinigameController minigameController = FindObjectOfType<MinigameController>();                
                 minigameController.OpenNewMinigame(gameObject);
             }
         }

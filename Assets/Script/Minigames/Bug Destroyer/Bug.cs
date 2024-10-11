@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Bug : MonoBehaviour, IPointerClickHandler
 {
     private float minSpeed = 300f;
-    private float maxSpeed = 500f;
+    private float maxSpeed = 700f;
     [SerializeField] private RectTransform thisTransform;
     [SerializeField] private RectTransform canvasRt;
     private Vector3 targetPos;
@@ -32,12 +32,15 @@ public class Bug : MonoBehaviour, IPointerClickHandler
 
     private void NewTargetPos()
     {
-        float halfWidth = thisTransform.rect.width / 2;
-        float halfHeight = thisTransform.rect.height / 2;
-        Vector2 newPos = new Vector2(
-            Random.Range(-canvasRt.rect.width / 2 + halfWidth, canvasRt.rect.width / 2 - halfWidth),
-            Random.Range(-canvasRt.rect.height / 2 + halfHeight, canvasRt.rect.height / 2 - halfHeight)
-        );        
+        float offsetWidth = thisTransform.rect.width / 2;
+        float minHoriDist = -canvasRt.rect.width / 2 + offsetWidth;
+        float maxHoriDist = canvasRt.rect.width / 2 - offsetWidth;
+
+        float offsetHeight = thisTransform.rect.height / 2;
+        float minVertDist = -canvasRt.rect.height / 2 + offsetHeight;
+        float maxVertDist = canvasRt.rect.height / 2 - offsetHeight;
+
+        Vector2 newPos = new Vector2(Random.Range(minHoriDist, maxHoriDist), Random.Range(minVertDist, maxVertDist));        
         targetPos = new Vector3(newPos.x, newPos.y, 0);
     }
 

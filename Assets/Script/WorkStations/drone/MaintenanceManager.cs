@@ -82,10 +82,11 @@ public class MaintenanceManager : MonoBehaviour
                 {
                     int random = Random.Range(0, minigamePrefabs.Count);
                     minigameIndex = random;
-                    GameObject minigame = Instantiate(minigamePrefabs[random]);
+                    minigameController.minigameParentObj.SetActive(true);
+                    GameObject minigame = Instantiate(minigamePrefabs[random], minigameController.minigameParentObj.transform);
                     
-                    RectTransform minigameRT = minigame.GetComponent<RectTransform>();
-                    minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                    // RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                    // minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
                     
                     IMinigame game = minigame.GetComponent<IMinigame>();
                     game.StartMinigame();
@@ -95,10 +96,11 @@ public class MaintenanceManager : MonoBehaviour
                 {
                     if(minigameController.isFirstMinigame) //this is the first minigame that the player plays
                     {
-                        GameObject minigame = Instantiate(minigamePrefabs[minigameIndex]); //load back the first minigame index
+                        minigameController.minigameParentObj.SetActive(true);
+                        GameObject minigame = Instantiate(minigamePrefabs[minigameIndex], minigameController.minigameParentObj.transform); //load back the first minigame index
                         
-                        RectTransform minigameRT = minigame.GetComponent<RectTransform>();
-                        minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                        // RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                        // minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
                         
                         IMinigame game = minigame.GetComponent<IMinigame>();
                         game.StartMinigame();
@@ -107,10 +109,11 @@ public class MaintenanceManager : MonoBehaviour
                     }
                     else //this is not the first minigame
                     {
-                        GameObject minigame = Instantiate(minigamePrefabs[minigameController.minigameIndex]); //load minigame according to the index set by minigame controller
+                        minigameController.minigameParentObj.SetActive(true);
+                        GameObject minigame = Instantiate(minigamePrefabs[minigameController.minigameIndex], minigameController.minigameParentObj.transform); //load minigame according to the index set by minigame controller
                     
-                        RectTransform minigameRT = minigame.GetComponent<RectTransform>();
-                        minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
+                        // RectTransform minigameRT = minigame.GetComponent<RectTransform>();
+                        // minigameRT.SetParent(GameObject.Find("Canvas").transform, false); 
                         
                         IMinigame game = minigame.GetComponent<IMinigame>();
                         game.StartMinigame();

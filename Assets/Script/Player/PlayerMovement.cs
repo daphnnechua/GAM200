@@ -10,8 +10,19 @@ public class PlayerMovement : PlayerScript, InputReceiver
     public float movementSpeed = 1f;
     private Vector2 oriPos;
 
+    [SerializeField] private bool isFacingUp;
+    [SerializeField] private bool isFacingRight;
+    [SerializeField] private bool isFacingLeft;
+    [SerializeField] private bool isFacingDown;
 
+    private float radius =5;
+    private float semiCircleAngle = 90f;
     void Start()
+    {
+
+    }
+
+    void Update()
     {
 
     }
@@ -32,6 +43,107 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
         Vector2 movePos = rb.position + oriPos*movementSpeed*Time.fixedDeltaTime; //player movement calculation
         rb.MovePosition(movePos); //move player
+        UpdateFacingDirection();
+    }
 
+    private void UpdateFacingDirection()
+    {
+        if(Input.GetAxis("Vertical")>0)
+        {
+            isFacingUp = true;
+
+            isFacingDown =false;
+            isFacingLeft = false;
+            isFacingRight = false;
+        }
+        if(Input.GetAxis("Vertical")<0)
+        {
+            isFacingDown = true;
+
+            isFacingUp = false;
+            isFacingLeft = false;
+            isFacingRight = false;;
+        }
+        if(Input.GetAxis("Horizontal") >0)
+        {
+            isFacingRight = true;
+
+            isFacingDown = false;
+            isFacingLeft = false;
+            isFacingUp = false;
+        }
+        if(Input.GetAxis("Horizontal") <0)
+        {
+            isFacingLeft = true;
+
+            isFacingDown = false;
+            isFacingRight = false;
+            isFacingUp = false;
+
+        }
+    }
+    public Vector2 FacingDirection()
+    {
+        if (isFacingUp)
+        {
+            return Vector2.up; 
+        }
+        if (isFacingDown)
+        {
+            return Vector2.down;
+        }
+        if (isFacingRight)
+        {
+            return Vector2.right;
+        }
+        if(isFacingLeft)
+        {
+            return Vector2.left;
+        }    
+        return Vector2.down;
+    }
+    public bool IsObjectInteractable(Transform objectTransform)
+    {
+        Vector2 objectDir = (objectTransform.position - transform.position).normalized;
+
+        Vector2 playerDir = FacingDirection();
+
+        float angle = Vector2.Angle(playerDir, objectDir);
+
+        if (angle <= semiCircleAngle / 2 && Vector2.Distance(transform.position, objectTransform.position) <= radius)
+        {
+            return true; 
+        }
+
+        return false; 
+    }
+
+    //testing direction
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Vector3 position = transform.position;
+        Vector3 playerDir = FacingDirection();
+
+        DrawSemicircle(position, playerDir, radius, semiCircleAngle);
+    }
+    private void DrawSemicircle(Vector3 position, Vector2 direction, float radius, float angle)
+    {
+        int lines = 20; 
+        float progression = angle / lines; 
+
+        Vector3 previousPoint = position; 
+
+        for (int i = 0; i <= lines; i++)
+        {
+            float currentAngle = -angle / 2 + progression * i; 
+            Vector3 point = position + Quaternion.Euler(0, 0, currentAngle) * direction * radius; 
+
+            Gizmos.DrawLine(previousPoint, point); 
+            previousPoint = point; 
+        }
+
+        Gizmos.DrawLine(previousPoint, position);
     }
 }

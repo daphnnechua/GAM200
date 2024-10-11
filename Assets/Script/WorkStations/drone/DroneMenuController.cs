@@ -61,5 +61,13 @@ public class DroneMenuController : MonoBehaviour
 
     #endregion text ui for restocking
 
+    #region level ends, stop all coroutines
+
+    public void StopAllProcesses() //called when level ends
+    {
+        StopAllCoroutines();
+    }
+
+    #endregion level ends, stop all coroutines
 
 }
