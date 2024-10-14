@@ -6,10 +6,10 @@ public class OrderManager : MonoBehaviour
 {
     public List<Orders> activeOrders = new List<Orders>();
     public float spawnInterval = 10f;
-    public float expiryInterval = 45f;
+    public float baseExpiryTime = 45f;
+    private float balancedTimer;
 
     private WaitForSeconds generationTimer;
-    private WaitForSeconds expiryTimer;
     private GameController gameController;
 
     private bool hasBeenInitialized = false;
@@ -23,7 +23,6 @@ public class OrderManager : MonoBehaviour
     void Start()
     {
         generationTimer = new WaitForSeconds(spawnInterval);
-        expiryTimer = new WaitForSeconds(expiryInterval);
         gameController = FindObjectOfType<GameController>();
         orderUI = FindObjectOfType<OrderUI>();
     }
@@ -51,8 +50,17 @@ public class OrderManager : MonoBehaviour
         {
             int random = Random.Range(0, Game.GetRecipeList().Count);
             Recipe newOrderRecipe = Game.GetRecipeList()[random];
-            Orders newOrder = new Orders(newOrderRecipe, expiryInterval);
+
+            float refBaseTimer = baseExpiryTime; 
+
+            balancedTimer = refBaseTimer += activeOrders.Count*5; //setting timer for new order (+5s for each active order)
+            // Debug.Log(balancedTimer);
+
+
+            Orders newOrder = new Orders(newOrderRecipe, balancedTimer);
             activeOrders.Add(newOrder);
+
+
             toUpdateOrderUI = true;
             StartCoroutine(ExpiryTimer(newOrder));
 
@@ -90,9 +98,7 @@ public class OrderManager : MonoBehaviour
 
     IEnumerator ExpiryTimer(Orders order)
     {
-        float expiryTimer = expiryInterval += (activeOrders.Count-1)*5; //scaling for order timers --> 
-
-        order.RemainingTime = expiryTimer;
+        order.RemainingTime = balancedTimer;
 
         while (order.RemainingTime > 0)
         {
@@ -116,13 +122,15 @@ public class OrderManager : MonoBehaviour
 
     public void AddBonusTime()
     {
-        foreach(Orders order in activeOrders)
+        for(int i =0; i<activeOrders.Count; i++)
         {
-            order.RemainingTime += 5f; //add bonus time to all remaining orders
+            activeOrders[i].RemainingTime += 5f; //add bonus time to all remaining orders
 
-            if(order.RemainingTime>expiryInterval)
+            float maxOrderTime = baseExpiryTime += i*5;
+
+            if(activeOrders[i].RemainingTime>maxOrderTime)
             {
-                order.RemainingTime = expiryInterval;
+                activeOrders[i].RemainingTime = maxOrderTime;
             }
 
         }

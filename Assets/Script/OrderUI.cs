@@ -128,7 +128,8 @@ public class OrderUI : MonoBehaviour
             if(trackOrders[i] == order)
             {
                 Slider timer  = trackOrderUI[i].transform.Find("Timer").GetComponent<Slider>(); 
-                timer.value = timeLeft/orderManager.expiryInterval;
+                float refBaseTimer = orderManager.baseExpiryTime;
+                timer.value = timeLeft/(refBaseTimer += i*5);
 
                 if(timer.value>0.5f)
                 {

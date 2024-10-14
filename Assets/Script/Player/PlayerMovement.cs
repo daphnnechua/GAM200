@@ -7,6 +7,8 @@ public class PlayerMovement : PlayerScript, InputReceiver
     private GameController gameController;
     Rigidbody2D rb;
 
+    Animator anim;
+
     public float movementSpeed = 1f;
     private Vector2 oriPos;
 
@@ -19,12 +21,12 @@ public class PlayerMovement : PlayerScript, InputReceiver
     private float semiCircleAngle = 90f;
     void Start()
     {
-
+        anim = GetComponent<Animator>(); 
     }
 
     void Update()
     {
-
+        PlayerAnimation();
     }
 
     public override void Initialize(GameController gameController)
@@ -146,4 +148,53 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
         Gizmos.DrawLine(previousPoint, position);
     }
+
+    //setting up player animation
+    private void PlayerAnimation()
+    {
+        float movementInput = Input.GetAxis("Vertical") + Input.GetAxis("Horizontal");
+        if(movementInput<0)
+        {
+            movementInput*=-1; //always positive
+        }
+
+        if(isFacingUp)
+        {
+            anim.SetFloat("InputMovement", movementInput);
+            anim.SetBool("FacingUp", true);
+
+            anim.SetBool("FacingDown", false);
+            anim.SetBool("FacingLeft", false);
+            anim.SetBool("FacingRight", false);
+        }
+        if(isFacingDown)
+        {
+            anim.SetFloat("InputMovement", movementInput);
+            anim.SetBool("FacingDown", true);
+
+            anim.SetBool("FacingUp", false);
+            anim.SetBool("FacingLeft", false);
+            anim.SetBool("FacingRight", false);
+        }
+        if(isFacingRight)
+        {
+            anim.SetFloat("InputMovement", movementInput);
+            anim.SetBool("FacingRight", true);
+
+            anim.SetBool("FacingUp", false);
+            anim.SetBool("FacingLeft", false);
+            anim.SetBool("FacingDown", false);
+        }
+        if(isFacingLeft)
+        {
+            anim.SetFloat("InputMovement", movementInput);
+            anim.SetBool("FacingLeft", true);
+
+            anim.SetBool("FacingUp", false);
+            anim.SetBool("FacingRight", false);
+            anim.SetBool("FacingDown", false);
+
+        }
+    }
 }
+
