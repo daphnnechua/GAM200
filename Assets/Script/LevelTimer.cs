@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelTimer : MonoBehaviour
 {
-    public float timeLeft = 150f;
+    public float timeLeft = 150f; //1.5 mins
 
     [SerializeField] GameController gameController;
     [SerializeField] private TextMeshProUGUI timeText;
@@ -16,6 +17,8 @@ public class LevelTimer : MonoBehaviour
 
     private DroneMenuController droneMenuController;
     private OrderManager orderManager;
+
+    private MasterController masterController;
     
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class LevelTimer : MonoBehaviour
         orderManager = FindObjectOfType<OrderManager>();
         gameController = FindObjectOfType<GameController>();
         timeText = GetComponent<TextMeshProUGUI>();
+        
     }
 
     // Update is called once per frame
@@ -45,13 +49,13 @@ public class LevelTimer : MonoBehaviour
             {
                 timeLeft = 0;
                 timeText.text = Timer(timeLeft); //set timer text
-                EndOfLevel(); //testing only. to remove
+                gameController.EndOfLevel(); //testing only. to remove
                 isTimerFinished = true;
             }
             
 
         }
-        
+
     }
 
     private string Timer(float time) //handle timer text
@@ -87,9 +91,4 @@ public class LevelTimer : MonoBehaviour
         return endText;
     }
     
-    private void EndOfLevel() //testing purposes. shift to script handling level loading/ end of level stuff later
-    {
-        droneMenuController.StopAllProcesses();
-        orderManager.StopOrders();
-    }
 }

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : SceneController
 {
     public InputHandler inputHandler;
-    public DataManager dataManager;
     public GameObject player;
     private PointTracker pointTracker;
 
@@ -14,15 +13,20 @@ public class GameController : MonoBehaviour
     public int points = 0;
     public bool isGameLoopActive = false;
     public bool isPaused = true;
+
+    public bool levelEnded = false;
+
+    private DroneMenuController droneMenuController;
+    private OrderManager orderManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        dataManager = FindObjectOfType<DataManager>();
-        dataManager.LoadAllData();
         player = GameObject.FindWithTag("Player");
         inputHandler = FindObjectOfType<InputHandler>();
         pointTracker = FindObjectOfType<PointTracker>();
+        droneMenuController = FindObjectOfType<DroneMenuController>();
+        orderManager = FindObjectOfType<OrderManager>();
 
         StartGame(); //testing purposes, change to accomodate gameplay flow
 
@@ -31,7 +35,16 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //debug purposes
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            points += 20;
+            pointTracker.UpdatePointsUI(points);
+        }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            EndOfLevel();
+        }
     }
 
     public void StartGame()
@@ -61,6 +74,22 @@ public class GameController : MonoBehaviour
         pointTracker.UpdatePointsUI(points);
         // Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
 
+    }
+
+    public void EndOfLevel()
+    {
+        Debug.Log("Level has ended");
+        levelEnded = true;
+
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        player.GetComponent<PlayerMovement>().enabled = false;
+        player.GetComponent<PickUpObjs>().enabled = false;
+
+        droneMenuController.StopAllProcesses();
+        orderManager.StopOrders();
+
+        MasterController masterController = FindObjectOfType<MasterController>(); 
+        masterController.LoadEndOfLevelScene();
     }
 
 }

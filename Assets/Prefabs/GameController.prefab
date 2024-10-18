@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8401110993019278421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7452160647085251868}
+  - component: {fileID: 6021844194904603896}
+  - component: {fileID: 6500044771601651013}
+  - component: {fileID: 8601595962475290681}
+  - component: {fileID: 1759937766513900007}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7452160647085251868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401110993019278421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.6180487, y: 1.313987, z: 0.08255003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6021844194904603896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401110993019278421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c776fd31539ad4eb44cd8e29448e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 
+  inputHandler: {fileID: 0}
+  dataManager: {fileID: 0}
+  player: {fileID: 0}
+  gameStart: 0
+  points: 0
+  isGameLoopActive: 0
+  isPaused: 1
+  levelEnded: 0
+--- !u!114 &6500044771601651013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401110993019278421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9983b81e7b7dea439e3cf524611b6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 10
+  baseExpiryTime: 45
+  toUpdateOrderUI: 0
+  orderUI: {fileID: 0}
+--- !u!114 &8601595962475290681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401110993019278421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d810f6ad8a7a5468fca82aba6e7ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentOverloadCount: 0
+  maxOverloadCount: 10
+  minigamesToComplete: 0
+  completedMinigames: 0
+  slider:
+  - {fileID: 0}
+  - {fileID: 0}
+  sliderFill:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1759937766513900007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401110993019278421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfab8b28efe84254c89a39c1404e6073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

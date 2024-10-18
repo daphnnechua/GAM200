@@ -27,6 +27,9 @@ public static class Game
     private static StockStation stockStation;
     private static List<StockStation> stockStationList;
 
+    private static Levels level;
+    private static List<Levels> levelList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -242,4 +245,32 @@ public static class Game
 
 
     #endregion stock station
+    #region levels
+
+    public static Levels GetLevel()
+    {
+        return level;
+    }
+
+    public static void SetLevel(Levels aLevel)
+    {
+        level = aLevel;
+    }
+
+    public static void SetLevelList(List<Levels> aList)
+    {
+        levelList = aList;
+    }
+
+    public static List<Levels> GetLevelList()
+    {
+        return levelList;
+    }
+
+    public static Levels GetLevelByName(string name)
+    {
+        return levelList.Find(i => i.levelName == name);
+    }
+
+    #endregion levels
 }

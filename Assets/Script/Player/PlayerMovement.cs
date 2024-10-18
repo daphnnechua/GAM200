@@ -12,10 +12,12 @@ public class PlayerMovement : PlayerScript, InputReceiver
     public float movementSpeed = 1f;
     private Vector2 oriPos;
 
-    [SerializeField] private bool isFacingUp;
-    [SerializeField] private bool isFacingRight;
-    [SerializeField] private bool isFacingLeft;
-    [SerializeField] private bool isFacingDown;
+    [SerializeField] public bool isFacingUp;
+    [SerializeField] public bool isFacingRight;
+    [SerializeField] public bool isFacingLeft;
+    [SerializeField] public bool isFacingDown;
+
+    public bool isMoving = false;
 
     private float radius =5;
     private float semiCircleAngle = 90f;
@@ -50,6 +52,22 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
     private void UpdateFacingDirection()
     {
+        isMoving = false;
+        float movementInput = Input.GetAxis("Vertical") + Input.GetAxis("Horizontal");
+        if(movementInput<0)
+        {
+            movementInput *= -1;
+        }
+
+        if(movementInput>0)
+        {
+            isMoving = true;
+        }
+        else 
+        {
+            isMoving = false;
+        }
+
         if(Input.GetAxis("Vertical")>0)
         {
             isFacingUp = true;
@@ -57,6 +75,24 @@ public class PlayerMovement : PlayerScript, InputReceiver
             isFacingDown =false;
             isFacingLeft = false;
             isFacingRight = false;
+
+            if(Input.GetAxis("Horizontal") >0)
+            {
+                isFacingRight = true;
+
+                isFacingDown = false;
+                isFacingLeft = false;
+                isFacingUp = false;
+            }
+            else if(Input.GetAxis("Horizontal") <0)
+            {
+                isFacingLeft = true;
+
+                isFacingDown = false;
+                isFacingRight = false;
+                isFacingUp = false;
+
+            }
         }
         if(Input.GetAxis("Vertical")<0)
         {
@@ -64,7 +100,25 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
             isFacingUp = false;
             isFacingLeft = false;
-            isFacingRight = false;;
+            isFacingRight = false;
+
+            if(Input.GetAxis("Horizontal") >0)
+            {
+                isFacingRight = true;
+
+                isFacingDown = false;
+                isFacingLeft = false;
+                isFacingUp = false;
+            }
+            else if(Input.GetAxis("Horizontal") <0)
+            {
+                isFacingLeft = true;
+
+                isFacingDown = false;
+                isFacingRight = false;
+                isFacingUp = false;
+
+            }
         }
         if(Input.GetAxis("Horizontal") >0)
         {
@@ -73,6 +127,25 @@ public class PlayerMovement : PlayerScript, InputReceiver
             isFacingDown = false;
             isFacingLeft = false;
             isFacingUp = false;
+
+            if(Input.GetAxis("Vertical")>0)
+            {
+                isFacingUp = true;
+
+                isFacingDown =false;
+                isFacingLeft = false;
+                isFacingRight = false;
+
+            }
+            if(Input.GetAxis("Vertical")<0)
+            {
+                isFacingDown = true;
+
+                isFacingUp = false;
+                isFacingLeft = false;
+                isFacingRight = false;
+
+            }        
         }
         if(Input.GetAxis("Horizontal") <0)
         {
@@ -82,7 +155,27 @@ public class PlayerMovement : PlayerScript, InputReceiver
             isFacingRight = false;
             isFacingUp = false;
 
+            if(Input.GetAxis("Vertical")>0)
+            {
+                isFacingUp = true;
+
+                isFacingDown =false;
+                isFacingLeft = false;
+                isFacingRight = false;
+
+            }
+            if(Input.GetAxis("Vertical")<0)
+            {
+                isFacingDown = true;
+
+                isFacingUp = false;
+                isFacingLeft = false;
+                isFacingRight = false;
+
+            }        
+
         }
+        
     }
     public Vector2 FacingDirection()
     {
@@ -152,49 +245,83 @@ public class PlayerMovement : PlayerScript, InputReceiver
     //setting up player animation
     private void PlayerAnimation()
     {
-        float movementInput = Input.GetAxis("Vertical") + Input.GetAxis("Horizontal");
-        if(movementInput<0)
+        if(isMoving)
         {
-            movementInput*=-1; //always positive
+            anim.SetBool("IsMoving", true);
+            if(isFacingUp)
+            {
+                anim.SetBool("FacingUp", true);
+
+                anim.SetBool("FacingDown", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingRight", false);
+            }
+            else if(isFacingDown)
+            {
+                anim.SetBool("FacingDown", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingRight", false);
+            }
+            else if(isFacingRight)
+            {
+                anim.SetBool("FacingRight", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingDown", false);
+            }
+            else if(isFacingLeft)
+            {
+                anim.SetBool("FacingLeft", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingRight", false);
+                anim.SetBool("FacingDown", false);
+
+            }
         }
 
-        if(isFacingUp)
+        else
         {
-            anim.SetFloat("InputMovement", movementInput);
-            anim.SetBool("FacingUp", true);
+            anim.SetBool("IsMoving", false);
+            if(isFacingUp)
+            {
+                anim.SetBool("FacingUp", true);
 
-            anim.SetBool("FacingDown", false);
-            anim.SetBool("FacingLeft", false);
-            anim.SetBool("FacingRight", false);
+                anim.SetBool("FacingDown", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingRight", false);
+            }
+            else if(isFacingDown)
+            {
+                anim.SetBool("FacingDown", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingRight", false);
+            }
+            else if(isFacingRight)
+            {
+                anim.SetBool("FacingRight", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingLeft", false);
+                anim.SetBool("FacingDown", false);
+            }
+            else if(isFacingLeft)
+            {
+                anim.SetBool("FacingLeft", true);
+
+                anim.SetBool("FacingUp", false);
+                anim.SetBool("FacingRight", false);
+                anim.SetBool("FacingDown", false);
+
+            }
         }
-        if(isFacingDown)
-        {
-            anim.SetFloat("InputMovement", movementInput);
-            anim.SetBool("FacingDown", true);
 
-            anim.SetBool("FacingUp", false);
-            anim.SetBool("FacingLeft", false);
-            anim.SetBool("FacingRight", false);
-        }
-        if(isFacingRight)
-        {
-            anim.SetFloat("InputMovement", movementInput);
-            anim.SetBool("FacingRight", true);
-
-            anim.SetBool("FacingUp", false);
-            anim.SetBool("FacingLeft", false);
-            anim.SetBool("FacingDown", false);
-        }
-        if(isFacingLeft)
-        {
-            anim.SetFloat("InputMovement", movementInput);
-            anim.SetBool("FacingLeft", true);
-
-            anim.SetBool("FacingUp", false);
-            anim.SetBool("FacingRight", false);
-            anim.SetBool("FacingDown", false);
-
-        }
+        
     }
 }
 

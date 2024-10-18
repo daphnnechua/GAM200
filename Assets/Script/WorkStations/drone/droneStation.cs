@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DroneStation : MonoBehaviour
 {
-    private bool canAccessDrone;
     private RestockingController restockingController;
     private GameController gameController;
     private MaintenanceManager maintenanceManager;
@@ -30,6 +29,7 @@ public class DroneStation : MonoBehaviour
 
 
         player = GameObject.FindWithTag("Player");
+        // Debug.Log(player);
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class DroneStation : MonoBehaviour
             // Debug.Log("initializing...");
         }
 
-        if(Input.GetKeyDown(KeyCode.F) && canAccessDrone)
+        if(!gameController.levelEnded && Input.GetKeyDown(KeyCode.F) && player.GetComponent<PickUpObjs>().IsDroneStation())
         {
             droneMenu.SetActive(true);
             tabController.UpdateTabVisuals(0);
@@ -60,21 +60,6 @@ public class DroneStation : MonoBehaviour
         {
             CloseMenu();
         }    
-    }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            canAccessDrone = true;
-        }
-    }
-    void OnTriggerExit2D (Collider2D other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            canAccessDrone = false;
-        }
     }
 
     private void CloseMenu()

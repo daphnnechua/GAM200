@@ -16,6 +16,8 @@ public class DataManager : MonoBehaviour
     public List<PlateGraphics> plateGrahpicsList = new List<PlateGraphics>();
     public List<StockStation> stockStationsList = new List<StockStation>();
 
+    public List<Levels> levelsList = new List<Levels>();
+
     public void LoadAllData() //called at the start of game 
     {
         LoadIngredients();
@@ -25,6 +27,7 @@ public class DataManager : MonoBehaviour
         LoadMinigames();
         LoadPlateGraphics();
         LoadStockStations();
+        LoadLevels();
     }
 
     #region Ingredients
@@ -226,4 +229,30 @@ public class DataManager : MonoBehaviour
 
 
     #endregion stock station
+
+    #region Levels
+    public void LoadLevels()
+    {
+        string filePath = Application.streamingAssetsPath + "/Levels.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {','});
+
+            RefLevels refData = new RefLevels();
+            refData.levelNumber = columnData[0];
+            refData.levelName = columnData[1];
+            refData.description = columnData[2];
+
+            Levels level = new Levels(refData.levelNumber, refData.levelName, refData.description);
+
+            levelsList.Add(level);
+
+            Game.SetLevelList(levelsList);
+
+        }
+    }
+
+    #endregion Levels
 }

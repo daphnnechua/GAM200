@@ -1,0 +1,7 @@
+level,levelName,remarks
+0,Tutorial,Introduce core gameplay + cutting
+1,Level_1,"Normal gameplay (Recipe focus: tomato salad, shrimp salad)"
+1.5,Mini_Tut_01,Introduce baking
+2,Level_2,"Normal gameplay (Recipe focus: cheese pizza, pepperoni pizza)"
+2.5,Mini_Tut_02,Introduce frying
+3,Level_3,Normal gameplay (Recipe focus: hamburger)

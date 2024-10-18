@@ -16,6 +16,7 @@ public class CuttingStation : MonoBehaviour
     private PickUpObjs pickUpObjs;
 
     private IngredientManager ingredientManager;
+    private GameController gameController;
     public bool ingredientOnStation = true;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class CuttingStation : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         rb  = player.GetComponent<Rigidbody2D>();
         pickUpObjs = player.GetComponent<PickUpObjs>();
+        gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class CuttingStation : MonoBehaviour
             }
             
         }
-        if(Input.GetKeyUp(KeyCode.E))
+        if(!gameController.levelEnded && Input.GetKeyUp(KeyCode.E))
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }

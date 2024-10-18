@@ -19,8 +19,6 @@ public class PickUpObjs : MonoBehaviour
 
     public bool isTrashCan = false;
 
-    public bool isDrone = false;
-
 
     private Trash trashScript;
     private Plate plateScript;
@@ -45,6 +43,19 @@ public class PickUpObjs : MonoBehaviour
     void Update()
     {
         dir = playerMovement.FacingDirection();
+
+        if(isHoldingObj && objHeld != null)
+        {
+            if(!playerMovement.isFacingUp)
+            {
+                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            }
+            else if(playerMovement.isFacingUp)
+            {
+                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
+        }
+        
         // Debug.Log(closestObj);
         // Collider2D[] nearbyIngredients = Physics2D.OverlapCircleAll(transform.position + dir, 0.75f, pickUpMask); //all nearby ingredients
 
@@ -83,16 +94,17 @@ public class PickUpObjs : MonoBehaviour
 
     private void PutDownIngredient()
     {
-        if(!isDrone)
+        if(!IsDroneStation())
         {
             IngredientsAssembly();
             
-            Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
+            Vector2 placePosition = transform.position + dir; ///calculation --> area around player
 
-            Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
+            Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.25f, pickUpMask); // Check within a small area
 
             if (colliderAtPosition != null) //if there is something at where the obj is supposed to be placed
             {
+                Debug.Log(colliderAtPosition);
                 return; // Do not place the obj
             }
 
@@ -101,7 +113,11 @@ public class PickUpObjs : MonoBehaviour
                 // dir = new Vector2(0, -1f);
                 objHeld.transform.position = transform.position + dir;
                 objHeld.transform.parent = null;
+
+
                 objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+
                 if(objHeld.CompareTag("Plate"))
                 {
                     plateScript = objHeld.GetComponent<Plate>();
@@ -113,7 +129,7 @@ public class PickUpObjs : MonoBehaviour
                     objHeld.GetComponent<Rigidbody2D>().simulated = true;
                 }
                 objHeld = null;
-                dir = new Vector2(0, 0);
+                isHoldingObj = false;
             }
             else if(isServingStation && objHeld.CompareTag("Plate"))
             {
@@ -136,45 +152,74 @@ public class PickUpObjs : MonoBehaviour
                         objHeld.GetComponent<Rigidbody2D>().simulated = true;
                     }
                     objHeld = null;
-                    dir = new Vector2(0, 0);
+                    isHoldingObj = false;
                 }
             }
-            else if(accessTable && IsCounterOccupied() || isStockStation) //station or counter top is occupied --> cannot place down
+            else if(accessTable) //station or counter top is occupied --> cannot place down
             {
-                return;
-            }
-            else if(accessTable && !IsCounterOccupied()) //accessing empty table or station
-            {
-                if(isCuttingStation && objHeld.CompareTag("Plate"))
+                Collider2D nearestObj = Physics2D.OverlapCircle(placePosition, 0.1f); //check the place where player is facing
+                if(colliderAtPosition==null && nearestObj == null) //right beside the table, and facing away from it, and there is nothing at where playeer is facing
                 {
-                    return; //do not place plate down on cutting station
-                }
-                if(closestObj && playerMovement.IsObjectInteractable(closestObj.transform))
-                {
-                    if(objHeld.CompareTag("Plate")) //if holding plate and table is empty, place plate down
+                    objHeld.transform.position = transform.position + dir;
+                    objHeld.transform.parent = null;
+
+
+                    objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+
+                    if(objHeld.CompareTag("Plate"))
                     {
                         plateScript = objHeld.GetComponent<Plate>();
                         plateScript.isHoldingPlate = false;
                     }
-                    objHeld.transform.position = closestObj.position;
-                    objHeld.transform.parent = null;
-                    objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
                     if(objHeld.GetComponent<Rigidbody2D>())
                     {
-                        objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                         objHeld.GetComponent<Rigidbody2D>().simulated = true;
-
                     }
-
                     objHeld = null;
+                    isHoldingObj = false;
                 }
+                else if(IsCounterOccupied() || isStockStation)
+                {
+                    return;
+                }
+                else if(!IsCounterOccupied())
+                {
+                    if(isCuttingStation && objHeld.CompareTag("Plate"))
+                    {
+                        return; //do not place plate down on cutting station
+                    }
+                    if(closestObj && playerMovement.IsObjectInteractable(closestObj.transform))
+                    {
+                        if(objHeld.CompareTag("Plate")) //if holding plate and table is empty, place plate down
+                        {
+                            plateScript = objHeld.GetComponent<Plate>();
+                            plateScript.isHoldingPlate = false;
+                        }
+                        objHeld.transform.position = closestObj.position;
+                        objHeld.transform.parent = null;
+                        objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+                        if(objHeld.GetComponent<Rigidbody2D>())
+                        {
+                            objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                            objHeld.GetComponent<Rigidbody2D>().simulated = true;
+
+                        }
+
+                        objHeld = null;
+                        isHoldingObj = false;
+                    }
+                
+                }
+                else if(isTrashCan && playerMovement.IsObjectInteractable(closestObj.transform)) //accessing trash can
+                {
+                    trashScript.TrashIngredient(objHeld);
+                    isHoldingObj = false;
+                }   
             }
-            else if(isTrashCan && playerMovement.IsObjectInteractable(closestObj.transform)) //accessing trash can
-            {
-                trashScript.TrashIngredient(objHeld);
-            }   
-            isHoldingObj = false;
+            
 
         }
     }
@@ -228,12 +273,13 @@ public class PickUpObjs : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
     private void PickUpAllObjs()
     {
-        if(!isDrone)
+        if(!IsDroneStation())
         {
             if (isStockStation && closestObj.gameObject.CompareTag("StockStation") && !objHeld && playerMovement.IsObjectInteractable(closestObj.transform)) // If player is interacting with a StockStation
             {
@@ -273,7 +319,6 @@ public class PickUpObjs : MonoBehaviour
                 plateScript.isHoldingPlate = true;
             }
             objHeld.transform.position = objPlacement.position;
-            objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
 
             objHeld.transform.parent = transform;
 
@@ -317,8 +362,7 @@ public class PickUpObjs : MonoBehaviour
                 }
                 objHeld.transform.position = objPlacement.position;
                 objHeld.transform.parent = transform;
-                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                
+
                 if(objHeld.GetComponent<Rigidbody2D>())
                 {
                     objHeld.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
@@ -333,6 +377,10 @@ public class PickUpObjs : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 1f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position + dir, 0.25f);
+
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -349,7 +397,7 @@ public class PickUpObjs : MonoBehaviour
             isTrashCan = false;
 
 
-            if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation") || other.CompareTag("droneStation"))
+            if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation"))
             {
                 accessTable = true;
                 // tableTopPos = other.transform;
@@ -369,11 +417,6 @@ public class PickUpObjs : MonoBehaviour
                     isServingStation = true;
                 }
 
-                if(other.CompareTag("droneStation"))
-                {
-                    isDrone = true;
-                }
-
             }
 
             if(other.CompareTag("TrashCan"))
@@ -384,16 +427,31 @@ public class PickUpObjs : MonoBehaviour
 
     }
 
+    public bool IsDroneStation()
+    {
+        Vector2 interactionArea = transform.position + dir;
+        Collider2D interact = Physics2D.OverlapCircle(interactionArea, 0.25f);
+        if(interact ==null)
+        {
+            return false;
+        }
+        else if(interact!=null && interact.gameObject.CompareTag("droneStation"))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") || other.CompareTag("TrashCan") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation") || other.CompareTag("droneStation"))
+        if(other.CompareTag("TableTop") || other.CompareTag("CuttingStation") || other.CompareTag("TrashCan") ||other.CompareTag("StockStation") || other.CompareTag("ServingStation"))
         {
             accessTable = false;
             isCuttingStation = false;
             isTrashCan = false;
             isStockStation = false;
             isServingStation = false;
-            isDrone = false;
         }
 
         closestObj = null;
