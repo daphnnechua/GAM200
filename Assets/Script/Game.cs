@@ -143,6 +143,20 @@ public static class Game
         return recipeList;
     }
 
+    public static List<Recipe> GetUnlockedRecipeListByScenes(string sceneName)
+    {
+        List<Recipe> unlockedRecipes = new List<Recipe>();
+        List<Recipe> allRecipes = GetRecipeList();
+        for(int i =0; i<allRecipes.Count; i++)
+        {
+            if(allRecipes[i].unlockedInScenes.Contains(sceneName))
+            {
+                unlockedRecipes.Add(allRecipes[i]);
+            }
+        }
+        return unlockedRecipes;
+    }
+
     public static Recipe GetRecipeByID(string ID)
     {
         return recipeList.Find(i => i.recipeID == ID);

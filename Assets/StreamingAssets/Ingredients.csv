@@ -1,8 +1,15 @@
-causeActionID,prevStateID,ingredientID,name,canCut,canCook,isReady,prefabPath,imageFilePath
-null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,Ingredients/Lettuce,Food Assets/Ingredients/lettuce
-ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,TRUE,Ingredients/Lettuce_Cut,Food Assets/Ingredients/cut_lettuce
-null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,Ingredients/Tomato,Food Assets/Ingredients/tomato
-ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,Ingredients/Tomato_Cut,Food Assets/Ingredients/tomato_cut
-null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,Ingredients/Shrimp,Food Assets/Ingredients/shrimp
-ACT_1,INGR_5,INGR_6,Sashimi,FALSE,TRUE,TRUE,Ingredients/Sashimi,Food Assets/Ingredients/cut_shrimp
-ACT_2,INGR_6,INGR_7,Fried shrimp,FALSE,FALSE,TRUE,Ingredients/Fried_Shrimp,
+causeActionID,prevStateID,ingredientID,name,canCut,canFry,canBoil,isReady,prefabPath,imageFilePath
+null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,FALSE,Ingredients/Lettuce,Food Assets/Ingredients/lettuce
+ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,FALSE,TRUE,Ingredients/Lettuce_Cut,Food Assets/Ingredients/cut_lettuce
+null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,FALSE,Ingredients/Tomato,Food Assets/Ingredients/tomato
+ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,TRUE,Ingredients/Tomato_Cut,Food Assets/Ingredients/tomato_cut
+null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,FALSE,Ingredients/Shrimp,Food Assets/Ingredients/shrimp
+ACT_1,INGR_5,INGR_6,Cut Shrimp,FALSE,FALSE,FALSE,TRUE,Ingredients/Sashimi,Food Assets/Ingredients/cut_shrimp
+ACT_2,null,INGR_7,Mushroom,TRUE,FALSE,FALSE,FALSE,,
+ACT_4,INGR_7,INGR_8,Cut Mushroom,FALSE,FALSE,TRUE,TRUE,,
+null,null,INGR_9,Cheese,TRUE,FALSE,FALSE,FALSE,,
+ACT_1,INGR_9,INGR_10,Cut Cheese,FALSE,FALSE,FALSE,TRUE,,
+null,null,INGR_11,Meat,TRUE,FALSE,FALSE,FALSE,,
+ACT_1,INGR_11,INGR_12,Minced Meat,FALSE,TRUE,FALSE,FALSE,,
+null,null,INGR_13,Bread,TRUE,FALSE,FALSE,FALSE,,
+ACT_1,INGR_13,INGR_14,Cut Bread,FALSE,FALSE,FALSE,TRUE,,

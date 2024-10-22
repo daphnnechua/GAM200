@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Plate : MonoBehaviour
 {
-    private List<string> ingredientsOnPlateIDs = new List<string>(); //store ingredient ids on plate
+    public List<string> ingredientsOnPlateIDs = new List<string>(); //store ingredient ids on plate
     private List<GameObject> ingredientsOnPlate = new List<GameObject>(); 
     public bool readyToServe = false;
     public Recipe currentRecipe;

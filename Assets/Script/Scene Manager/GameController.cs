@@ -18,10 +18,18 @@ public class GameController : SceneController
 
     private DroneMenuController droneMenuController;
     private OrderManager orderManager;
+
+    //testing purposes
+    public DataManager dataManager;
+
     
     // Start is called before the first frame update
     void Start()
     {
+        //testing purposes
+        dataManager = FindObjectOfType<DataManager>();
+        dataManager.LoadAllData();
+
         player = GameObject.FindWithTag("Player");
         inputHandler = FindObjectOfType<InputHandler>();
         pointTracker = FindObjectOfType<PointTracker>();
@@ -45,6 +53,8 @@ public class GameController : SceneController
         {
             EndOfLevel();
         }
+
+        
     }
 
     public void StartGame()
@@ -82,8 +92,7 @@ public class GameController : SceneController
         levelEnded = true;
 
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        player.GetComponent<PlayerMovement>().enabled = false;
-        player.GetComponent<PickUpObjs>().enabled = false;
+        player.GetComponent<PlayerMovement>().canMove = false;
 
         droneMenuController.StopAllProcesses();
         orderManager.StopOrders();

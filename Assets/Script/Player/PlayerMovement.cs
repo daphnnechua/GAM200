@@ -12,13 +12,15 @@ public class PlayerMovement : PlayerScript, InputReceiver
     public float movementSpeed = 1f;
     private Vector2 oriPos;
 
+    private Vector2 movePos;
+
     [SerializeField] public bool isFacingUp;
     [SerializeField] public bool isFacingRight;
     [SerializeField] public bool isFacingLeft;
     [SerializeField] public bool isFacingDown;
 
     public bool isMoving = false;
-
+    public bool canMove = true;
     private float radius =5;
     private float semiCircleAngle = 90f;
     void Start()
@@ -45,88 +47,30 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
         oriPos.Normalize();
 
-        Vector2 movePos = rb.position + oriPos*movementSpeed*Time.fixedDeltaTime; //player movement calculation
+        movePos = rb.position + oriPos*movementSpeed*Time.fixedDeltaTime; //player movement calculation
         rb.MovePosition(movePos); //move player
         UpdateFacingDirection();
     }
 
     private void UpdateFacingDirection()
     {
-        isMoving = false;
-        float movementInput = Input.GetAxis("Vertical") + Input.GetAxis("Horizontal");
-        if(movementInput<0)
-        {
-            movementInput *= -1;
-        }
-
-        if(movementInput>0)
-        {
-            isMoving = true;
-        }
-        else 
+        if(canMove)
         {
             isMoving = false;
-        }
-
-        if(Input.GetAxis("Vertical")>0)
-        {
-            isFacingUp = true;
-
-            isFacingDown =false;
-            isFacingLeft = false;
-            isFacingRight = false;
-
-            if(Input.GetAxis("Horizontal") >0)
+            float movementInput = Input.GetAxis("Vertical") + Input.GetAxis("Horizontal");
+            if(movementInput<0)
             {
-                isFacingRight = true;
-
-                isFacingDown = false;
-                isFacingLeft = false;
-                isFacingUp = false;
+                movementInput *= -1;
             }
-            else if(Input.GetAxis("Horizontal") <0)
+
+            if(movementInput>0)
             {
-                isFacingLeft = true;
-
-                isFacingDown = false;
-                isFacingRight = false;
-                isFacingUp = false;
-
+                isMoving = true;
             }
-        }
-        if(Input.GetAxis("Vertical")<0)
-        {
-            isFacingDown = true;
-
-            isFacingUp = false;
-            isFacingLeft = false;
-            isFacingRight = false;
-
-            if(Input.GetAxis("Horizontal") >0)
+            else 
             {
-                isFacingRight = true;
-
-                isFacingDown = false;
-                isFacingLeft = false;
-                isFacingUp = false;
+                isMoving = false;
             }
-            else if(Input.GetAxis("Horizontal") <0)
-            {
-                isFacingLeft = true;
-
-                isFacingDown = false;
-                isFacingRight = false;
-                isFacingUp = false;
-
-            }
-        }
-        if(Input.GetAxis("Horizontal") >0)
-        {
-            isFacingRight = true;
-
-            isFacingDown = false;
-            isFacingLeft = false;
-            isFacingUp = false;
 
             if(Input.GetAxis("Vertical")>0)
             {
@@ -136,6 +80,23 @@ public class PlayerMovement : PlayerScript, InputReceiver
                 isFacingLeft = false;
                 isFacingRight = false;
 
+                if(Input.GetAxis("Horizontal") >0)
+                {
+                    isFacingRight = true;
+
+                    isFacingDown = false;
+                    isFacingLeft = false;
+                    isFacingUp = false;
+                }
+                else if(Input.GetAxis("Horizontal") <0)
+                {
+                    isFacingLeft = true;
+
+                    isFacingDown = false;
+                    isFacingRight = false;
+                    isFacingUp = false;
+
+                }
             }
             if(Input.GetAxis("Vertical")<0)
             {
@@ -145,35 +106,79 @@ public class PlayerMovement : PlayerScript, InputReceiver
                 isFacingLeft = false;
                 isFacingRight = false;
 
-            }        
-        }
-        if(Input.GetAxis("Horizontal") <0)
-        {
-            isFacingLeft = true;
+                if(Input.GetAxis("Horizontal") >0)
+                {
+                    isFacingRight = true;
 
-            isFacingDown = false;
-            isFacingRight = false;
-            isFacingUp = false;
+                    isFacingDown = false;
+                    isFacingLeft = false;
+                    isFacingUp = false;
+                }
+                else if(Input.GetAxis("Horizontal") <0)
+                {
+                    isFacingLeft = true;
 
-            if(Input.GetAxis("Vertical")>0)
+                    isFacingDown = false;
+                    isFacingRight = false;
+                    isFacingUp = false;
+
+                }
+            }
+            if(Input.GetAxis("Horizontal") >0)
             {
-                isFacingUp = true;
+                isFacingRight = true;
 
-                isFacingDown =false;
+                isFacingDown = false;
                 isFacingLeft = false;
+                isFacingUp = false;
+
+                if(Input.GetAxis("Vertical")>0)
+                {
+                    isFacingUp = true;
+
+                    isFacingDown =false;
+                    isFacingLeft = false;
+                    isFacingRight = false;
+
+                }
+                if(Input.GetAxis("Vertical")<0)
+                {
+                    isFacingDown = true;
+
+                    isFacingUp = false;
+                    isFacingLeft = false;
+                    isFacingRight = false;
+
+                }        
+            }
+            if(Input.GetAxis("Horizontal") <0)
+            {
+                isFacingLeft = true;
+
+                isFacingDown = false;
                 isFacingRight = false;
+                isFacingUp = false;
+
+                if(Input.GetAxis("Vertical")>0)
+                {
+                    isFacingUp = true;
+
+                    isFacingDown =false;
+                    isFacingLeft = false;
+                    isFacingRight = false;
+
+                }
+                if(Input.GetAxis("Vertical")<0)
+                {
+                    isFacingDown = true;
+
+                    isFacingUp = false;
+                    isFacingLeft = false;
+                    isFacingRight = false;
+
+                }        
 
             }
-            if(Input.GetAxis("Vertical")<0)
-            {
-                isFacingDown = true;
-
-                isFacingUp = false;
-                isFacingLeft = false;
-                isFacingRight = false;
-
-            }        
-
         }
         
     }

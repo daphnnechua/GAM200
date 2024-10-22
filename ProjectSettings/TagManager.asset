@@ -26,6 +26,9 @@ TagManager:
   - BugDestroyer
   - Bug
   - Minigame
+  - Stove
+  - FryingPan
+  - Pot
   layers:
   - Default
   - TransparentFX

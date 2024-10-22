@@ -168,8 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b4183d7912ce44c94b5c77254920e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstScene: SampleScene
+  dataManager: {fileID: 0}
+  firstScene: Tutorial
   endLevelScene: End_Level
+  startMenuScene: Start_Menu
 --- !u!114 &751841291
 MonoBehaviour:
   m_ObjectHideFlags: 0

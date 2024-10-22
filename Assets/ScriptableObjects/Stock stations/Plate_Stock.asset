@@ -16,4 +16,4 @@ MonoBehaviour:
   objType: Plate
   prefab: {fileID: 7373545082658842854, guid: c2a9649ea497b62459f9d2e5ecb40048, type: 3}
   ingredientID: 
-  prefabName: Plate
+  prefabName: KitchenEquipment/Plate

@@ -13,10 +13,9 @@ public class IngredientSO : ScriptableObject
     public string ingredientID;
     public string ingredientName;
     public bool canCut;
-    public bool canCook;
+    public bool canFry;
+    public bool canBoil;
     public bool isReady;
-    public GameObject ingredientPrefab;
-
     public string imageName;
 
 

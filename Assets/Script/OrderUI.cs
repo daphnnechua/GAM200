@@ -70,7 +70,7 @@ public class OrderUI : MonoBehaviour
         TextMeshProUGUI recipeName = newOrderUI.GetComponentInChildren<TextMeshProUGUI>();
         recipeName.text = $"{recipe.recipeName}";
         
-        if(recipe.ingredientIDs.Length >1)
+        if(recipe.ingredientIDs.Length >0)
         {
             List<Image> ingredientImgs = new List<Image>();
             GameObject ingredients = requiredIngredientsRoot.transform.Find("Ingredient Image").gameObject;

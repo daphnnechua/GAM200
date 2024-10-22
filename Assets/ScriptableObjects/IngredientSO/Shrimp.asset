@@ -17,7 +17,7 @@ MonoBehaviour:
   ingredientID: INGR_5
   ingredientName: Shrimp
   canCut: 1
-  canCook: 0
+  canFry: 0
+  canBoil: 1
   isReady: 0
-  ingredientPrefab: {fileID: 3720659863476319673, guid: b7549dfb25fe1814e95e694ba88cd2e7, type: 3}
   imageName: Food Assets/Ingredients/shrimp

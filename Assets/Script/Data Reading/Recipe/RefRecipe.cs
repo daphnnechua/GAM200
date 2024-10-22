@@ -8,7 +8,7 @@ public class RefRecipe
     public string recipeName;
     public string[] ingredientIDs;
     public int reward;
-    public float expiryTimer;
+    public string[] unlockedInScenes;
     public string imageFilePath;
     
 }

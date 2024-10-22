@@ -8,13 +8,18 @@ public class MasterController : MonoBehaviour
     private SceneController currentController;
     public DataManager dataManager;
 
+    private GameController gameController;
 
     private string currentSceneName;
 
-    public string firstScene = "SampleScene";
+    public string firstScene = "Tutorial";
     public string endLevelScene = "End_Level";
 
     public string startMenuScene = "Start_Menu";
+
+    private List<string> allOpenSceneNames = new List<string>();
+
+    private bool pauseMenuOpen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +39,33 @@ public class MasterController : MonoBehaviour
         {
             RestartLevel();
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameController = FindObjectOfType<GameController>();
+            if(gameController!=null)
+            {
+                if(!gameController.isPaused)
+                {
+                    PauseGame();
+                }
+                else if(gameController.isPaused && allOpenSceneNames.Count==2) //only the level and pause screen is open
+                {
+                    UnpauseGame();
+                }
+            }
+        }
+
+        if(pauseMenuOpen)
+        {
+            Time.timeScale = 0f;
+        }
+        else if(!pauseMenuOpen)
+        {
+            Time.timeScale = 1f;
+        }
     }
 
+    #region scene loading/ unloading
     public void LoadScene(string aScene)
     {
         // string firstLevel = Game.GetLevelList()[0].levelName; //this is tutorial
@@ -70,10 +100,12 @@ public class MasterController : MonoBehaviour
                 }
             }
         };
+        allOpenSceneNames.Add(aScene);
     }
 
     public void LoadNextLevel()
     {
+        pauseMenuOpen = false;
         RemoveScene(endLevelScene);
         RemoveScene(currentSceneName);
 
@@ -82,39 +114,95 @@ public class MasterController : MonoBehaviour
         levelIndex++;
         
         LoadScene(Game.GetLevelList()[levelIndex].levelName);
+        
     }
 
     public void RemoveScene(string aScene)
     {
-            Scene sceneToRemove = SceneManager.GetSceneByName(aScene);
+        Scene sceneToRemove = SceneManager.GetSceneByName(aScene);
     
-            if (sceneToRemove.IsValid() && sceneToRemove.isLoaded)
-            {
-                SceneManager.UnloadSceneAsync(aScene);
-            }
+        if (sceneToRemove.IsValid() && sceneToRemove.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(aScene);
+            allOpenSceneNames.Remove(aScene);
+        }
     }
 
     public void RestartLevel()
     {
         if (currentController != null)
-        {            
-            RemoveScene(endLevelScene);
+        {   
+            pauseMenuOpen = false;
+            List<string> scenesToClose = new List<string>();
+            foreach(string name in allOpenSceneNames)
+            {
+                scenesToClose.Add(name);
+            }
+            foreach(string name in scenesToClose)
+            {
+                RemoveScene(name);
+            }
 
             LoadScene(currentSceneName);
+            
         }
+        
     }
 
     public void LoadEndOfLevelScene()
     {
+        pauseMenuOpen = false;
         SceneManager.LoadSceneAsync(endLevelScene, LoadSceneMode.Additive);
+        allOpenSceneNames.Add(endLevelScene);
+        
     }
 
     public void QuitToStart()
     {
-        RemoveScene(endLevelScene);
-        RemoveScene(currentSceneName);
+        pauseMenuOpen = false;
+        List<string> scenesToClose = new List<string>();
+        foreach(string name in allOpenSceneNames)
+        {
+            scenesToClose.Add(name);
+        }
+        foreach(string name in scenesToClose)
+        {
+            RemoveScene(name);
+        }
 
         LoadScene(startMenuScene);
+        
     }
 
+    public void PauseGame()
+    {
+        List<Levels> allLevels = Game.GetLevelList();
+        foreach(var level in allLevels)
+        {
+            if(level.levelName == currentSceneName)
+            {
+                SceneManager.LoadSceneAsync("Pause_Menu", LoadSceneMode.Additive);
+                allOpenSceneNames.Add("Pause_Menu");
+                if(gameController!=null)
+                {
+                    gameController.isPaused = true;
+                }
+                break;
+            }
+        }
+        pauseMenuOpen = true;
+    }
+
+    public void UnpauseGame()
+    {
+        RemoveScene("Pause_Menu");
+        if(gameController!=null)
+        {
+            gameController.isPaused = false;
+        }
+        pauseMenuOpen = false;
+    }
+    #endregion scene loading/ unloading
+
+    
 }

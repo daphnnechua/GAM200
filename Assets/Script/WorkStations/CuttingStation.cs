@@ -16,6 +16,7 @@ public class CuttingStation : MonoBehaviour
     private PickUpObjs pickUpObjs;
 
     private IngredientManager ingredientManager;
+    private PlayerMovement playerMovement;
     private GameController gameController;
     public bool ingredientOnStation = true;
 
@@ -26,6 +27,7 @@ public class CuttingStation : MonoBehaviour
         rb  = player.GetComponent<Rigidbody2D>();
         pickUpObjs = player.GetComponent<PickUpObjs>();
         gameController = FindObjectOfType<GameController>();
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class CuttingStation : MonoBehaviour
             if(Input.GetKey(KeyCode.E))
             {
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                playerMovement.canMove = false;
                 CutIngredient();
             }
             
@@ -43,6 +46,7 @@ public class CuttingStation : MonoBehaviour
         if(!gameController.levelEnded && Input.GetKeyUp(KeyCode.E))
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerMovement.canMove = true;
         }
         if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
         {
@@ -79,6 +83,7 @@ public class CuttingStation : MonoBehaviour
     private void CompleteCutting()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerMovement.canMove = true;
         
         if (ingredientObj != null)
         {

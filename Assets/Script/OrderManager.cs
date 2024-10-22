@@ -48,8 +48,12 @@ public class OrderManager : MonoBehaviour
     {
         if(activeOrders.Count < 5)
         {
-            int random = Random.Range(0, Game.GetRecipeList().Count);
-            Recipe newOrderRecipe = Game.GetRecipeList()[random];
+            int random = Random.Range(0, Game.GetUnlockedRecipeListByScenes(gameController.sceneName).Count);
+            // foreach(var e in Game.GetUnlockedRecipeListByScenes(gameController.sceneName))
+            // {
+            //     Debug.Log($"available recipe in {gameController.sceneName}: {e.recipeName}");
+            // }
+            Recipe newOrderRecipe = Game.GetUnlockedRecipeListByScenes(gameController.sceneName)[random];
 
             float refBaseTimer = baseExpiryTime; 
 

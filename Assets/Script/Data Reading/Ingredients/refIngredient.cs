@@ -13,7 +13,9 @@ public class refIngredient
 
     public bool canCUt;
 
-    public bool canCook;
+    public bool canFry;
+
+    public bool canBoil;
 
     public bool isReady;
 

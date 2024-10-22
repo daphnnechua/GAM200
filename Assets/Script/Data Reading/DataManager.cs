@@ -47,12 +47,13 @@ public class DataManager : MonoBehaviour
             refData.IngredientID = columnData[2];
             refData.name = columnData[3];
             refData.canCUt = columnData[4].ToLower() == "true";
-            refData.canCook = columnData[5].ToLower() == "true";
-            refData.isReady = columnData[6].ToLower() == "true";
-            refData.prefabPath = columnData[7];
-            refData.imageFilePath = columnData[8];
+            refData.canFry = columnData[5].ToLower() == "true";
+            refData.canBoil = columnData[6].ToLower() == "true";
+            refData.isReady = columnData[7].ToLower() == "true";
+            refData.prefabPath = columnData[8];
+            refData.imageFilePath = columnData[9];
 
-            Ingredient ingredient = new Ingredient(refData.causeID, refData.prevStateID, refData.IngredientID, refData.name, refData.canCUt, refData.canCook, refData.isReady, refData.prefabPath, refData.imageFilePath);
+            Ingredient ingredient = new Ingredient(refData.causeID, refData.prevStateID, refData.IngredientID, refData.name, refData.canCUt, refData.canFry, refData.canBoil, refData.isReady, refData.prefabPath, refData.imageFilePath);
 
             ingredients.Add(ingredient);
 
@@ -136,10 +137,10 @@ public class DataManager : MonoBehaviour
             refData.recipeName = columnData[1];
             refData.ingredientIDs = columnData[2].Split('@');
             refData.reward = int.Parse(columnData[3]);
-            refData.expiryTimer = float.Parse(columnData[4]);
+            refData.unlockedInScenes = columnData[4].Split('@');
             refData.imageFilePath = columnData[5];
 
-            Recipe recipe = new Recipe(refData.recipeID, refData.recipeName, refData.ingredientIDs, refData.reward, refData.expiryTimer, refData.imageFilePath);
+            Recipe recipe = new Recipe(refData.recipeID, refData.recipeName, refData.ingredientIDs, refData.reward, refData.unlockedInScenes, refData.imageFilePath);
 
             recipes.Add(recipe);
 
