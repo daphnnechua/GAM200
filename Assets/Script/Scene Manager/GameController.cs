@@ -16,6 +16,8 @@ public class GameController : SceneController
 
     public bool levelEnded = false;
 
+    public bool viewingTutorialManual = false;
+
     private DroneMenuController droneMenuController;
     private OrderManager orderManager;
 

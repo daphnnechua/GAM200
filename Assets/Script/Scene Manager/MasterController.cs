@@ -19,7 +19,7 @@ public class MasterController : MonoBehaviour
 
     private List<string> allOpenSceneNames = new List<string>();
 
-    private bool pauseMenuOpen = false;
+    public bool pauseMenuOpen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class MasterController : MonoBehaviour
         {
             RestartLevel();
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !gameController.viewingTutorialManual)
         {
             gameController = FindObjectOfType<GameController>();
             if(gameController!=null)

@@ -23,7 +23,7 @@ public class DroneStation : MonoBehaviour
         closeButton.onClick.AddListener(()=> CloseMenu());
 
         restockingController = FindObjectOfType<RestockingController>();
-        tabController = FindObjectOfType<TabController>();
+        
         maintenanceManager = FindObjectOfType<MaintenanceManager>();
         gameController = FindObjectOfType<GameController>();
 
@@ -50,8 +50,10 @@ public class DroneStation : MonoBehaviour
         if(!gameController.levelEnded && Input.GetKeyDown(KeyCode.F) && player.GetComponent<PickUpObjs>().IsDroneStation())
         {
             droneMenu.SetActive(true);
-            tabController.UpdateTabVisuals(0);
             isinteracting = true;
+            tabController = FindObjectOfType<TabController>();
+            tabController.UpdateTabVisuals(0);
+            
             
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; //do not move while menu is open
 
