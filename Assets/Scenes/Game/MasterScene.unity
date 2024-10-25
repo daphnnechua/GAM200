@@ -169,9 +169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 0}
-  firstScene: Tutorial
+  firstScene: cutscene_01
   endLevelScene: End_Level
   startMenuScene: Start_Menu
+  pauseMenuOpen: 0
 --- !u!114 &751841291
 MonoBehaviour:
   m_ObjectHideFlags: 0

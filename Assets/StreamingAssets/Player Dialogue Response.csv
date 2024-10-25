@@ -1,0 +1,16 @@
+triggerID;playerDialogueID;dialogue;dialogueType;nextSceneName;currentSceneName
+D064;P001;(Yes, I really need it!);Tutorial_Initation;Tutorial;cutscene_01
+D064;P002;(I think I'm fine.);Tutorial_Initation;Level_1;cutscene_01
+D078@D084@D094@D102@D120;P003;About the orders...;Tutorial_Type;;Tutorial
+D078@D084@D094@D102@D120;P004;About the ingredients...;Tutorial_Type;;Tutorial
+D078@D084@D094@D102@D120;P005;About the cutting station...;Tutorial_Type;;Tutorial
+D078@D084@D094@D102@D120;P006;About the drone...;Tutorial_Type;;Tutorial
+D078@D084@D094@D102@D120@D152@D158@D163@D202@D209;P007;Nope. I just wanted to bother you.;Tutorial_Type;;Tutorial@Mini_Tut_01@Mini_Tut_02
+D078@D084@D094@D102@D120@D152@D158@D163@D202@D209;P008;Let's call it a day.;Tutorial_End;Level_1;Tutorial@Mini_Tut_01@Mini_Tut_02
+D147;P009;(Yeah...I should really do that.);Tutorial_Initation;Mini_Tut_01;cutscene_02
+D147;P010;(Nah, I think I'll be alright.);Tutorial_Initation;Level_2;cutscene_02
+D152@D158@D163;P011;About the pot and stove...;Tutorial_Type;;Mini_Tut_01
+D152@D158@D163;P012;About the new bowls...;Tutorial_Type;;Mini_Tut_01
+D185;P013;(Let's go help big sis out.);Tutorial_Initation;Mini_Tut_02;cutscene_03
+D185;P014;(I'm not really feeling it right now.);Tutorial_Initation;Level_3;cutscene_03
+D202@D209;P015;About the frying pan...;Tutorial_Type;;Mini_Tut_02

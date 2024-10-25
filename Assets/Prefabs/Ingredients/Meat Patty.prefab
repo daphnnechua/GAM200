@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5353707643187441212}
   - component: {fileID: 1387258958274857657}
   m_Layer: 6
-  m_Name: Minced_Meat
+  m_Name: Meat Patty
   m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

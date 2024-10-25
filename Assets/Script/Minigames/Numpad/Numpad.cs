@@ -30,6 +30,8 @@ public class Numpad : MonoBehaviour, IMinigame
     private MinigameController minigameController;
     private OverloadBar overloadBar;
     private DroneStation droneStation;
+
+    private bool incorrectInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -136,13 +138,14 @@ public class Numpad : MonoBehaviour, IMinigame
 
     private void SubmitInput()
     {
-        if(isTaskComplete)
+        if(isTaskComplete || incorrectInput)
         {
             return;
         }
         if(nextNumber!=11)
         {
             displayText.text = "INCORRECT. TRY AGAIN.";
+            incorrectInput = true;
             StartCoroutine(IncorrectInput());
         }
         else if(nextNumber==11)
@@ -194,6 +197,7 @@ public class Numpad : MonoBehaviour, IMinigame
     {
         yield return new WaitForSeconds(1f);
         ClearInput();
+        incorrectInput = false;
     }
 
     private void ClearInput()

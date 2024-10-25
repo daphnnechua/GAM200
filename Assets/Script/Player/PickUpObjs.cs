@@ -50,14 +50,7 @@ public class PickUpObjs : MonoBehaviour
 
         if(isHoldingObj && objHeld != null)
         {
-            if(!playerMovement.isFacingUp)
-            {
-                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
-            }
-            else if(playerMovement.isFacingUp)
-            {
-                objHeld.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            }
+            objHeld.GetComponent<SpriteRenderer>().sortingOrder = 3;
         }
         
         // Debug.Log(closestObj);
@@ -82,7 +75,7 @@ public class PickUpObjs : MonoBehaviour
         // }
 
         
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.J))
         {
             if(objHeld)
             {
@@ -264,7 +257,11 @@ public class PickUpObjs : MonoBehaviour
 
     private void IngredientsAssembly()
     {
-        if(!isCuttingStation || !isStove)
+        Vector2 infrontPlayer = transform.position + dir; ///calculation --> area around player
+        Collider2D nearestObj = Physics2D.OverlapCircle(infrontPlayer, 0.1f); //check the place where player is facing
+
+
+        if(!isCuttingStation && !isStove) //empty space
         {
             if(objHeld.CompareTag("Ingredient"))
             {
@@ -299,6 +296,7 @@ public class PickUpObjs : MonoBehaviour
                 Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
 
                 Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
+                
                 if(colliderAtPosition !=null && playerMovement.IsObjectInteractable(colliderAtPosition.transform))
                 {
                     if(colliderAtPosition.gameObject.CompareTag("Ingredient"))
@@ -340,7 +338,7 @@ public class PickUpObjs : MonoBehaviour
                         plateScript = colliderAtPosition.gameObject.GetComponent<Plate>();
                         if(fryingPan.isDoneCooking)
                         {
-                            fryingPan.PlaceSoupInPlate(plateScript);
+                            fryingPan.PlaceFoodInPlate(plateScript);
                         }
                     }
                 }
@@ -378,11 +376,47 @@ public class PickUpObjs : MonoBehaviour
 
             }
         }
+        else if(closestObj.CompareTag("Stove") && isStove) //facing stove
+        {
+            Debug.Log("facing stove");
+            if(objHeld.CompareTag("Ingredient"))
+            {
+                Collider2D collider = Physics2D.OverlapCircle(transform.position, 1f, pickUpMask);
+                if(collider!=null && collider.CompareTag("FryingPan")) //frying pan on stove
+                {
+                    Debug.Log("interacting stove with frying pan");
+                    GameObject currentPlacementObj = collider.gameObject;
+                    if(playerMovement.IsObjectInteractable(currentPlacementObj.transform))
+                    {
+                        if(objHeld.GetComponent<IngredientManager>().ingredientSO.canFry)
+                        {
+                            fryingPan = currentPlacementObj.GetComponent<FryingPan>();
+                            fryingPan.PlaceIngredientInPan(objHeld);
+                        }
+                            
+                    }
+
+                }
+                else if(collider!=null && collider.CompareTag("Pot"))
+                {
+                    Debug.Log("interacting stove with pot");
+                    GameObject currentPlacementObj = collider.gameObject;
+                    if(playerMovement.IsObjectInteractable(currentPlacementObj.transform))
+                    {
+                        if(objHeld.GetComponent<IngredientManager>().ingredientSO.canBoil)
+                        {
+                            pot = currentPlacementObj.GetComponent<Pot>();
+                             pot.PlaceIngredientInPot(objHeld);
+                            
+                        }
+                }
+
+            }
+            
+        }
         else
         {
-            Vector2 infrontPlayer = transform.position + dir; ///calculation --> area around player
             Collider2D colliderAtPos = Physics2D.OverlapCircle(infrontPlayer, 0.25f, pickUpMask); // Check within a small area
-            Collider2D nearestObj = Physics2D.OverlapCircle(infrontPlayer, 0.1f); //check the place where player is facing
             if(colliderAtPos==null && nearestObj == null)
             {
                 if(objHeld.CompareTag("Ingredient"))
@@ -459,7 +493,7 @@ public class PickUpObjs : MonoBehaviour
                             plateScript = colliderAtPosition.gameObject.GetComponent<Plate>();
                             if(fryingPan.isDoneCooking)
                             {
-                                fryingPan.PlaceSoupInPlate(plateScript);
+                                fryingPan.PlaceFoodInPlate(plateScript);
                             }
                         }
                     }
@@ -495,119 +529,9 @@ public class PickUpObjs : MonoBehaviour
                         }
                     }
 
-                }            if(objHeld.CompareTag("Ingredient"))
-                {
-                    Collider2D collider = Physics2D.OverlapCircle(transform.position, 1f, pickUpMask);
-                    if(collider != null)
-                    {
-                        GameObject currentPlacementObj = collider.gameObject;
-                        if(collider!=null && playerMovement.IsObjectInteractable(currentPlacementObj.transform))
-                        {
-                            if(collider.CompareTag("Plate") && objHeld.GetComponent<IngredientManager>().ingredientSO.isReady)
-                            {
-                                plateScript = currentPlacementObj.GetComponent<Plate>();
-                                plateScript.PlaceIngredient(objHeld);
-                            }
-                            else if(collider.CompareTag("FryingPan") && objHeld.GetComponent<IngredientManager>().ingredientSO.canFry)
-                            {
-                                fryingPan = currentPlacementObj.GetComponent<FryingPan>();
-                                fryingPan.PlaceIngredientInPan(objHeld);
-                            }
-                            else if(collider.CompareTag("Pot") && objHeld.GetComponent<IngredientManager>().ingredientSO.canBoil)
-                            {
-                                pot = currentPlacementObj.GetComponent<Pot>();
-                                pot.PlaceIngredientInPot(objHeld);
-                            }
-                        }
-
-                    }
-
-                }
-                else if(objHeld.CompareTag("Plate"))
-                {
-                    Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
-
-                    Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
-                    if(colliderAtPosition !=null && playerMovement.IsObjectInteractable(colliderAtPosition.transform))
-                    {
-                        if(colliderAtPosition.gameObject.CompareTag("Ingredient"))
-                        {
-                            GameObject ingredient = colliderAtPosition.gameObject;
-                            IngredientManager ingredientManager = ingredient.GetComponent<IngredientManager>();
-                            if(ingredientManager.ingredientSO.isReady)
-                            {
-                                plateScript = objHeld.GetComponent<Plate>();
-                                objHeld.transform.position = ingredient.transform.position;
-                                plateScript.isHoldingPlate = false;
-                                plateScript.PlaceIngredient(ingredient);
-                            }
-                        }
-                    }
-                }
-                else if(objHeld.CompareTag("FryingPan"))
-                {
-                    fryingPan = objHeld.GetComponent<FryingPan>();
-                    
-                    Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
-
-                    Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
-
-                    if(colliderAtPosition !=null && playerMovement.IsObjectInteractable(colliderAtPosition.transform))
-                    {
-                        if(colliderAtPosition.gameObject.CompareTag("Ingredient"))
-                        {
-                            GameObject ingredient = colliderAtPosition.gameObject;
-                            IngredientManager ingredientManager = ingredient.GetComponent<IngredientManager>();
-                            if(ingredientManager.ingredientSO.canFry)
-                            {
-                                objHeld.transform.position = ingredient.transform.position;
-                                fryingPan.PlaceIngredientInPan(ingredient);
-                            }
-                        }
-                        else if(colliderAtPosition.gameObject.CompareTag("Plate"))
-                        {
-                            plateScript = colliderAtPosition.gameObject.GetComponent<Plate>();
-                            if(fryingPan.isDoneCooking)
-                            {
-                                fryingPan.PlaceSoupInPlate(plateScript);
-                            }
-                        }
-                    }
-
-                }
-                else if(objHeld.CompareTag("Pot"))
-                {
-                    pot = objHeld.GetComponent<Pot>();
-                    
-                    Vector2 placePosition = transform.position + dir; ///calculation --> area below the player
-
-                    Collider2D colliderAtPosition = Physics2D.OverlapCircle(placePosition, 0.1f, pickUpMask); // Check within a small radius
-
-                    if(colliderAtPosition !=null && playerMovement.IsObjectInteractable(colliderAtPosition.transform))
-                    {
-                        if(colliderAtPosition.gameObject.CompareTag("Ingredient"))
-                        {
-                            GameObject ingredient = colliderAtPosition.gameObject;
-                            IngredientManager ingredientManager = ingredient.GetComponent<IngredientManager>();
-                            if(ingredientManager.ingredientSO.canBoil)
-                            {
-                                objHeld.transform.position = ingredient.transform.position;
-                                pot.PlaceIngredientInPot(ingredient);
-                            }
-                        }
-                        else if(colliderAtPosition.gameObject.CompareTag("Plate"))
-                        {
-                            plateScript = colliderAtPosition.gameObject.GetComponent<Plate>();
-                            if(pot.isDoneCooking)
-                            {
-                                pot.PlaceSoupInPlate(plateScript);
-                            }
-                        }
-                    }
-
-                }
-            }
-
+                } 
+            }           
+        }
         }
     }
 

@@ -12,7 +12,7 @@ public class MasterController : MonoBehaviour
 
     private string currentSceneName;
 
-    public string firstScene = "Tutorial";
+    public string firstScene = "cutscene_01";
     public string endLevelScene = "End_Level";
 
     public string startMenuScene = "Start_Menu";
@@ -70,15 +70,7 @@ public class MasterController : MonoBehaviour
     {
         // string firstLevel = Game.GetLevelList()[0].levelName; //this is tutorial
 
-        if(currentSceneName == startMenuScene && aScene == firstScene)
-        {
-            RemoveScene(startMenuScene);
-        }
-        
-        if(currentSceneName == aScene)
-        {
-            RemoveScene(currentSceneName);
-        }
+        RemoveScene(currentSceneName);
 
         currentSceneName = aScene;
         AsyncOperation loadSceneOp = SceneManager.LoadSceneAsync(aScene, LoadSceneMode.Additive);

@@ -35,7 +35,7 @@ public class CuttingStation : MonoBehaviour
     {
         if(pickUpObjs.isCuttingStation && ingredientObj && ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut && !pickUpObjs.isHoldingObj)
         {
-            if(Input.GetKey(KeyCode.E))
+            if(Input.GetKey(KeyCode.K))
             {
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 playerMovement.canMove = false;
@@ -43,7 +43,7 @@ public class CuttingStation : MonoBehaviour
             }
             
         }
-        if(!gameController.levelEnded && Input.GetKeyUp(KeyCode.E))
+        if(!gameController.levelEnded && Input.GetKeyUp(KeyCode.K))
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             playerMovement.canMove = true;

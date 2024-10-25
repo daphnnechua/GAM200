@@ -30,6 +30,11 @@ public static class Game
     private static Levels level;
     private static List<Levels> levelList;
 
+    private static GeneralDialogue generalDialogue;
+    private static List<GeneralDialogue> generalDialogueList;    
+    private static PlayerResponse playerResponse;
+    private static List<PlayerResponse> playerResponseList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -287,4 +292,112 @@ public static class Game
     }
 
     #endregion levels
+
+    #region general dialogue
+
+    public static GeneralDialogue GetGeneralDialogue()
+    {
+        return generalDialogue;
+    }
+
+    public static void SetGeneralDialogue(GeneralDialogue aDialogue)
+    {
+        generalDialogue = aDialogue;
+    }
+
+    public static void SetGeneralDialogueList(List<GeneralDialogue> aList)
+    {
+        generalDialogueList = aList;
+    }
+
+    public static List<GeneralDialogue> GetGeneralDialogueList()
+    {
+        return generalDialogueList;
+    }
+
+    public static List<GeneralDialogue> GetGeneralDialoguesByScene(string name)
+    {
+        List<GeneralDialogue> generalDialogues = new List<GeneralDialogue>();
+        List<GeneralDialogue> allGeneralDialogues = GetGeneralDialogueList();
+        for(int i =0; i<allGeneralDialogues.Count; i++)
+        {
+            if(allGeneralDialogues[i].sceneName.Contains(name))
+            {
+                generalDialogues.Add(allGeneralDialogues[i]);
+            }
+        }
+        return generalDialogues;
+    }
+
+    public static List<GeneralDialogue> GetDialogueByResponseID(string id)
+    {
+        List<GeneralDialogue> dialogues = new List<GeneralDialogue>();
+        List<GeneralDialogue> allDialogues = GetGeneralDialogueList();
+
+        for(int i =0; i<allDialogues.Count; i++)
+        {
+            if(allDialogues[i].optionResponseID == id)
+            {
+                dialogues.Add(allDialogues[i]);
+            }
+        }
+        Debug.Log($"number of dialogues under {id}: {dialogues.Count}");
+        return dialogues;
+    }
+
+
+    #endregion general dialogue
+
+    #region player response dialogue
+
+    public static PlayerResponse GetPlayerResponse()
+    {
+        return playerResponse;
+    }
+
+    public static void SetPlayerResponse(PlayerResponse aDialogue)
+    {
+        playerResponse = aDialogue;
+    }
+
+    public static void SetPlayerResponseList(List<PlayerResponse> aList)
+    {
+        playerResponseList = aList;
+    }
+
+    public static List<PlayerResponse> GetPlayerResponseList()
+    {
+        return playerResponseList;
+    }
+
+    public static List<PlayerResponse> GetPlayerResponsesByTriggerID(string id)
+    {
+        List<PlayerResponse> playerResponses = new List<PlayerResponse>();
+        List<PlayerResponse> allPlayerResponses = GetPlayerResponseList();
+        for(int i =0; i<allPlayerResponses.Count; i++)
+        {
+            if(allPlayerResponses[i].triggerID.Contains(id))
+            {
+                playerResponses.Add(allPlayerResponses[i]);
+            }
+        }
+        return playerResponses;
+    }
+
+    public static List<PlayerResponse> GetPlayerResponsesInScene(string currentScene)
+    {
+        List<PlayerResponse> playerResponses = new List<PlayerResponse>();
+        List<PlayerResponse> allPlayerResponses = GetPlayerResponseList();
+        for(int i =0; i<allPlayerResponses.Count; i++)
+        {
+            if(allPlayerResponses[i].currentSceneName.Contains(currentScene))
+            {
+                playerResponses.Add(allPlayerResponses[i]);
+            }
+        }
+        return playerResponses;
+    }
+
+    #endregion player response dialogue
+
 }

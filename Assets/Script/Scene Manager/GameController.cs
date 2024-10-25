@@ -46,15 +46,15 @@ public class GameController : SceneController
     void Update()
     {
         //debug purposes
-        if(Input.GetKeyDown(KeyCode.Backspace))
-        {
-            points += 20;
-            pointTracker.UpdatePointsUI(points);
-        }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            EndOfLevel();
-        }
+        // if(Input.GetKeyDown(KeyCode.Backspace))
+        // {
+        //     points += 20;
+        //     pointTracker.UpdatePointsUI(points);
+        // }
+        // if(Input.GetKeyDown(KeyCode.LeftShift))
+        // {
+        //     EndOfLevel();
+        // }
 
         
     }

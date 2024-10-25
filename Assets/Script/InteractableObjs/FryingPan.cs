@@ -109,7 +109,7 @@ public class FryingPan : MonoBehaviour
 
     }
 
-    public void PlaceSoupInPlate(Plate plateScript)
+    public void PlaceFoodInPlate(Plate plateScript)
     {
         Debug.Log("Placing meat...");
         if(plateScript.ingredientsOnPlateIDs.Count ==0)
@@ -125,6 +125,10 @@ public class FryingPan : MonoBehaviour
             isDoneCooking = false;
             isReadyToCook = false;
             hasUndergonePrep = false;
+
+            // plateScript.LoadPlateGraphics();
+            plateScript.SpawnPlateUI();
+            
             // LoadPanGraphics();
             SpawnPanUI();
         }

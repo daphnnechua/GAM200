@@ -18,6 +18,10 @@ public class DataManager : MonoBehaviour
 
     public List<Levels> levelsList = new List<Levels>();
 
+    public List<GeneralDialogue> generalDialogueList = new List<GeneralDialogue>();
+
+    public List<PlayerResponse> playerResponseList = new List<PlayerResponse>();
+
     public void LoadAllData() //called at the start of game 
     {
         LoadIngredients();
@@ -28,6 +32,8 @@ public class DataManager : MonoBehaviour
         LoadPlateGraphics();
         LoadStockStations();
         LoadLevels();
+        LoadGeneralDialogue();
+        LoadPlayerResponse();
     }
 
     #region Ingredients
@@ -160,7 +166,7 @@ public class DataManager : MonoBehaviour
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             RefMinigames refData = new RefMinigames();
             refData.minigameID = columnData[0];
@@ -186,7 +192,7 @@ public class DataManager : MonoBehaviour
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             RefPlateGraphics refData = new RefPlateGraphics();
             refData.recipeID = columnData[0];
@@ -239,7 +245,7 @@ public class DataManager : MonoBehaviour
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             RefLevels refData = new RefLevels();
             refData.levelNumber = columnData[0];
@@ -256,4 +262,65 @@ public class DataManager : MonoBehaviour
     }
 
     #endregion Levels
+
+    #region dialogue
+    public void LoadGeneralDialogue()
+    {
+        string filePath = Application.streamingAssetsPath + "/General Dialogue.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {';'});
+
+            RefGeneralDialogue refData = new RefGeneralDialogue();
+            refData.dialogueID = columnData[0];
+            refData.dialogue   = columnData[1];
+            refData.dialogueBy = columnData[2];
+            refData.isDialogueSelection = columnData[3].ToLower() == "true";
+            refData.optionResponseID = columnData[4];
+            refData.sceneName = columnData[5];
+            refData.leftSpriteFilePath = columnData[6];
+            refData.rightSpriteFilePath = columnData[7];
+            refData.tutorialImage = columnData[8];
+
+
+            GeneralDialogue dialogue = new GeneralDialogue(refData.dialogueID, refData.dialogue, refData.dialogueBy, refData.isDialogueSelection, refData.optionResponseID, refData.sceneName, refData.leftSpriteFilePath, refData.rightSpriteFilePath, refData.tutorialImage);
+
+            generalDialogueList.Add(dialogue);
+
+            Game.SetGeneralDialogueList(generalDialogueList);
+
+        }
+    }
+
+    public void LoadPlayerResponse()
+    {
+        string filePath = Application.streamingAssetsPath + "/Player Dialogue Response.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {';'});
+
+            RefPlayerResponse refData = new RefPlayerResponse();
+            refData.triggerID = columnData[0].Split('@');
+            refData.playerDialogueID = columnData[1];
+            refData.dialogue = columnData[2];
+            refData.dialogueType = columnData[3];
+            refData.nextSceneName = columnData[4];
+            refData.currentSceneName = columnData[5].Split('@');
+
+
+            PlayerResponse response = new PlayerResponse(refData.triggerID, refData.playerDialogueID, refData.dialogue, refData.dialogueType, refData.nextSceneName, refData.currentSceneName);
+
+            playerResponseList.Add(response);
+
+            Game.SetPlayerResponseList(playerResponseList);
+
+        }
+    }
+
+
+    #endregion dialogue
 }

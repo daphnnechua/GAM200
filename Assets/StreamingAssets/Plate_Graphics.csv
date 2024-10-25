@@ -1,10 +1,9 @@
-recipeID,ingredientaIDs,imageFilePath
-null,null,Food Assets/Plates/plate
-null,INGR_2,Food Assets/Plates/plate_lettuceless
-null,INGR_4,Food Assets/Plates/plate_tomato
-null,INGR_6,Food Assets/Plates/plate_shrimp
-null,INGR_2@INGR_6,Food Assets/Plates/plate_lettuceshrimp
-null,INGR_4@INGR_6,Food Assets/Plates/plate_shrimptomato
-REC_1,INGR_2@INGR_2,Food Assets/Plates/plate_lettuce
-REC_2,INGR_2@INGR_4,Food Assets/Plates/plate_lettucetomato
-REC_3,INGR_2@INGR_4@INGR_6,Food Assets/Plates/plate_lettucetomatoshrimp
+recipeID;ingredientaIDs;imageFilePath
+null;null;Food Assets/Plates/plate
+REC_1;INGR_2;Food Assets/Plates/plate_lettuce
+null;INGR_4;Food Assets/Plates/plate_tomato
+null;INGR_6;Food Assets/Plates/plate_shrimp
+null;INGR_2@INGR_6;Food Assets/Plates/plate_lettuceshrimp
+null;INGR_4@INGR_6;Food Assets/Plates/plate_shrimptomato
+REC_2;INGR_2@INGR_4;Food Assets/Plates/plate_lettucetomato
+REC_3;INGR_2@INGR_4@INGR_6;Food Assets/Plates/plate_lettucetomatoshrimp

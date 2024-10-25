@@ -123,6 +123,9 @@ public class Pot : MonoBehaviour
             isDoneCooking = false;
             isReadyToCook = false;
             hasUndergonePrep = false;
+
+            // plateScript.LoadPlateGraphics();
+            plateScript.SpawnPlateUI();
             // LoadPotGraphics();
             SpawnPotUI();
         }

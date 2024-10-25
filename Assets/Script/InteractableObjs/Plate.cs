@@ -45,7 +45,7 @@ public class Plate : MonoBehaviour
     
     public void PlaceIngredient(GameObject ingredient)
     {
-        if(!ingredientsOnPlate.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.isReady)
+        if(!ingredientsOnPlate.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.isReady && ingredientsOnPlateIDs.Count < 3)
         {
             ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
             LoadPlateGraphics();
@@ -130,7 +130,7 @@ public class Plate : MonoBehaviour
         }
     }
 
-    private void LoadPlateGraphics()
+    public void LoadPlateGraphics()
     {
         List<PlateGraphics> plateGraphicsList = Game.GetPlateGraphicsList();
 
@@ -180,7 +180,7 @@ public class Plate : MonoBehaviour
         Debug.Log($"plate reset! ingredients on plate: {ingredientsOnPlate.Count}, ids: {ingredientsOnPlateIDs.Count}");
     }
 
-    private void SpawnPlateUI()
+    public void SpawnPlateUI()
     {
         Destroy(plateUI);
 

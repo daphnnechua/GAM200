@@ -8,9 +8,6 @@ public class TutorialManualController : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialManual;
     [SerializeField] private Button closeButton;
-
-    [SerializeField] private Dictionary<TextMeshProUGUI, bool> newInformationText;
-
     public bool isInteracting = false;
 
     private GameObject player;

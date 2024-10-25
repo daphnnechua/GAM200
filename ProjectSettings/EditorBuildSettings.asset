@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
     path: Assets/Scenes/Game/MasterScene.unity
     guid: 030fc74701382c9489e4b3bc7ed9552e
   - enabled: 1
@@ -39,10 +42,19 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/End_Level.unity
     guid: ba52e47e1728b4640ad68281f04255bd
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Game/Pause_Menu.unity
     guid: 5fad0640d728c6a40950f4a849ed2945
+  - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/cutscene_01.unity
+    guid: 29a2131599070784297de41d4f465bc4
+  - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/cutscene_02.unity
+    guid: ddc40e050b6ebf74eb1acebc49cf43ce
+  - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/cutscene_03.unity
+    guid: dbf023bdf688d2c488a5c393c8cb8c5f
+  - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/cutscene_04.unity
+    guid: 7baf93ac8cb95de4c9d3c4cda3180a4c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 1cd487e2187bf474dbbe9269cf4a2d08, type: 2}

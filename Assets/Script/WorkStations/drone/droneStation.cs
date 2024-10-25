@@ -19,7 +19,7 @@ public class DroneStation : MonoBehaviour
     void Start()
     {
         droneMenu = GameObject.FindWithTag("DroneMenu");
-        closeButton = GameObject.FindWithTag("CloseButton").GetComponent<Button>();
+        
         closeButton.onClick.AddListener(()=> CloseMenu());
 
         restockingController = FindObjectOfType<RestockingController>();
