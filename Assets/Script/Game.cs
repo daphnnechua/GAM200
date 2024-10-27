@@ -341,7 +341,7 @@ public static class Game
                 dialogues.Add(allDialogues[i]);
             }
         }
-        Debug.Log($"number of dialogues under {id}: {dialogues.Count}");
+        // Debug.Log($"number of dialogues under {id}: {dialogues.Count}");
         return dialogues;
     }
 

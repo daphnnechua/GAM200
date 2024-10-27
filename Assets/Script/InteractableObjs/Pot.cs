@@ -78,7 +78,7 @@ public class Pot : MonoBehaviour
     {
         if(ingredientIDs.Count<3) 
         {
-            Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}");
+            
             if(!ingredientsInPot.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.canBoil)
             {
                 
@@ -88,6 +88,7 @@ public class Pot : MonoBehaviour
                 isReadyToCook = true;
 
                 Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
+                Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}");
                 
             }
         }
@@ -130,6 +131,17 @@ public class Pot : MonoBehaviour
             SpawnPotUI();
         }
     }
+
+    public void TrashFoodInPot()
+    {
+        ingredientsInPot.Clear();
+        ingredientIDs.Clear();
+        // LoadPotGraphics();
+        Destroy(potUI);
+
+        Debug.Log($"pot reset! ingredients on plate: {ingredientsInPot.Count}, ids: {ingredientIDs.Count}");
+    }
+
 
     //display cooking status
     public void SpawnProgressBar()

@@ -18,6 +18,6 @@ MonoBehaviour:
   ingredientName: Shrimp
   canCut: 1
   canFry: 0
-  canBoil: 0
+  canBoil: 1
   isReady: 0
   imageName: Food Assets/Ingredients/shrimp

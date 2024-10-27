@@ -818,8 +818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909c41fe3cf1e0d4ca61a9bb051bb915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBatterySlot: {fileID: 0}
-  currentBattery: {fileID: 0}
+  currentBatterySlot: {fileID: 8025114391948310605}
+  currentBattery: {fileID: 7297082695586764642}
 --- !u!1 &5917687176010243935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1167,7 @@ MonoBehaviour:
   - {fileID: 4268067020406559424}
   completionWindowPrefab: {fileID: 2708095091732885974, guid: b4c33dbc377ebfe42893442080dcba9a, type: 3}
   closeButton: {fileID: 7411475177999485840}
+  isTaskComplete: 0
 --- !u!1 &6909666790012004473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,8 +1256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909c41fe3cf1e0d4ca61a9bb051bb915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBatterySlot: {fileID: 0}
-  currentBattery: {fileID: 0}
+  currentBatterySlot: {fileID: 4268067020406559424}
+  currentBattery: {fileID: 3441896340044363854}
 --- !u!1 &7464837977754307752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,8 +1480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909c41fe3cf1e0d4ca61a9bb051bb915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBatterySlot: {fileID: 0}
-  currentBattery: {fileID: 0}
+  currentBatterySlot: {fileID: 1549432134378144691}
+  currentBattery: {fileID: 7155839325506434341}
 --- !u!1 &7752515900827876117
 GameObject:
   m_ObjectHideFlags: 0

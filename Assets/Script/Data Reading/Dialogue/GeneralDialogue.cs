@@ -15,7 +15,9 @@ public class GeneralDialogue
 
     public string tutorialImage {get;}
 
-    public GeneralDialogue(string dialogueID, string dialogue, string dialogueBy, bool isDialogueSelection, string optionResponseID, string sceneName, string leftSpriteFilePath, string rightSpriteFilePath, string tutorialImage)
+    public bool repeatDialogue {get;}
+
+    public GeneralDialogue(string dialogueID, string dialogue, string dialogueBy, bool isDialogueSelection, string optionResponseID, string sceneName, string leftSpriteFilePath, string rightSpriteFilePath, string tutorialImage, bool repeatDialogue)
     {
         this.dialogueID = dialogueID;
         this.dialogue = dialogue;
@@ -26,6 +28,7 @@ public class GeneralDialogue
         this.leftSpriteFilePath = leftSpriteFilePath;
         this.rightSpriteFilePath = rightSpriteFilePath;
         this.tutorialImage = tutorialImage;
+        this.repeatDialogue = repeatDialogue;
     }
 
 
@@ -43,4 +46,5 @@ public class RefGeneralDialogue
     public string rightSpriteFilePath;
 
     public string tutorialImage;
+    public bool repeatDialogue;
 }

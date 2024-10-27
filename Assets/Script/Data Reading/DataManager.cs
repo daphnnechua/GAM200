@@ -251,8 +251,9 @@ public class DataManager : MonoBehaviour
             refData.levelNumber = columnData[0];
             refData.levelName = columnData[1];
             refData.description = columnData[2];
+            refData.levelType = columnData[3];
 
-            Levels level = new Levels(refData.levelNumber, refData.levelName, refData.description);
+            Levels level = new Levels(refData.levelNumber, refData.levelName, refData.description, refData.levelType);
 
             levelsList.Add(level);
 
@@ -283,9 +284,10 @@ public class DataManager : MonoBehaviour
             refData.leftSpriteFilePath = columnData[6];
             refData.rightSpriteFilePath = columnData[7];
             refData.tutorialImage = columnData[8];
+            refData.repeatDialogue = columnData[9].ToLower() == "true";
 
 
-            GeneralDialogue dialogue = new GeneralDialogue(refData.dialogueID, refData.dialogue, refData.dialogueBy, refData.isDialogueSelection, refData.optionResponseID, refData.sceneName, refData.leftSpriteFilePath, refData.rightSpriteFilePath, refData.tutorialImage);
+            GeneralDialogue dialogue = new GeneralDialogue(refData.dialogueID, refData.dialogue, refData.dialogueBy, refData.isDialogueSelection, refData.optionResponseID, refData.sceneName, refData.leftSpriteFilePath, refData.rightSpriteFilePath, refData.tutorialImage, refData.repeatDialogue);
 
             generalDialogueList.Add(dialogue);
 

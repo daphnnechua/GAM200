@@ -31,6 +31,7 @@ public class PlayerMovement : PlayerScript, InputReceiver
     void Update()
     {
         PlayerAnimation();
+        
     }
 
     public override void Initialize(GameController gameController)

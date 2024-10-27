@@ -1,11 +1,11 @@
-level;levelName;remarks
-null;cutscene_01;introductory cutscene
-0;Tutorial;Introduce core gameplay + cutting
-1;Level_1;Normal gameplay (Recipe focus: tomato salad, shrimp salad)
-null;cutscene_02;cutscene right after completion of level 1. player chooses to proceed to mini tut 1 or level 2
-1.5;Mini_Tut_01;Introduce boiling + 1 new ingredient (mushroom) + 2 new recipes (tomato soup, mushroom soup)
-2;Level_2;Normal gameplay (Recipe focus: mushroom soup, tomato soup)
-null;cutscene_03;cutscene right after completion of level 2. player chooses to proceed to mini tut 2 or level 3
-2.5;Mini_Tut_02;Introduce frying + 2 new recipe (cheese burger, burger)+ 3 new ingredients (cheese, meat, bread)
-3;Level_3;Normal gameplay (Recipe focus: cheese burger, hamburger)
-null;cutscene_04;cutscene after completion of level 3. end of game cutscene
+level;levelName;remarks;levelType
+null;cutscene_01;;cutscene
+0;Tutorial;Core Gameplay, Cutting;tutorial
+1;Level_1;;normal
+null;cutscene_02;;cutscene
+1.5;Mini_Tut_01;Boiling, Plate Typing;tutorial
+2;Level_2;;normal
+null;cutscene_03;;cutscene
+2.5;Mini_Tut_02;Frying;tutorial
+3;Level_3;;normal
+null;cutscene_04;;cutscene

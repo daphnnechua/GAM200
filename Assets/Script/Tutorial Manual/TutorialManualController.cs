@@ -15,9 +15,13 @@ public class TutorialManualController : MonoBehaviour
     private GameController gameController;
     private TabController tabController;
 
+    private MasterController masterController;
+
     // Start is called before the first frame update
     void Start()
     {
+        masterController = FindObjectOfType<MasterController>();
+
         player = GameObject.FindWithTag("Player");
 
         gameController = FindObjectOfType<GameController>();
@@ -35,7 +39,7 @@ public class TutorialManualController : MonoBehaviour
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             player.GetComponent<PlayerMovement>().canMove = false;
 
-            gameController.viewingTutorialManual = true;
+            masterController.canPause = false;
             isInteracting = true;
             tutorialManual.SetActive(true);
             tabController = FindObjectOfType<TabController>();
@@ -53,7 +57,7 @@ public class TutorialManualController : MonoBehaviour
     {
         tutorialManual.SetActive(false);
         isInteracting = false;
-        gameController.viewingTutorialManual = false;
+        masterController.canPause = true;
 
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         player.GetComponent<PlayerMovement>().canMove = true;

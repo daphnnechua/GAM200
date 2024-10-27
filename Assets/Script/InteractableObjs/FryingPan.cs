@@ -133,6 +133,16 @@ public class FryingPan : MonoBehaviour
             SpawnPanUI();
         }
     }
+    public void TrashFoodInPan()
+    {
+        ingredientsInPan.Clear();
+        ingredientIDs.Clear();
+        // LoadPanGraphics();
+        Destroy(panUI);
+
+        Debug.Log($"pan reset! ingredients on plate: {ingredientsInPan.Count}, ids: {ingredientIDs.Count}");
+    }
+
 
     //display cooking status
     public void SpawnProgressBar()

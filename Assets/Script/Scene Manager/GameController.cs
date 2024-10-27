@@ -15,19 +15,18 @@ public class GameController : SceneController
     public bool isPaused = true;
 
     public bool levelEnded = false;
-
-    public bool viewingTutorialManual = false;
-
     private DroneMenuController droneMenuController;
     private OrderManager orderManager;
 
     //testing purposes
     public DataManager dataManager;
-
     
     // Start is called before the first frame update
     void Start()
     {
+        masterController = FindObjectOfType<MasterController>(); 
+        masterController.canPause = true;
+
         //testing purposes
         dataManager = FindObjectOfType<DataManager>();
         dataManager.LoadAllData();
@@ -91,6 +90,9 @@ public class GameController : SceneController
     public void EndOfLevel()
     {
         Debug.Log("Level has ended");
+
+        masterController.canPause = false;
+
         levelEnded = true;
 
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
@@ -99,8 +101,8 @@ public class GameController : SceneController
         droneMenuController.StopAllProcesses();
         orderManager.StopOrders();
 
-        MasterController masterController = FindObjectOfType<MasterController>(); 
         masterController.LoadEndOfLevelScene();
+
     }
 
 }

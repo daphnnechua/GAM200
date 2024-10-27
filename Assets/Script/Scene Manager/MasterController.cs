@@ -21,6 +21,8 @@ public class MasterController : MonoBehaviour
 
     public bool pauseMenuOpen = false;
 
+    public bool canPause = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class MasterController : MonoBehaviour
         {
             RestartLevel();
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && !gameController.viewingTutorialManual)
+        if(Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             gameController = FindObjectOfType<GameController>();
             if(gameController!=null)

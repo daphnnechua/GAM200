@@ -17,7 +17,7 @@ MonoBehaviour:
   ingredientID: INGR_6
   ingredientName: Sashimi
   canCut: 0
-  canFry: 1
+  canFry: 0
   canBoil: 0
   isReady: 1
   imageName: Food Assets/Ingredients/cut_shrimp
