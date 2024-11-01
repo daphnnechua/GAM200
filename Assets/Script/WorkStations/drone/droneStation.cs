@@ -13,8 +13,8 @@ public class DroneStation : MonoBehaviour
 
     private GameObject player;
     public bool isinteracting;
-    private bool hasBeenInitialized  = false;
     private TabController tabController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,26 +28,25 @@ public class DroneStation : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
 
 
+        maintenanceManager.Initialize();
+        restockingController.InitializeRestockingController();
+        droneMenu.SetActive(false);
+
+
         player = GameObject.FindWithTag("Player");
+
         // Debug.Log(player);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameController.gameStart && !hasBeenInitialized)
-        {
-            maintenanceManager.Initialize();
-            restockingController.InitializeRestockingController();
-            droneMenu.SetActive(false);
 
-            hasBeenInitialized = true;
-            
-            // Debug.Log("initializing...");
-        }
-
-        if(!gameController.levelEnded && Input.GetKeyDown(KeyCode.F) && player.GetComponent<PickUpObjs>().IsDroneStation())
+        if(!gameController.levelEnded && Input.GetKeyDown(KeyCode.J) && player.GetComponent<PickUpObjs>().IsDroneStation())
         {
+            MasterController masterController = FindObjectOfType<MasterController>();
+            masterController.canPause = false;
+
             droneMenu.SetActive(true);
             isinteracting = true;
             tabController = FindObjectOfType<TabController>();
@@ -60,6 +59,9 @@ public class DroneStation : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape) && isinteracting)
         {
             CloseMenu();
+
+            MasterController masterController = FindObjectOfType<MasterController>();
+            masterController.canPause = true;
         }    
     }
 

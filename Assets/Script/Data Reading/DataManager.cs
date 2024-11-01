@@ -38,28 +38,30 @@ public class DataManager : MonoBehaviour
 
     #region Ingredients
 
-    public void LoadIngredients()
+    public void LoadIngredients() 
     {
         string filePath = Application.streamingAssetsPath + "/Ingredients.csv";
         string [] fileData =  File.ReadAllLines(filePath);
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             refIngredient refData = new refIngredient();
             refData.causeID = columnData[0];
-            refData.prevStateID = columnData[1];
-            refData.IngredientID = columnData[2];
-            refData.name = columnData[3];
-            refData.canCUt = columnData[4].ToLower() == "true";
-            refData.canFry = columnData[5].ToLower() == "true";
-            refData.canBoil = columnData[6].ToLower() == "true";
-            refData.isReady = columnData[7].ToLower() == "true";
-            refData.prefabPath = columnData[8];
-            refData.imageFilePath = columnData[9];
+            refData.originalStateID = columnData[1];
+            refData.prevStateID = columnData[2];
+            refData.IngredientID = columnData[3];
+            refData.name = columnData[4];
+            refData.canCUt = columnData[5].ToLower() == "true";
+            refData.canFry = columnData[6].ToLower() == "true";
+            refData.canBoil = columnData[7].ToLower() == "true";
+            refData.isReady = columnData[8].ToLower() == "true";
+            refData.prefabPath = columnData[9];
+            refData.imageFilePath = columnData[10];
+            refData.plateTyping = columnData[11];
 
-            Ingredient ingredient = new Ingredient(refData.causeID, refData.prevStateID, refData.IngredientID, refData.name, refData.canCUt, refData.canFry, refData.canBoil, refData.isReady, refData.prefabPath, refData.imageFilePath);
+            Ingredient ingredient = new Ingredient(refData.causeID, refData.originalStateID, refData.prevStateID, refData.IngredientID, refData.name, refData.canCUt, refData.canFry, refData.canBoil, refData.isReady, refData.prefabPath, refData.imageFilePath, refData.plateTyping);
 
             ingredients.Add(ingredient);
 
@@ -136,7 +138,7 @@ public class DataManager : MonoBehaviour
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             RefRecipe refData = new RefRecipe();
             refData.recipeID = columnData[0];
@@ -198,8 +200,9 @@ public class DataManager : MonoBehaviour
             refData.recipeID = columnData[0];
             refData.ingredientIDs = columnData[1].Split('@');
             refData.imageFilePath = columnData[2];
+            refData.plateTyping = columnData[3];
 
-            PlateGraphics graphics = new PlateGraphics(refData.recipeID, refData.ingredientIDs, refData.imageFilePath);
+            PlateGraphics graphics = new PlateGraphics(refData.recipeID, refData.ingredientIDs, refData.imageFilePath, refData.plateTyping);
 
             plateGrahpicsList.Add(graphics);
 
@@ -217,7 +220,7 @@ public class DataManager : MonoBehaviour
 
         for(int i =1 ; i<fileData.Length; i++)
         {
-            string[] columnData = fileData[i].Split(new char[] {','});
+            string[] columnData = fileData[i].Split(new char[] {';'});
 
             RefStockStation refData = new RefStockStation();
             refData.stockStationID = columnData[0];
@@ -285,9 +288,11 @@ public class DataManager : MonoBehaviour
             refData.rightSpriteFilePath = columnData[7];
             refData.tutorialImage = columnData[8];
             refData.repeatDialogue = columnData[9].ToLower() == "true";
+            refData.isLeftSpeaker = columnData[10].ToLower() == "true";
+            refData.toCloseDialogue = columnData[11].ToLower() == "true";
 
 
-            GeneralDialogue dialogue = new GeneralDialogue(refData.dialogueID, refData.dialogue, refData.dialogueBy, refData.isDialogueSelection, refData.optionResponseID, refData.sceneName, refData.leftSpriteFilePath, refData.rightSpriteFilePath, refData.tutorialImage, refData.repeatDialogue);
+            GeneralDialogue dialogue = new GeneralDialogue(refData.dialogueID, refData.dialogue, refData.dialogueBy, refData.isDialogueSelection, refData.optionResponseID, refData.sceneName, refData.leftSpriteFilePath, refData.rightSpriteFilePath, refData.tutorialImage, refData.repeatDialogue, refData.isLeftSpeaker, refData.toCloseDialogue);
 
             generalDialogueList.Add(dialogue);
 

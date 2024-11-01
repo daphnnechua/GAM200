@@ -22,9 +22,6 @@ public class TabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        droneStation = FindObjectOfType<DroneStation>();
-        tutorialManualController = FindObjectOfType<TutorialManualController>();
-        UpdateTabVisuals(0); //always open at first tab
         for (int i = 0; i < buttons.Count; i++)
         {
             int index =i;
@@ -41,6 +38,9 @@ public class TabController : MonoBehaviour
 
     public void UpdateTabVisuals(int index)
     {
+        droneStation = FindObjectOfType<DroneStation>();
+        tutorialManualController = FindObjectOfType<TutorialManualController>();
+
         if(droneStation.isinteracting)
         {
             isRestockingPage = (index == 0);

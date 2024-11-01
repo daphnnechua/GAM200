@@ -71,9 +71,10 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public void RemoveOrder(Color uiColor)
+    public void RemoveOrder()
     {
-        orderUI.UpdateUIStatus(0, uiColor); //to remove! testing purposes only 
+        // orderUI.UpdateUIStatus(0, uiColor); //to remove! testing purposes only 
+
         activeOrders.RemoveAt(0); //always remove he first order!
         // toUpdateOrderUI = true;
     }
@@ -119,7 +120,9 @@ public class OrderManager : MonoBehaviour
 
         if (activeOrders.Contains(order))
         {
-            RemoveOrder(Color.red);
+            //play order failed sfx
+            
+            RemoveOrder();
             gameController.DeductPoints(5);
         }
     }

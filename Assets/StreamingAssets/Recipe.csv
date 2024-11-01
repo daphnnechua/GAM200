@@ -1,8 +1,8 @@
-recipeID,recipeName,ingredientIDs,reward,availableInScenes,imageFilePath
-REC_1,Salad,INGR_2,10,Tutorial@Level_1@Level_2@Level_3,Food Assets/Plates/plate_lettuce
-REC_2,Tomato salad,INGR_2@INGR_4,10,Tutorial@Level_1@Level_2@Level_3,Food Assets/Plates/plate_lettucetomato
-REC_3,Shrimp Salad,INGR_2@INGR_4@INGR_6,15,Tutorial@Level_1@Level_2@Level_3,Food Assets/Plates/plate_lettucetomatoshrimp
-REC_4,Tomato Soup,INGR_2@INGR_2@INGR_2,20,Mini_Tut_01@Level_2@Level_3,
-REC_5,Mushroom Soup,INGR_8@INGR_8@INGR_8,20,Mini_Tut_01@Level_2@Level_3,
-REC_6,Burger,INGR_15@INGR_13,20,Mini_Tut_02@Level_3,
-REC_7,Cheese Burger,INGR_15@INGR_13@INGR_10,25,Mini_Tut_02@Level_3,
+recipeID;recipeName;ingredientIDs;reward;availableInScenes;imageFilePath
+REC_1;Salad;INGR_2;10;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/plate_lettuce
+REC_2;Tomato salad;INGR_2@INGR_4;10;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/plate_lettucetomato
+REC_3;Shrimp Salad;INGR_2@INGR_4@INGR_7;15;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/plate_lettucetomatoshrimp
+REC_4;Tomato Soup;INGR_5@INGR_5@INGR_5;20;Mini_Tut_01@Level_2@Level_3;
+REC_5;Mushroom Soup;INGR_10@INGR_10@INGR_10;20;Mini_Tut_01@Level_2@Level_3;
+REC_6;Burger;INGR_16@INGR_15;20;Mini_Tut_02@Level_3;
+REC_7;Cheese Burger;INGR_16@INGR_15@INGR_12;25;Mini_Tut_02@Level_3;

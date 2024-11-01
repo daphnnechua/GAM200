@@ -60,10 +60,13 @@ public class StockStationManager : MonoBehaviour
                 IngredientManager ingredientManager = newObj.GetComponent<IngredientManager>();
                 ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
             }
-            else if(stockSO.objType == "Plate")
+            else
             {
                 //load plate image here
-                PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs("null");
+
+                List<PlateGraphics> currentPlateTypeGraphics = Game.GetPlateGraphicsByPlateType(stockSO.typing);
+
+                PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs(currentPlateTypeGraphics, "null");
                 LoadPlateImage(emptyPlate.imageFilePath, newObj);
             }
 
@@ -112,7 +115,7 @@ public class StockStationManager : MonoBehaviour
     {
         AssetManager.LoadSprite(imagePath, (Sprite sp) =>
         {
-            this.GetComponent<SpriteRenderer>().sprite = sp;
+            GetComponent<SpriteRenderer>().sprite = sp;
         });
     }
 

@@ -17,7 +17,11 @@ public class GeneralDialogue
 
     public bool repeatDialogue {get;}
 
-    public GeneralDialogue(string dialogueID, string dialogue, string dialogueBy, bool isDialogueSelection, string optionResponseID, string sceneName, string leftSpriteFilePath, string rightSpriteFilePath, string tutorialImage, bool repeatDialogue)
+    public bool isLeftSpeaker {get;}
+
+    public bool toCloseDialogue {get;}
+
+    public GeneralDialogue(string dialogueID, string dialogue, string dialogueBy, bool isDialogueSelection, string optionResponseID, string sceneName, string leftSpriteFilePath, string rightSpriteFilePath, string tutorialImage, bool repeatDialogue, bool isLeftSpeaker, bool toCloseDialogue)
     {
         this.dialogueID = dialogueID;
         this.dialogue = dialogue;
@@ -29,6 +33,8 @@ public class GeneralDialogue
         this.rightSpriteFilePath = rightSpriteFilePath;
         this.tutorialImage = tutorialImage;
         this.repeatDialogue = repeatDialogue;
+        this.isLeftSpeaker = isLeftSpeaker;
+        this.toCloseDialogue = toCloseDialogue;
     }
 
 
@@ -47,4 +53,8 @@ public class RefGeneralDialogue
 
     public string tutorialImage;
     public bool repeatDialogue;
+
+    public bool isLeftSpeaker;
+
+    public bool toCloseDialogue;
 }

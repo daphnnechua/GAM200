@@ -66,9 +66,6 @@ public class OrderUI : MonoBehaviour
 
         Image recipeImg = recipeImage.GetComponentInChildren<Image>();
         SetImage(imagePath, recipeImg);
-
-        TextMeshProUGUI recipeName = newOrderUI.GetComponentInChildren<TextMeshProUGUI>();
-        recipeName.text = $"{recipe.recipeName}";
         
         if(recipe.ingredientIDs.Length >0)
         {
@@ -86,7 +83,9 @@ public class OrderUI : MonoBehaviour
             foreach(string id in recipe.ingredientIDs)
             {
                 Ingredient ingredient = Game.GetIngredientByID(id);
-                string filePath = ingredient.imageFilePath;
+                Ingredient originalIngredient = Game.GetIngredientByOriginalID(ingredient.originalStateID);
+                string filePath = originalIngredient.imageFilePath;
+
                 imageFilePaths.Add(filePath);
             }
 
@@ -97,20 +96,20 @@ public class OrderUI : MonoBehaviour
         }
     }
 
-    public void UpdateUIStatus(int index, Color change)
-    {
-        GameObject orderUI = trackOrderUI[index];
-        StartCoroutine(ShowColorChange(orderUI, change));
-    }
+    // public void UpdateUIStatus(int index, Color change)
+    // {
+    //     GameObject orderUI = trackOrderUI[index];
+    //     StartCoroutine(ShowColorChange(orderUI, change));
+    // }
 
-    private IEnumerator ShowColorChange(GameObject orderUI, Color change)
-    {
-        orderUI.GetComponent<Image>().color = change;
+    // private IEnumerator ShowColorChange(GameObject orderUI, Color change)
+    // {
+    //     orderUI.GetComponent<Image>().color = change;
 
-        yield return new WaitForSeconds(1f); // Wait for a short duration
-        orderManager.toUpdateOrderUI = true;
+    //     yield return new WaitForSeconds(1f); // Wait for a short duration
+    //     orderManager.toUpdateOrderUI = true;
 
-    }
+    // }
     public void SetImage(string spritePath, Image image)
     {
         AssetManager.LoadSprite(spritePath, (Sprite sp) =>
@@ -142,8 +141,49 @@ public class OrderUI : MonoBehaviour
                 else if(timer.value<=0.25f)
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.red;
+                    StartCoroutine(ShakeEffect(trackOrderUI[i]));
                 }
             }
         }
     }
+
+    private IEnumerator ShakeEffect(GameObject orderUI)
+    {
+        if (orderUI == null) 
+        {
+            yield break;
+        }
+
+        RectTransform rt = orderUI.GetComponent<RectTransform>();
+        if (rt == null) 
+        {
+            yield break;
+        }
+
+        Vector3 originalPosition = rt.localPosition;
+        float duration = 1.5f;
+        float magnitude = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            if (rt == null) 
+            {
+                yield break;
+            }
+
+            float xOffset = Random.Range(-1f, 1f) * magnitude;
+            float yOffset = Random.Range(-1f, 1f) * magnitude;
+            rt.localPosition = originalPosition + new Vector3(xOffset, yOffset, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (rt != null)
+        {
+            rt.localPosition = originalPosition;
+        }        
+    }
+    
 }

@@ -130,6 +130,8 @@ public class RestockingController : MonoBehaviour
     public void UpdateButtons()
     {
         string restockBtnPath = "UI/RestockBtn";
+        
+        List<string> ingredientIDs = new List<string>();
 
         if(!restockButtonsActive)
         {
@@ -137,14 +139,36 @@ public class RestockingController : MonoBehaviour
             {
                 if (prefab != null)
                 {
-                    foreach (var e in allStockStations)
+                    for(int i =0; i<allStockStations.Count;i++)
                     {
-                        GameObject restockButton = Instantiate(prefab, restockPos);
-                        restockButtons.Add(restockButton);
+                        if(allStockStations[i].stockSO.objType == "Ingredient")
+                        {
+                            GameObject restockButton = Instantiate(prefab, restockPos);
+                            restockButtons.Add(restockButton);
+
+                            ingredientIDs.Add(allStockStations[i].stockSO.ingredientID);
+
+                        }
+                    }
+
+                    // Debug.Log($"count for ingredient ids: {ingredientIDs.Count}");
+                    // Debug.Log($"count for restock buttons: {restockButtons.Count}");
+
+                    for(int i =0; i<ingredientIDs.Count;i++)
+                    {
+                        string currentIngredientID = ingredientIDs[i]; // Capture the current value
+                        // Debug.Log(currentIngredientID);
+
+                        if (!ingredientRestockButtons.ContainsKey(currentIngredientID))
+                        {
+                            Button button = restockButtons[i].GetComponent<Button>();
+                            ingredientRestockButtons.Add(currentIngredientID, button);
+
+                            button.onClick.AddListener(() => SelectIngredients(currentIngredientID));
+                        }
 
                     }
                     restockButtonsActive = true;
-                    InitializeRestockButtons();
                 }
             });
         }
@@ -171,6 +195,8 @@ public class RestockingController : MonoBehaviour
 
     private void UpdateButtonVisuals()
     {
+        int restockBtnIndex = 0;
+
         for(int i =0; i<allStockStations.Count;i++) //update button text for restock buttons
         {
             if(allStockStations[i].stockSO.objType == "Ingredient")
@@ -178,13 +204,15 @@ public class RestockingController : MonoBehaviour
                 string id = allStockStations[i].stockSO.ingredientID;
                 string ingredientName = Game.GetIngredientByID(id).name;
                 // Debug.Log($"{i} index, {ingredientName}");
-                TextMeshProUGUI restockButtonText = restockButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+                
+                TextMeshProUGUI restockButtonText = restockButtons[restockBtnIndex].GetComponentInChildren<TextMeshProUGUI>();
                 restockButtonText.text = ingredientName;
 
-                Image restockButtonImage = restockButtons[i].transform.Find("Ingredient image").GetComponent<Image>();
+                Image restockButtonImage = restockButtons[restockBtnIndex].transform.Find("Ingredient image").GetComponent<Image>();
                 string imagePath = Game.GetIngredientByID(id).imageFilePath;
                 SetButtonImage(imagePath, restockButtonImage);
-
+                
+                restockBtnIndex++;
             }
         }
 
@@ -240,25 +268,6 @@ public class RestockingController : MonoBehaviour
         else
         {
             SetButtonImage("UI/confirm_button 1", confirmBtnImage);
-        }
-    }
-
-
-    public void InitializeRestockButtons()
-    {
-        for(int i =0; i<allStockStations.Count;i++)
-        {
-            if(allStockStations[i].stockSO.objType == "Ingredient")
-            {
-                string id = allStockStations[i].stockSO.ingredientID;
-                if(!ingredientRestockButtons.ContainsKey(id))
-                {
-                    Button button = restockButtons[i].GetComponent<Button>();
-                    ingredientRestockButtons.Add(id, button);
-
-                    button.onClick.AddListener(()=>SelectIngredients(id));
-                }
-            }
         }
     }
 

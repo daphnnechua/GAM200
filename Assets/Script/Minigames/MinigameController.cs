@@ -23,6 +23,8 @@ public class MinigameController : MonoBehaviour
         maintenanceManager = FindObjectOfType<MaintenanceManager>();
         minigameParentObj = GameObject.FindWithTag("Minigame");
         gameController = FindObjectOfType<GameController>();
+
+        minigameParentObj.SetActive(false);
     }
 
     void Update()

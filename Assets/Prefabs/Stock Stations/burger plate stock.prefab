@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1570721253971504577}
   - component: {fileID: 6343546735718933643}
   m_Layer: 0
-  m_Name: plate stock station
+  m_Name: burger plate stock
   m_TagString: StockStation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,6 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c9ca77cae53c54cbc663de11a42650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stockSO: {fileID: 11400000, guid: c048e463f9fb5e345917b5421fabdbdd, type: 2}
+  stockSO: {fileID: 11400000, guid: 645cd37eba4d36f4f897591c7f881243, type: 2}
   stockCount: 0
   stockStationUIPrefab: {fileID: 0}

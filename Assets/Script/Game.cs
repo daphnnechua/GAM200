@@ -66,6 +66,11 @@ public static class Game
         return ingredientList.Find(i => i.prevStateID == prevID);
     }
 
+    public static Ingredient GetIngredientByOriginalID(string originalID)
+    {
+        return ingredientList.Find(i => i.originalStateID == originalID);
+    }
+
     #endregion ingredient related
 
     #region cooking actions
@@ -223,9 +228,23 @@ public static class Game
         return plateGraphicsList.Find(i => i.recipeID == ID);
     }
 
-    public static PlateGraphics GetPlateGraphicsByIngredientIDs(string id)
+    public static PlateGraphics GetPlateGraphicsByIngredientIDs(List<PlateGraphics> graphics, string id)
     {
-        return plateGraphicsList.Find(i => i.ingredientIDs.Contains(id));
+        return graphics.Find(i => i.ingredientIDs.Contains(id));
+    }
+
+    public static List<PlateGraphics> GetPlateGraphicsByPlateType(string plateType)
+    {
+        List<PlateGraphics> plateGraphics = new List<PlateGraphics>();
+        List<PlateGraphics> allPlateGraphics = GetPlateGraphicsList();
+        for(int i =0; i<allPlateGraphics.Count; i++)
+        {
+            if(allPlateGraphics[i].plateTyping == plateType)
+            {
+                plateGraphics.Add(allPlateGraphics[i]);
+            }
+        }
+        return plateGraphics;
     }
 
     #endregion plate graphics
@@ -289,6 +308,12 @@ public static class Game
     public static Levels GetLevelByName(string name)
     {
         return levelList.Find(i => i.levelName == name);
+    }
+
+    public static Levels GetNextLevel(string currentLevelName)
+    {
+        int index = levelList.IndexOf(GetLevelByName(currentLevelName));
+        return levelList[index + 1];
     }
 
     #endregion levels

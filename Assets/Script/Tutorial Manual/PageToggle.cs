@@ -70,7 +70,15 @@ public class PageToggle : MonoBehaviour
 
     public void UpdatePageToggleButtons()
     {
-        tutorialPrevious.gameObject.SetActive(pageIndex>0);
-        tutorialNext.gameObject.SetActive(pageIndex < pages.Count - 1 );
+        if(pages.Count>1)
+        {
+            tutorialPrevious.gameObject.SetActive(pageIndex>0);
+            tutorialNext.gameObject.SetActive(pageIndex < pages.Count - 1 );
+        }
+        else
+        {
+            tutorialPrevious.gameObject.SetActive(false);
+            tutorialNext.gameObject.SetActive(false);
+        }
     }
 }

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Shrimp
   m_EditorClassIdentifier: 
   causeActionID: null
+  originalStateID: INGR_6
   prevStateID: null
-  ingredientID: INGR_5
+  ingredientID: INGR_6
   ingredientName: Shrimp
   canCut: 1
   canFry: 0
   canBoil: 1
   isReady: 0
   imageName: Food Assets/Ingredients/shrimp
+  plateTyping: null

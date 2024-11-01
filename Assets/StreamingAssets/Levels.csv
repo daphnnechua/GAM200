@@ -1,11 +1,11 @@
 level;levelName;remarks;levelType
-null;cutscene_01;;cutscene
-0;Tutorial;Core Gameplay, Cutting;tutorial
-1;Level_1;;normal
-null;cutscene_02;;cutscene
-1.5;Mini_Tut_01;Boiling, Plate Typing;tutorial
-2;Level_2;;normal
-null;cutscene_03;;cutscene
-2.5;Mini_Tut_02;Frying;tutorial
-3;Level_3;;normal
-null;cutscene_04;;cutscene
+null;cutscene_01;;Cutscene
+0;Tutorial;Core Gameplay, Cutting;Tutorial
+1;Level_1;;Normal
+null;cutscene_02;;Cutscene
+1.5;Mini_Tut_01;Boiling, Plate Typing;Tutorial
+2;Level_2;;Normal
+null;cutscene_03;;Cutscene
+2.5;Mini_Tut_02;Frying;Tutorial
+3;Level_3;;Normal
+null;cutscene_04;;Cutscene

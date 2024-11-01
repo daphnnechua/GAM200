@@ -173,6 +173,7 @@ MonoBehaviour:
   endLevelScene: End_Level
   startMenuScene: Start_Menu
   pauseMenuOpen: 0
+  canPause: 1
 --- !u!114 &751841291
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Cheese
   m_EditorClassIdentifier: 
   causeActionID: null
+  originalStateID: INGR_11
   prevStateID: null
-  ingredientID: INGR_9
+  ingredientID: INGR_11
   ingredientName: Cheese
   canCut: 1
   canFry: 0
   canBoil: 0
   isReady: 0
-  imageName: 
+  imageName: 'Food Assets/Ingredients/cheese '
+  plateTyping: null

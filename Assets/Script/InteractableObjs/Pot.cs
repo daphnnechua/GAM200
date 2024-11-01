@@ -88,7 +88,7 @@ public class Pot : MonoBehaviour
                 isReadyToCook = true;
 
                 Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
-                Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}");
+                Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}. ingredient id: {ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID}");
                 
             }
         }
@@ -98,9 +98,13 @@ public class Pot : MonoBehaviour
     {
         if(ingredientIDs.Count==3)
         {
-            Ingredient cookedIngredient = Game.GetIngredientByID(ingredientIDs[0]);
+            for(int i =0; i<ingredientIDs.Count; i++)
+            {
+                Ingredient cookedIngredient = Game.GetIngredientByPrevStateID(ingredientIDs[i]);
 
-            ingredientIDs[0] = cookedIngredient.id;
+                ingredientIDs[i] = cookedIngredient.id;
+                
+            }
             isReadyToCook = false;
             isDoneCooking = true;
             Debug.Log("Soup is cooked!");
@@ -110,8 +114,8 @@ public class Pot : MonoBehaviour
 
     public void PlaceSoupInPlate(Plate plateScript)
     {
-        Debug.Log("Placing soup...");
-        if(plateScript.ingredientsOnPlateIDs.Count ==0)
+        
+        if(plateScript.ingredientsOnPlateIDs.Count ==0 && plateScript.interactableObjSO.objType == "soup_bowl") //only put in soup bowl
         {
             for(int i =0; i<ingredientIDs.Count;i++)
             {
@@ -129,6 +133,10 @@ public class Pot : MonoBehaviour
             plateScript.SpawnPlateUI();
             // LoadPotGraphics();
             SpawnPotUI();
+        }
+        else if(plateScript.interactableObjSO.objType != "soup_bowl")
+        {
+            Debug.Log($"plate typing is not correct. current plate type trying to access: {plateScript.interactableObjSO.objType}");
         }
     }
 
@@ -250,12 +258,23 @@ public class Pot : MonoBehaviour
                     }
                     for(int i =0; i<images.Count;i++)
                     {
-                        SetPotUIImage(Game.GetIngredientByID(ingredientIDs[i]).imageFilePath, images[i]);
+                        Ingredient currentIngredient = Game.GetIngredientByID(ingredientIDs[i]);
+
+                        Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                        SetPotUIImage(originalIngredient.imageFilePath, images[i]);
                     }
                 }
                 else if(ingredientIDs.Count == 1)
                 {
-                    SetPotUIImage(Game.GetIngredientByID(ingredientIDs[0]).imageFilePath, ingredientImages.GetComponent<Image>());
+                    Ingredient currentIngredient = Game.GetIngredientByID(ingredientIDs[0]);
+
+                    Debug.Log($"current ingredient: {currentIngredient.name}");
+                    Debug.Log(currentIngredient.originalStateID);
+
+                    Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                    SetPotUIImage(originalIngredient.imageFilePath, ingredientImages.GetComponent<Image>());
                 }
             });
         }

@@ -48,11 +48,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/cutscenes/cutscene_01.unity
     guid: 29a2131599070784297de41d4f465bc4
   - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/Tutorial_Animated.unity
+    guid: 39313fb87a5ba6843880825cf969b562
+  - enabled: 1
     path: Assets/Scenes/Game/cutscenes/cutscene_02.unity
     guid: ddc40e050b6ebf74eb1acebc49cf43ce
   - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/Mini_Tut_01_Animated.unity
+    guid: f55924a9d6fa4f14ebd822bfee74934a
+  - enabled: 1
     path: Assets/Scenes/Game/cutscenes/cutscene_03.unity
     guid: dbf023bdf688d2c488a5c393c8cb8c5f
+  - enabled: 1
+    path: Assets/Scenes/Game/cutscenes/Mini_Tut_02_Animated.unity
+    guid: a5e12de73e54f4a459ca9ec347eac95f
   - enabled: 1
     path: Assets/Scenes/Game/cutscenes/cutscene_04.unity
     guid: 7baf93ac8cb95de4c9d3c4cda3180a4c

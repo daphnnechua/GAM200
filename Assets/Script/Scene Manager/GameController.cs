@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameController : SceneController
 {
+    [SerializeField] private GameObject startGameCountdown;
+    [SerializeField] private GameObject dialogueInterface;
     public InputHandler inputHandler;
     public GameObject player;
     private PointTracker pointTracker;
@@ -20,6 +23,8 @@ public class GameController : SceneController
 
     //testing purposes
     public DataManager dataManager;
+
+    public bool toStartGame;
     
     // Start is called before the first frame update
     void Start()
@@ -28,8 +33,8 @@ public class GameController : SceneController
         masterController.canPause = true;
 
         //testing purposes
-        dataManager = FindObjectOfType<DataManager>();
-        dataManager.LoadAllData();
+        // dataManager = FindObjectOfType<DataManager>();
+        // dataManager.LoadAllData();
 
         player = GameObject.FindWithTag("Player");
         inputHandler = FindObjectOfType<InputHandler>();
@@ -37,30 +42,74 @@ public class GameController : SceneController
         droneMenuController = FindObjectOfType<DroneMenuController>();
         orderManager = FindObjectOfType<OrderManager>();
 
-        StartGame(); //testing purposes, change to accomodate gameplay flow
+        StartGame();
+
+        if(sceneName == "Tutorial" || sceneName == "Mini_Tut_01" || sceneName == "Mini_Tut_02")
+        {
+            if(dialogueInterface!=null)
+            {
+                dialogueInterface.SetActive(false);
+            }
+        }
+
+        // if(sceneType == "Normal")
+        // {
+        //     toStartGame = true;
+        // }
+        // else if(sceneType == "Tutorial" || sceneType == "Cutscene") //tutorial
+        // {
+        //     toStartGame = false;
+        // }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //debug purposes
-        // if(Input.GetKeyDown(KeyCode.Backspace))
-        // {
-        //     points += 20;
-        //     pointTracker.UpdatePointsUI(points);
-        // }
-        // if(Input.GetKeyDown(KeyCode.LeftShift))
-        // {
-        //     EndOfLevel();
-        // }
 
+        // if(toStartGame && !gameStart)
+        // {
+        //     StartGame();
+        //     gameStart = true;
+        // }
         
     }
 
     public void StartGame()
     {
+        StartCoroutine(StartGameCountdown());
+    }
+
+    private IEnumerator StartGameCountdown()
+    {
+        //countdown 3 seconds before game actually starts to give player some time to get ready
+        startGameCountdown.SetActive(true); // Show countdown text
+
+        TextMeshProUGUI timerCountdown = startGameCountdown.GetComponentInChildren<TextMeshProUGUI>();
+
+        if(sceneType == "Normal")
+        {
+            for (int i = 3; i > 0; i--)
+            {
+                timerCountdown.text = i.ToString();
+                yield return new WaitForSeconds(1f);
+            }
+
+            timerCountdown.text = "Start!";
+            yield return new WaitForSeconds(1f);
+        }
+        else if(sceneType == "Tutorial") //tutorial
+        {
+            timerCountdown.text = "Tutorial Start!";
+            yield return new WaitForSeconds(1f);
+        }
+
+        startGameCountdown.SetActive(false);
+
         gameStart = true;
+        isGameLoopActive = true;
+        isPaused = false;
+
         isGameLoopActive = true;
         isPaused = false;
         //player.transform.position = Vector2.zero;

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stationName: Lettuce_Stocking_Station
   objType: Ingredient
+  typing: Ingredient
   prefab: {fileID: 8040750181862833215, guid: 04d03745dee9da3418d66a3d84dc5322, type: 3}
   ingredientID: INGR_1
   prefabName: Ingredients/Lettuce

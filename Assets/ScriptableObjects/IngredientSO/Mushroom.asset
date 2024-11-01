@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Mushroom
   m_EditorClassIdentifier: 
   causeActionID: null
+  originalStateID: INGR_8
   prevStateID: null
-  ingredientID: INGR_7
+  ingredientID: INGR_8
   ingredientName: Mushroom
   canCut: 1
   canFry: 0
   canBoil: 0
   isReady: 0
-  imageName: 
+  imageName: Food Assets/Ingredients/mushroom
+  plateTyping: null

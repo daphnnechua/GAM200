@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tomato_Cut
   m_EditorClassIdentifier: 
   causeActionID: ACT_1
+  originalStateID: INGR_3
   prevStateID: INGR_3
   ingredientID: INGR_4
   ingredientName: Cut Tomato
@@ -21,3 +22,4 @@ MonoBehaviour:
   canBoil: 1
   isReady: 1
   imageName: Food Assets/Ingredients/tomato_cut
+  plateTyping: salad_bowl

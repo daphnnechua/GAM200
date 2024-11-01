@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Plate : MonoBehaviour
 {
+    public InteractableObjSO interactableObjSO;
     public List<string> ingredientsOnPlateIDs = new List<string>(); //store ingredient ids on plate
     private List<GameObject> ingredientsOnPlate = new List<GameObject>(); 
     public bool readyToServe = false;
@@ -47,13 +48,20 @@ public class Plate : MonoBehaviour
     {
         if(!ingredientsOnPlate.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.isReady && ingredientsOnPlateIDs.Count < 3)
         {
-            ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
-            LoadPlateGraphics();
-            SpawnPlateUI();
-            readyToServe = true;
+            if(interactableObjSO.objType == ingredient.GetComponent<IngredientManager>().ingredientSO.plateTyping)
+            {
+                ingredientsOnPlateIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
+                LoadPlateGraphics();
+                SpawnPlateUI();
+                readyToServe = true;
 
-            Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
-            CheckRecipe();
+                Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
+                CheckRecipe();
+            }
+            else
+            {
+                Debug.Log("plate typing does not match!");
+            }
             
         }
     }
@@ -109,7 +117,10 @@ public class Plate : MonoBehaviour
             {
                 //add reward
                 Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
-                orderManager.RemoveOrder(Color.green);
+
+                //play successful order sfx
+
+                orderManager.RemoveOrder();
                 orderManager.AddBonusTime();
                 gameController.AddPoints(currentRecipe.reward);
             }
@@ -117,7 +128,10 @@ public class Plate : MonoBehaviour
             {
                 //deduct points
                 Debug.Log("Submitted is not matching!");
-                orderManager.RemoveOrder(Color.red);
+
+                //play failed order sfx
+
+                orderManager.RemoveOrder();
                 gameController.DeductPoints(5);
             }
         }
@@ -136,7 +150,10 @@ public class Plate : MonoBehaviour
 
         if(ingredientsOnPlateIDs.Count <=0)
         {
-            PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs("null");
+            List<PlateGraphics> currentPlateTypeGraphics = Game.GetPlateGraphicsByPlateType(interactableObjSO.objType);
+
+            PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs(currentPlateTypeGraphics, "null");
+
             string filePath = emptyPlate.imageFilePath;
             AssetManager.LoadSprite(filePath, (Sprite sp) =>
             {
@@ -204,12 +221,20 @@ public class Plate : MonoBehaviour
                     }
                     for(int i =0; i<images.Count;i++)
                     {
-                        SetPlateUIImage(Game.GetIngredientByID(ingredientsOnPlateIDs[i]).imageFilePath, images[i]);
+                        Ingredient currentIngredient = Game.GetIngredientByID(ingredientsOnPlateIDs[i]);
+
+                        Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                        SetPlateUIImage(originalIngredient.imageFilePath, images[i]);
                     }
                 }
                 else if(ingredientsOnPlateIDs.Count == 1)
                 {
-                    SetPlateUIImage(Game.GetIngredientByID(ingredientsOnPlateIDs[0]).imageFilePath, ingredientImages.GetComponent<Image>());
+                    Ingredient currentIngredient = Game.GetIngredientByID(ingredientsOnPlateIDs[0]);
+
+                    Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                    SetPlateUIImage(originalIngredient.imageFilePath, ingredientImages.GetComponent<Image>());
                 }
             });
         }

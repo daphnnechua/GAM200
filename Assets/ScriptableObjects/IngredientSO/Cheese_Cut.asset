@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Cheese_Cut
   m_EditorClassIdentifier: 
   causeActionID: ACT_1
-  prevStateID: INGR_9
-  ingredientID: INGR_10
+  originalStateID: INGR_11
+  prevStateID: INGR_11
+  ingredientID: INGR_12
   ingredientName: Cut Cheese
   canCut: 0
   canFry: 0
   canBoil: 0
   isReady: 1
-  imageName: 
+  imageName: 'Food Assets/Ingredients/cheeseslice '
+  plateTyping: burger_plate

@@ -6,6 +6,8 @@ public class Ingredient
 {
     public string causeID {get;}
 
+    public string originalStateID {get;}
+
     public string prevStateID {get;}
     public string id {get;}
 
@@ -13,7 +15,7 @@ public class Ingredient
 
     public bool canCut {get; set;}
 
-    public bool canFry {get; set;}
+    public bool canFry {get; set;} 
 
     public bool canBoil {get; set;}
 
@@ -22,9 +24,12 @@ public class Ingredient
     public string prefabPath {get;}
     public string imageFilePath {get;}
 
-    public Ingredient(string causeID, string prevStateID, string id, string name, bool canCut, bool canFry, bool canBoil, bool isReady, string prefabPath, string imageFilePath)
+    public string plateTyping {get;}
+
+    public Ingredient(string causeID, string originalStateID, string prevStateID, string id, string name, bool canCut, bool canFry, bool canBoil, bool isReady, string prefabPath, string imageFilePath, string plateTyping)
     {
         this.causeID = causeID;
+        this.originalStateID = originalStateID;
         this.prevStateID = prevStateID;
         this.id = id;
         this.name = name;
@@ -34,6 +39,7 @@ public class Ingredient
         this.isReady = isReady;
         this.prefabPath = prefabPath;
         this.imageFilePath = imageFilePath;
+        this.plateTyping = plateTyping;
     }
 
 }

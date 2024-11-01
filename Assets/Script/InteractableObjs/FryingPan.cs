@@ -97,9 +97,9 @@ public class FryingPan : MonoBehaviour
     public void CookingComplete()
     {
         //replace the ingredient in pan with the cooked ingredient
-        if(ingredientIDs.Count==3)
+        if(ingredientIDs.Count==1)
         {
-            Ingredient cookedIngredient = Game.GetIngredientByID(ingredientIDs[0]);
+            Ingredient cookedIngredient = Game.GetIngredientByPrevStateID(ingredientIDs[0]);
 
             ingredientIDs[0] = cookedIngredient.id;
             isReadyToCook = false;
@@ -112,7 +112,7 @@ public class FryingPan : MonoBehaviour
     public void PlaceFoodInPlate(Plate plateScript)
     {
         Debug.Log("Placing meat...");
-        if(plateScript.ingredientsOnPlateIDs.Count ==0)
+        if(plateScript.ingredientsOnPlateIDs.Count ==0 && plateScript.interactableObjSO.objType == "burger_plate")
         {
             for(int i =0; i<ingredientIDs.Count;i++)
             {
@@ -251,12 +251,20 @@ public class FryingPan : MonoBehaviour
                     }
                     for(int i =0; i<images.Count;i++)
                     {
-                        SetPanUIImage(Game.GetIngredientByID(ingredientIDs[i]).imageFilePath, images[i]);
+                        Ingredient currentIngredient = Game.GetIngredientByID(ingredientIDs[i]);
+
+                        Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                        SetPanUIImage(originalIngredient.imageFilePath, images[i]);
                     }
                 }
                 else if(ingredientIDs.Count == 1)
                 {
-                    SetPanUIImage(Game.GetIngredientByID(ingredientIDs[0]).imageFilePath, ingredientImages.GetComponent<Image>());
+                    Ingredient currentIngredient = Game.GetIngredientByID(ingredientIDs[0]);
+
+                    Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
+
+                    SetPanUIImage(originalIngredient.imageFilePath, ingredientImages.GetComponent<Image>());
                 }
             });
         }

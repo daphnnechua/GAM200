@@ -6,9 +6,11 @@ public class refIngredient
 {
     public string causeID;
 
+    public string originalStateID;
+
     public string prevStateID;
     public string IngredientID;
-
+ 
     public string name;
 
     public bool canCUt;
@@ -21,4 +23,6 @@ public class refIngredient
 
     public string prefabPath;
     public string imageFilePath;
+
+    public string plateTyping;
 }

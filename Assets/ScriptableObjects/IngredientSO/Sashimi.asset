@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Sashimi
   m_EditorClassIdentifier: 
   causeActionID: ACT_1
-  prevStateID: INGR_5
-  ingredientID: INGR_6
+  originalStateID: INGR_6
+  prevStateID: INGR_6
+  ingredientID: INGR_7
   ingredientName: Sashimi
   canCut: 0
   canFry: 0
   canBoil: 0
   isReady: 1
   imageName: Food Assets/Ingredients/cut_shrimp
+  plateTyping: salad_bowl

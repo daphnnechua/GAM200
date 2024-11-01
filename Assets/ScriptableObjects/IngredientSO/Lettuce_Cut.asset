@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Lettuce_Cut
   m_EditorClassIdentifier: 
   causeActionID: ACT_1
+  originalStateID: INGR_1
   prevStateID: INGR_1
   ingredientID: INGR_2
   ingredientName: Cut Lettuce
   canCut: 0
-  canCook: 0
+  canFry: 0
+  canBoil: 0
   isReady: 1
-  ingredientPrefab: {fileID: 3720659863476319673, guid: 30141644e5190d24d92d65fbb8b75c0d, type: 3}
   imageName: Food Assets/Ingredients/cut_lettuce
+  plateTyping: salad_bowl

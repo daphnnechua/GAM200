@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Meat Patty
   m_EditorClassIdentifier: 
   causeActionID: ACT_1
-  prevStateID: INGR_11
-  ingredientID: INGR_12
+  originalStateID: INGR_13
+  prevStateID: INGR_13
+  ingredientID: INGR_14
   ingredientName: Meat Patty
   canCut: 0
   canFry: 1
   canBoil: 0
   isReady: 0
-  imageName: 
+  imageName: 'Food Assets/Ingredients/patty '
+  plateTyping: null

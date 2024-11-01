@@ -8,11 +8,14 @@ public class PlateGraphics
     public string[] ingredientIDs {get;}
     public string imageFilePath {get;}
 
-    public PlateGraphics(string recipeID, string[] ingredientIDs, string imageFilePath)
+    public string plateTyping {get;}
+
+    public PlateGraphics(string recipeID, string[] ingredientIDs, string imageFilePath, string plateTyping)
     {
         this.recipeID = recipeID;
         this.ingredientIDs = ingredientIDs;
         this.imageFilePath = imageFilePath;
+        this.plateTyping = plateTyping;
     }
 
 }

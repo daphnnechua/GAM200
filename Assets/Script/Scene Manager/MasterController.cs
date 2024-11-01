@@ -71,7 +71,12 @@ public class MasterController : MonoBehaviour
     public void LoadScene(string aScene)
     {
         // string firstLevel = Game.GetLevelList()[0].levelName; //this is tutorial
-
+        Scene sceneToLoad = SceneManager.GetSceneByName(aScene);
+        if (sceneToLoad.isLoaded)
+        {
+            Debug.LogWarning($"Scene '{aScene}' is already loaded. Skipping load.");
+            return;
+        }
         RemoveScene(currentSceneName);
 
         currentSceneName = aScene;

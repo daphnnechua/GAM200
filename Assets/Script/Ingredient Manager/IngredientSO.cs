@@ -9,6 +9,8 @@ public class IngredientSO : ScriptableObject
 {
     //for assigning respective values to the ingredients
     public string causeActionID;
+
+    public string originalStateID;
     public string prevStateID;
     public string ingredientID;
     public string ingredientName;
@@ -18,5 +20,6 @@ public class IngredientSO : ScriptableObject
     public bool isReady;
     public string imageName;
 
+    public string plateTyping;
 
 }

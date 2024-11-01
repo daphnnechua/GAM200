@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Lettuce
   m_EditorClassIdentifier: 
   causeActionID: null
+  originalStateID: INGR_1
   prevStateID: null
   ingredientID: INGR_1
   ingredientName: Lettuce
   canCut: 1
-  canCook: 0
+  canFry: 0
+  canBoil: 0
   isReady: 0
-  ingredientPrefab: {fileID: 8040750181862833215, guid: fb3d687a869ffbe489616cf958f865cb, type: 3}
   imageName: Food Assets/Ingredients/lettuce
+  plateTyping: null

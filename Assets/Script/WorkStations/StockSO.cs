@@ -8,6 +8,8 @@ public class StockSO : ScriptableObject
     public string stationName;
 
     public string objType;
+
+    public string typing;
     public GameObject prefab;  
     
     public string ingredientID;

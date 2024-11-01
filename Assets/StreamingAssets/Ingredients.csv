@@ -1,14 +1,17 @@
-causeActionID,prevStateID,ingredientID,name,canCut,canFry,canBoil,isReady,prefabPath,imageFilePath
-null,null,INGR_1,Lettuce,TRUE,FALSE,FALSE,FALSE,Ingredients/Lettuce,Food Assets/Ingredients/lettuce
-ACT_1,INGR_1,INGR_2,Cut Lettuce,FALSE,FALSE,FALSE,TRUE,Ingredients/Lettuce_Cut,Food Assets/Ingredients/cut_lettuce
-null,null,INGR_3,Tomato,TRUE,FALSE,FALSE,FALSE,Ingredients/Tomato,Food Assets/Ingredients/tomato
-ACT_1,INGR_3,INGR_4,Cut Tomato,FALSE,FALSE,TRUE,TRUE,Ingredients/Tomato_Cut,Food Assets/Ingredients/tomato_cut
-null,null,INGR_5,Shrimp,TRUE,FALSE,FALSE,FALSE,Ingredients/Shrimp,Food Assets/Ingredients/shrimp
-ACT_1,INGR_5,INGR_6,Cut Shrimp,FALSE,FALSE,FALSE,TRUE,Ingredients/Sashimi,Food Assets/Ingredients/cut_shrimp
-ACT_2,null,INGR_7,Mushroom,TRUE,FALSE,FALSE,FALSE,Ingredients/Mushroom,Food Assets/Ingredients/mushroom
-ACT_4,INGR_7,INGR_8,Cut Mushroom,FALSE,FALSE,TRUE,TRUE,Ingredients/Mushroom_Cut,Food Assets/Ingredients/cut_mushroom
-null,null,INGR_9,Cheese,TRUE,FALSE,FALSE,FALSE,Ingredients/Cheese,Food Assets/Ingredients/cheese
-ACT_1,INGR_9,INGR_10,Cut Cheese,FALSE,FALSE,FALSE,TRUE,Ingredients/Cheese_Cut,Food Assets/Ingredients/cheeseslice
-null,null,INGR_11,Steak,TRUE,FALSE,FALSE,FALSE,Ingredients/Steak,Food Assets/Ingredients/steak
-ACT_1,INGR_11,INGR_12,Meat Patty,FALSE,TRUE,FALSE,FALSE,Ingredients/Meat Patty,Food Assets/Ingredients/patty
-null,null,INGR_13,Bread,TRUE,FALSE,FALSE,FALSE,Ingredients/Bread,Food Assets/Ingredients/bun
+causeActionID;originalStateID;prevStateID;ingredientID;name;canCut;canFry;canBoil;isReady;prefabPath;imageFIlePath;plateTyping
+null;INGR_1;null;INGR_1;Lettuce;TRUE;FALSE;FALSE;FALSE;Ingredients/Lettuce;Food Assets/Ingredients/lettuce;null
+ACT_1;INGR_1;INGR_1;INGR_2;Cut Lettuce;FALSE;FALSE;FALSE;TRUE;Ingredients/Lettuce_Cut;Food Assets/Ingredients/cut_lettuce;salad_bowl
+null;INGR_3;null;INGR_3;Tomato;TRUE;FALSE;FALSE;FALSE;Ingredients/Tomato;Food Assets/Ingredients/tomato;null
+ACT_1;INGR_3;INGR_3;INGR_4;Cut Tomato;FALSE;FALSE;TRUE;TRUE;Ingredients/Tomato_Cut;Food Assets/Ingredients/tomato_cut;salad_bowl
+ACT_4;INGR_3;INGR_4;INGR_5;Boiled Tomato;FALSE;FALSE;FALSE;TRUE;null;null;soup_bowl
+null;INGR_6;null;INGR_6;Shrimp;TRUE;FALSE;FALSE;FALSE;Ingredients/Shrimp;Food Assets/Ingredients/shrimp;null
+ACT_1;INGR_6;INGR_6;INGR_7;Cut Shrimp;FALSE;FALSE;FALSE;TRUE;Ingredients/Sashimi;Food Assets/Ingredients/cut_shrimp;salad_bowl
+ACT_2;INGR_8;null;INGR_8;Mushroom;TRUE;FALSE;FALSE;FALSE;Ingredients/Mushroom;Food Assets/Ingredients/mushroom;null
+ACT_1;INGR_8;INGR_8;INGR_9;Cut Mushroom;FALSE;FALSE;TRUE;TRUE;Ingredients/Mushroom_Cut;Food Assets/Ingredients/cut_mushroom ;null
+ACT_4;INGR_8;INGR_9;INGR_10;Boiled Mushroom;FALSE;FALSE;FALSE;TRUE;null;null;soup_bowl
+null;INGR_11;null;INGR_11;Cheese;TRUE;FALSE;FALSE;FALSE;Ingredients/Cheese;Food Assets/Ingredients/cheese ;null
+ACT_1;INGR_11;INGR_11;INGR_12;Cut Cheese;FALSE;FALSE;FALSE;TRUE;Ingredients/Cheese_Cut;Food Assets/Ingredients/cheeseslice ;burger_plate
+null;INGR_13;null;INGR_13;Meat;TRUE;FALSE;FALSE;FALSE;Ingredients/Steak;Food Assets/Ingredients/steak ;null
+ACT_1;INGR_13;INGR_13;INGR_14;Minced Meat;FALSE;TRUE;FALSE;FALSE;Ingredients/Meat Patty;Food Assets/Ingredients/patty ;null
+ACT_2;INGR_13;INGR_14;INGR_15;Meat Patty;FALSE;FALSE;FALSE;TRUE;null;null;burger_plate
+null;INGR_16;null;INGR_16;Bread;TRUE;FALSE;FALSE;FALSE;Ingredients/Bread;Food Assets/Ingredients/bun ;burger_plate

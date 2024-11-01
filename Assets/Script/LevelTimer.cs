@@ -12,6 +12,8 @@ public class LevelTimer : MonoBehaviour
     [SerializeField] GameController gameController;
     [SerializeField] private TextMeshProUGUI timeText;
 
+    [SerializeField] private GameObject timerDisplay;
+
     public string endText;
     private bool isTimerFinished = false;
 
@@ -27,13 +29,18 @@ public class LevelTimer : MonoBehaviour
         orderManager = FindObjectOfType<OrderManager>();
         gameController = FindObjectOfType<GameController>();
         timeText = GetComponent<TextMeshProUGUI>();
+
+        if(gameController.sceneType == "Tutorial" || gameController.sceneType == "Cutscene")
+        {
+            timerDisplay.SetActive(false);
+        }
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameController.gameStart)
+        if(timerDisplay.activeInHierarchy && gameController.gameStart)
         {
             if(timeLeft>0 && !isTimerFinished)
             {
