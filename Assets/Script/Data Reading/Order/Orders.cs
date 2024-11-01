@@ -9,10 +9,13 @@ public class Orders
     public Recipe Recipe { get; private set; }
     public float RemainingTime { get; set; }
 
-    public Orders(Recipe recipe, float remainingTime)
+    public float ExpiryTime {get; set;}
+
+    public Orders(Recipe recipe, float remainingTime, float expiryTime)
     {
         OrderId = Guid.NewGuid();
         Recipe = recipe;
         RemainingTime = remainingTime;
+        ExpiryTime = expiryTime;
     }
 }

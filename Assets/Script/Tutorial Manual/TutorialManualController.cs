@@ -34,7 +34,7 @@ public class TutorialManualController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+        if(Input.GetKeyDown(KeyCode.H) && !masterController.pauseMenuOpen)
         {
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             player.GetComponent<PlayerMovement>().canMove = false;

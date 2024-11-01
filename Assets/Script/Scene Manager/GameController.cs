@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameController : SceneController
 {
     [SerializeField] private GameObject startGameCountdown;
-    [SerializeField] private GameObject dialogueInterface;
     public InputHandler inputHandler;
     public GameObject player;
     private PointTracker pointTracker;
@@ -42,15 +41,15 @@ public class GameController : SceneController
         droneMenuController = FindObjectOfType<DroneMenuController>();
         orderManager = FindObjectOfType<OrderManager>();
 
-        StartGame();
+        // StartGame();
 
-        if(sceneName == "Tutorial" || sceneName == "Mini_Tut_01" || sceneName == "Mini_Tut_02")
-        {
-            if(dialogueInterface!=null)
-            {
-                dialogueInterface.SetActive(false);
-            }
-        }
+        // if(sceneName == "Tutorial" || sceneName == "Mini_Tut_01" || sceneName == "Mini_Tut_02")
+        // {
+        //     if(dialogueInterface!=null)
+        //     {
+        //         dialogueInterface.SetActive(false);
+        //     }
+        // }
 
         // if(sceneType == "Normal")
         // {

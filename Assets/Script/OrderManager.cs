@@ -12,6 +12,8 @@ public class OrderManager : MonoBehaviour
     private WaitForSeconds generationTimer;
     private GameController gameController;
 
+    private DialogueController dialogueController;
+
     private bool hasBeenInitialized = false;
     private bool hasCoroutineBeenStarted = false;
 
@@ -25,6 +27,8 @@ public class OrderManager : MonoBehaviour
         generationTimer = new WaitForSeconds(spawnInterval);
         gameController = FindObjectOfType<GameController>();
         orderUI = FindObjectOfType<OrderUI>();
+
+        dialogueController = FindObjectOfType<DialogueController>();
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class OrderManager : MonoBehaviour
             // Debug.Log(balancedTimer);
 
 
-            Orders newOrder = new Orders(newOrderRecipe, balancedTimer);
+            Orders newOrder = new Orders(newOrderRecipe, balancedTimer, balancedTimer);
             activeOrders.Add(newOrder);
 
 
@@ -76,7 +80,7 @@ public class OrderManager : MonoBehaviour
         // orderUI.UpdateUIStatus(0, uiColor); //to remove! testing purposes only 
 
         activeOrders.RemoveAt(0); //always remove he first order!
-        // toUpdateOrderUI = true;
+        toUpdateOrderUI = true;
     }
 
     public Orders GetCurrentOrder()
@@ -88,7 +92,7 @@ public class OrderManager : MonoBehaviour
     {
         while(gameController.isGameLoopActive)
         {
-            if(!gameController.isPaused)
+            if(!gameController.isPaused && !dialogueController.dialogueOpen)
             {
                 yield return generationTimer;
                 GenerateNewOrder();
@@ -107,7 +111,7 @@ public class OrderManager : MonoBehaviour
 
         while (order.RemainingTime > 0)
         {
-            if (!gameController.isPaused)
+            if (!gameController.isPaused && !dialogueController.dialogueOpen)
             {
                 order.RemainingTime -= Time.deltaTime;
                 yield return null;

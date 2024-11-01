@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,22 +11,36 @@ public class OrderUI : MonoBehaviour
     private OrderManager orderManager;
     private List<Orders> trackOrders = new List<Orders>();
     public List<GameObject> trackOrderUI = new List<GameObject>();
-    [SerializeField] private GameObject activeOrderUIPrefab;
+
+    [SerializeField] private List<GameObject> orderUIs;
     [SerializeField] private GameObject orderUIRoot;
-    private GameObject recipeImage;
-    private GameObject requiredIngredientsRoot;
-    private GameObject newOrderUI;
+    // private GameObject recipeImage;
+    // private GameObject requiredIngredientsRoot;
+
+    private Dictionary<Guid, Coroutine> activeShakeEffects = new Dictionary<Guid, Coroutine>();
+
+    private DialogueController dialogueController;
+
+    // private GameObject newOrderUI;
 
     // Start is called before the first frame update
     void Start()
     {
+        dialogueController = FindObjectOfType<DialogueController>();
         orderManager = FindObjectOfType<OrderManager>();
         orderUIRoot = GameObject.FindWithTag("OrderUI");
+
+        foreach(var obj in orderUIs)
+        {
+            obj.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log(orderManager.toUpdateOrderUI);
+
         if(orderManager.toUpdateOrderUI)
         {
             SpawnOrderUI(orderManager.activeOrders);
@@ -40,58 +56,59 @@ public class OrderUI : MonoBehaviour
     public void SpawnOrderUI(List<Orders> currentOrders)
     {
         // trackOrders = orderManager.activeRecipe;
-
-        foreach(var obj in trackOrderUI)
+        foreach(var obj in orderUIs)
         {
-            Destroy(obj);
+            obj.SetActive(false);
         }
         trackOrderUI.Clear();
         trackOrders.Clear();
 
+        foreach (var orderID in activeShakeEffects.Keys.ToList())
+        {
+            StopCoroutine(activeShakeEffects[orderID]);
+            activeShakeEffects.Remove(orderID);
+        }
+
         for(int i =0; i<currentOrders.Count; i++)
         {
-            newOrderUI = Instantiate(activeOrderUIPrefab, orderUIRoot.transform);
-            trackOrderUI.Add(newOrderUI);
+            orderUIs[i].SetActive(true);
+            // newOrderUI = Instantiate(activeOrderUIPrefab, orderUIRoot.transform);
+            trackOrderUI.Add(orderUIs[i]);
             trackOrders.Add(currentOrders[i]);
-            recipeImage = newOrderUI.transform.Find("Recipe Image").gameObject;
-            requiredIngredientsRoot = newOrderUI.transform.Find("Ingredient Images").gameObject;
 
-            UpdateOrderUI(currentOrders[i].Recipe);
+            GameObject childObj = orderUIs[i].transform.Find("child").gameObject;
+            GameObject recipeImage = childObj.transform.Find("Recipe Image").gameObject;
+            GameObject requiredIngredientsRoot = childObj.transform.Find("Ingredient Images").gameObject;
+
+            UpdateOrderUI(recipeImage, requiredIngredientsRoot, currentOrders[i].Recipe);
         }
     }
 
-    private void UpdateOrderUI(Recipe recipe)
+    private void UpdateOrderUI(GameObject parentRecipeImage, GameObject ingredientParentObj, Recipe recipe)
     {
         string imagePath = recipe.imageFilePath;
 
-        Image recipeImg = recipeImage.GetComponentInChildren<Image>();
+        Image recipeImg = parentRecipeImage.GetComponentInChildren<Image>();
         SetImage(imagePath, recipeImg);
+
+        List<Image> ingredientImgs = ingredientParentObj.GetComponentsInChildren<Image>(true).ToList();
+
+        // Debug.Log($"image placeholders found: {ingredientImgs.Count}"); //3
+
+        foreach(var e in ingredientImgs)
+        {
+            e.gameObject.SetActive(false);
+        }
         
         if(recipe.ingredientIDs.Length >0)
         {
-            List<Image> ingredientImgs = new List<Image>();
-            GameObject ingredients = requiredIngredientsRoot.transform.Find("Ingredient Image").gameObject;
-            ingredientImgs.Add(ingredients.GetComponentInChildren<Image>());
-
-            for(int i =0; i<recipe.ingredientIDs.Length-1;i++)
+            for (int i = 0; i < recipe.ingredientIDs.Length; i++)
             {
-                GameObject ingredientImg = Instantiate(ingredients, requiredIngredientsRoot.transform);
-                ingredientImgs.Add(ingredientImg.GetComponent<Image>());
-            }
-
-            List<string> imageFilePaths = new List<string>();
-            foreach(string id in recipe.ingredientIDs)
-            {
-                Ingredient ingredient = Game.GetIngredientByID(id);
+                ingredientImgs[i].gameObject.SetActive(true);
+                Ingredient ingredient = Game.GetIngredientByID(recipe.ingredientIDs[i]);
                 Ingredient originalIngredient = Game.GetIngredientByOriginalID(ingredient.originalStateID);
                 string filePath = originalIngredient.imageFilePath;
-
-                imageFilePaths.Add(filePath);
-            }
-
-            for(int i =0; i<ingredientImgs.Count; i++)
-            {
-                SetImage(imageFilePaths[i], ingredientImgs[i]);
+                SetImage(filePath, ingredientImgs[i]);
             }
         }
     }
@@ -112,6 +129,11 @@ public class OrderUI : MonoBehaviour
     // }
     public void SetImage(string spritePath, Image image)
     {
+        if (image == null) 
+        {
+            return;
+        }
+
         AssetManager.LoadSprite(spritePath, (Sprite sp) =>
         {
             image.sprite = sp;
@@ -126,9 +148,10 @@ public class OrderUI : MonoBehaviour
         {
             if(trackOrders[i] == order)
             {
-                Slider timer  = trackOrderUI[i].transform.Find("Timer").GetComponent<Slider>(); 
-                float refBaseTimer = orderManager.baseExpiryTime;
-                timer.value = timeLeft/(refBaseTimer += i*5);
+                GameObject childObj  = trackOrderUI[i].transform.Find("child").gameObject; 
+                Slider timer  = childObj.transform.Find("Timer").GetComponent<Slider>(); 
+                // float refBaseTimer = orderManager.baseExpiryTime;
+                timer.value = timeLeft/order.ExpiryTime;
 
                 if(timer.value>0.5f)
                 {
@@ -141,13 +164,17 @@ public class OrderUI : MonoBehaviour
                 else if(timer.value<=0.25f)
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.red;
-                    StartCoroutine(ShakeEffect(trackOrderUI[i]));
+                    if (!activeShakeEffects.ContainsKey(order.OrderId))
+                    {
+                        Coroutine shakeCoroutine = StartCoroutine(ShakeEffect(trackOrderUI[i], order.OrderId));
+                        activeShakeEffects[order.OrderId] = shakeCoroutine;
+                    }
                 }
             }
         }
     }
 
-    private IEnumerator ShakeEffect(GameObject orderUI)
+    private IEnumerator ShakeEffect(GameObject orderUI, Guid orderID)
     {
         if (orderUI == null) 
         {
@@ -167,23 +194,23 @@ public class OrderUI : MonoBehaviour
 
         while (elapsed < duration)
         {
-            if (rt == null) 
+            if(dialogueController.dialogueOpen)
             {
-                yield break;
+                yield return null;
             }
+            else
+            {
+                float xOffset = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+                float yOffset = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+                rt.localPosition = originalPosition + new Vector3(xOffset, yOffset, 0);
 
-            float xOffset = Random.Range(-1f, 1f) * magnitude;
-            float yOffset = Random.Range(-1f, 1f) * magnitude;
-            rt.localPosition = originalPosition + new Vector3(xOffset, yOffset, 0);
-
-            elapsed += Time.deltaTime;
-            yield return null;
+                elapsed += Time.deltaTime;
+                yield return new WaitForSeconds(0.05f);
+            }
         }
 
-        if (rt != null)
-        {
-            rt.localPosition = originalPosition;
-        }        
+        rt.localPosition = originalPosition;
+        activeShakeEffects.Remove(orderID);
     }
     
 }

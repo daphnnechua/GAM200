@@ -1,34 +1,34 @@
 recipeID;ingredientaIDs;imageFilePath;plateTyping
-null;null;Food Assets/Plates/plate;salad_bowl
-REC_1;INGR_2;Food Assets/Plates/plate_lettuce;salad_bowl
-null;INGR_4;Food Assets/Plates/plate_tomato;salad_bowl
-null;INGR_7;Food Assets/Plates/plate_shrimp;salad_bowl
-null;INGR_2@INGR_7;Food Assets/Plates/plate_lettuceshrimp;salad_bowl
-null;INGR_4@INGR_7;Food Assets/Plates/plate_shrimptomato;salad_bowl
-REC_2;INGR_2@INGR_4;Food Assets/Plates/plate_lettucetomato;salad_bowl
-REC_3;INGR_2@INGR_4@INGR_7;Food Assets/Plates/plate_lettucetomatoshrimp;salad_bowl
-null;null;;soup_bowl
+null;null;Food Assets/Plates/Salad/plate;salad_bowl
+REC_1;INGR_2;Food Assets/Plates/Salad/plate_lettuce;salad_bowl
+null;INGR_4;Food Assets/Plates/Salad/plate_tomato;salad_bowl
+null;INGR_7;Food Assets/Plates/Salad/plate_shrimp;salad_bowl
+null;INGR_2@INGR_7;Food Assets/Plates/Salad/plate_lettuceshrimp;salad_bowl
+null;INGR_4@INGR_7;Food Assets/Plates/Salad/plate_shrimptomato;salad_bowl
+REC_2;INGR_2@INGR_4;Food Assets/Plates/Salad/plate_lettucetomato;salad_bowl
+REC_3;INGR_2@INGR_4@INGR_7;Food Assets/Plates/Salad/plate_lettucetomatoshrimp;salad_bowl
+null;null;Food Assets/Plates/soup/soupbowl;soup_bowl
 null;INGR_5@INGR_10@INGR_10;;soup_bowl
 null;INGR_5@INGR_5@INGR_10;;soup_bowl
-REC_4;INGR_5@INGR_5@INGR_5;;soup_bowl
-REC_5;INGR_10@INGR_10@INGR_10;;soup_bowl
-null;null;;burger_plate
-null;INGR_15;;burger_plate
-null;INGR_16;;burger_plate
-null;INGR_12;;burger_plate
-null;INGR_12@INGR_12;;burger_plate
+REC_4;INGR_5@INGR_5@INGR_5;Food Assets/Plates/soup/tomatosoup;soup_bowl
+REC_5;INGR_10@INGR_10@INGR_10;Food Assets/Plates/soup/mushroomsoup;soup_bowl
+null;null;Food Assets/Plates/burger/plate_burger;burger_plate
+null;INGR_15;Food Assets/Plates/burger/cookedpattyplate;burger_plate
+null;INGR_16;Food Assets/Plates/burger/bunplate;burger_plate
+null;INGR_12;Food Assets/Plates/burger/cheeseplate;burger_plate
+null;INGR_12@INGR_12;Food Assets/Plates/burger/cheeseplate;burger_plate
 null;INGR_12@INGR_15;;burger_plate
 null;INGR_12@INGR_16;;burger_plate
-null;INGR_15@INGR_15;;burger_plate
-REC_6;INGR_15@INGR_16;;burger_plate
-null;INGR_16@INGR_16;;burger_plate
-null;INGR_12@INGR_12@INGR_12;;burger_plate
+null;INGR_15@INGR_15;Food Assets/Plates/burger/cookedpattyplate;burger_plate
+REC_6;INGR_15@INGR_16;Food Assets/Plates/burger/burgerplate;burger_plate
+null;INGR_16@INGR_16;Food Assets/Plates/burger/bunplate;burger_plate
+null;INGR_12@INGR_12@INGR_12;Food Assets/Plates/burger/cheeseplate;burger_plate
 null;INGR_12@INGR_12@INGR_15;;burger_plate
 null;INGR_12@INGR_12@INGR_16;;burger_plate
 null;INGR_12@INGR_15@INGR_15;;burger_plate
-REC_7;INGR_12@INGR_15@INGR_16;;burger_plate
+REC_7;INGR_12@INGR_15@INGR_16;Food Assets/Plates/burger/cheese_burger;burger_plate
 null;INGR_12@INGR_16@INGR_16;;burger_plate
-null;INGR_15@INGR_15@INGR_15;;burger_plate
-null;INGR_15@INGR_15@INGR_16;;burger_plate
-null;INGR_15@INGR_16@INGR_16;;burger_plate
-null;INGR_16@INGR_16@INGR_16;;burger_plate
+null;INGR_15@INGR_15@INGR_15;Food Assets/Plates/burger/cookedpattyplate;burger_plate
+null;INGR_15@INGR_15@INGR_16;Food Assets/Plates/burger/burgerplate;burger_plate
+null;INGR_15@INGR_16@INGR_16;Food Assets/Plates/burger/burgerplate;burger_plate
+null;INGR_16@INGR_16@INGR_16;Food Assets/Plates/burger/bunplate;burger_plate

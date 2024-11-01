@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +15,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private GameObject dialogueInterface;
     [SerializeField] List<GameObject> responseButtons;
     [SerializeField] List<TextMeshProUGUI> responseButtonText;
+
+    [SerializeField] private Button puddlesButton;
 
 
     [SerializeField] private TextMeshProUGUI skipTutorialText;
@@ -39,6 +39,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private Image leftSpeaker;
     [SerializeField] private Image rightSpeaker;
 
+    [SerializeField] private GameObject gameCountdownTimer;
+
     public bool dialogueOpen;
 
     public bool toReturnToStartMenu;
@@ -58,11 +60,20 @@ public class DialogueController : MonoBehaviour
     public bool canInteract = true;
 
     private bool endOfDialogue = false;
-
-    private bool hasDialgoueBeenStarted = false;
     void Start()
     {
-        
+        if(gameCountdownTimer!=null)
+        {
+            gameCountdownTimer.SetActive(false);
+        }
+        OpenDialogue();
+
+        if(puddlesButton!=null)
+        {
+            puddlesButton.onClick.AddListener(()=>ReOpenDialogue());
+            puddlesButton.gameObject.SetActive(false);
+        }
+
     }
 
     void Update()
@@ -72,17 +83,27 @@ public class DialogueController : MonoBehaviour
             NextDialogue();
 
         }
+
         GameController gameController =FindObjectOfType<GameController>();
-        if(gameController!=null && gameController.gameStart && !hasDialgoueBeenStarted)
+        if(!dialogueInterface.activeInHierarchy)
         {
-            OpenDialogue();
-            hasDialgoueBeenStarted = true;
+            dialogueOpen=false;
+
+            if(gameController!=null && gameController.gameStart && puddlesButton!=null)
+            {
+                puddlesButton.gameObject.SetActive(true);
+            }
         }
-        //debug purposes
-        if(Input.GetKeyDown(KeyCode.Tab))
+        else
         {
-            ReOpenDialogue();
+            dialogueOpen=true;
+            
+            if(puddlesButton!=null)
+            {
+                puddlesButton.gameObject.SetActive(false);
+            }
         }
+
     }
 
 
@@ -93,16 +114,18 @@ public class DialogueController : MonoBehaviour
         playerResponses = Game.GetPlayerResponsesInScene(currentSceneName);
 
 
-        for(int i =0; i<generalDialogues.Count;i++)
-        {
-            Debug.Log(generalDialogues[i].dialogue);
-        }
+        // for(int i =0; i<generalDialogues.Count;i++)
+        // {
+        //     Debug.Log(generalDialogues[i].dialogue);
+        // }
     }
 
     public void ReOpenDialogue() //for interaction with npc
     {
+
+        masterController = FindObjectOfType<MasterController>();
+        masterController.canPause = true;
         // the whole game
-        Time.timeScale = 0f;
 
         skipDialogueButton.onClick.RemoveAllListeners();
         declineSkip.onClick.RemoveAllListeners();
@@ -124,15 +147,11 @@ public class DialogueController : MonoBehaviour
 
         tutorialPrompt.SetActive(false);
         
-        dialogueOpen = true;
-
         dialogueInterface.SetActive(true);
         skipDialoguePrompt.SetActive(false);
 
 
         skipDialogueButton.gameObject.SetActive(false); //set to active at specific triggers
-
-        SetSpeakerImage();
 
         if(generalDialogues[nextGeneralDialogue].isDialogueSelection)
         {
@@ -147,8 +166,7 @@ public class DialogueController : MonoBehaviour
 
     public void OpenDialogue() //this opens up the dialogue interface
     {
-        Time.timeScale = 0f;
-
+        
         masterController = FindObjectOfType<MasterController>();
         masterController.canPause = true;
 
@@ -187,8 +205,6 @@ public class DialogueController : MonoBehaviour
 
         tutorialPrompt.SetActive(false);
         
-        dialogueOpen = true;
-
         dialogueInterface.SetActive(true);
         skipDialoguePrompt.SetActive(false);
 
@@ -202,12 +218,9 @@ public class DialogueController : MonoBehaviour
         dialogueBy.text = generalDialogues[nextGeneralDialogue].dialogueBy;
         StopAllCoroutines();
         StartCoroutine(TypewriterEffect(generalDialogues[nextGeneralDialogue].dialogue, dialogue));
-        ToggleTutorialManual();
-        SetSpeakerImage();
 
         // dialogue.text = generalDialogues[nextGeneralDialogue].dialogue;
         nextGeneralDialogue++;
-
     }
 
     private void ToggleTutorialManual()
@@ -215,6 +228,7 @@ public class DialogueController : MonoBehaviour
         
         if(generalDialogues[nextGeneralDialogue].tutorialImage != "null")
         {
+            SetTutorialImage();
             tutorialManual.SetActive(true);
         }
         else if(generalDialogues[nextGeneralDialogue].tutorialImage == "null")
@@ -224,12 +238,33 @@ public class DialogueController : MonoBehaviour
         
     }
 
+    private void SetTutorialImage()
+    {
+        Image tutorialImage = tutorialManual.GetComponentInChildren<Image>();
+        if(generalDialogues[nextGeneralDialogue].optionResponseID!="null")
+        {
+            RectTransform rt = tutorialImage.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(948, 585);
+            SetImage(generalDialogues[nextGeneralDialogue].tutorialImage, tutorialImage);
+        }
+        else if(generalDialogues[nextGeneralDialogue].optionResponseID=="null")
+        {
+            RectTransform rt = tutorialImage.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(439, 439);
+            SetImage(generalDialogues[nextGeneralDialogue].tutorialImage, tutorialImage);
+        }
+    }
+
     public void CloseDialogue() //this closes the dialogue interface
     {
+        masterController = FindObjectOfType<MasterController>();
+        masterController.canPause = true;
+
         if(currentSceneName == "Tutorial" || currentSceneName == "Mini_Tut_01" || currentSceneName == "Mini_Tut_02") //meant to be called in tutorial levels
         {
             if(generalDialogues[nextGeneralDialogue-1].optionResponseID == "P007") //close npc dialogue in tutorial
             {
+                Debug.Log($"current dialogue is to close the interface.");
                 for(int i =0; i<generalDialogues.Count; i++)
                 {
                     if(generalDialogues[i].repeatDialogue)
@@ -239,6 +274,7 @@ public class DialogueController : MonoBehaviour
                     }
                 }
                 dialogueInterface.SetActive(false);
+                Debug.Log("interface closed");
             }
             
             else if (generalDialogues[nextGeneralDialogue-1].optionResponseID == "P008")//player chooses to close tutorial
@@ -291,19 +327,17 @@ public class DialogueController : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         if(gameController!=null && !gameController.gameStart)
         {
-            gameController.toStartGame = true; //start the game
+            gameController.StartGame(); //start the game
         }
         else if(gameController!=null && gameController.gameStart) //game has already been started
         {
             Time.timeScale = 1f; //resume game upon closing dialogue
         }
-
         canInteract = true;
     }
 
     public void NextDialogue() //this handles the dialogue progression
     {
-        
         if (isTyping) 
         {
             skipTyping = true;
@@ -322,11 +356,10 @@ public class DialogueController : MonoBehaviour
 
         if(nextGeneralDialogue < generalDialogues.Count) //check if dialogue is not at the end of list
         {
-            SetSpeakerImage();
 
             if(generalDialogues[nextGeneralDialogue].repeatDialogue)
             {
-                Debug.Log("current dialogue end. reopen dialogue to continue");
+                // Debug.Log("current dialogue end. reopen dialogue to continue");
                 CloseDialogue();
                 return;
             }
@@ -342,12 +375,14 @@ public class DialogueController : MonoBehaviour
 
             if(generalDialogues[nextGeneralDialogue-1].toCloseDialogue && !generalDialogues[nextGeneralDialogue].toCloseDialogue)
             {                
+                Debug.Log("toclosedialogue is true");
                 CloseDialogue();
                 return;
             }
             
             if(generalDialogues[nextGeneralDialogue-1].optionResponseID == "P007" && generalDialogues[nextGeneralDialogue].optionResponseID != "P007")
             {
+                Debug.Log("p007");
                 CloseDialogue();
                 return;
             }
@@ -467,6 +502,7 @@ public class DialogueController : MonoBehaviour
     }
     private IEnumerator TypewriterEffect(string dialogueText, TextMeshProUGUI text)
     {
+        SetSpeakerImage();
         ToggleTutorialManual();
         isTyping = true;
         skipTyping = false;
@@ -490,7 +526,7 @@ public class DialogueController : MonoBehaviour
     {
         if(endOfDialogue)
         {
-            Debug.LogWarning("fadeToBlack to black has already been triggered");
+            // Debug.LogWarning("fadeToBlack to black has already been triggered");
             yield break;
         }
         
@@ -543,7 +579,7 @@ public class DialogueController : MonoBehaviour
                 Levels nextLevel = Game.GetLevelList()[indexOfCurrentLevel+1];
                 masterController.LoadScene(nextLevel.levelName);
 
-                Debug.Log($"loading: {nextLevel.levelName}");
+                // Debug.Log($"loading: {nextLevel.levelName}");
             }
         }
 
@@ -583,7 +619,7 @@ public class DialogueController : MonoBehaviour
                 break;
             }
         }
-        Debug.Log($"next level is: {Game.GetLevel().levelName}");
+        // Debug.Log($"next level is: {Game.GetLevel().levelName}");
         CloseDialogue();
     }
 
@@ -602,12 +638,14 @@ public class DialogueController : MonoBehaviour
                 break;
             }
         }
-        Debug.Log($"next level is: {Game.GetLevel().levelName}");
+        // Debug.Log($"next level is: {Game.GetLevel().levelName}");
         CloseDialogue();
     }
 
     private void OpenTutorialPrompt()
     {
+        masterController = FindObjectOfType<MasterController>();
+        masterController.canPause = false;
         tutorialPrompt.SetActive(true);
         canInteract = false;
     }

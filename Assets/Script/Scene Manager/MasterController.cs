@@ -57,14 +57,6 @@ public class MasterController : MonoBehaviour
             }
         }
 
-        if(pauseMenuOpen)
-        {
-            Time.timeScale = 0f;
-        }
-        else if(!pauseMenuOpen)
-        {
-            Time.timeScale = 1f;
-        }
     }
 
     #region scene loading/ unloading
@@ -175,6 +167,7 @@ public class MasterController : MonoBehaviour
 
     public void PauseGame()
     {
+        Time.timeScale = 0f;
         List<Levels> allLevels = Game.GetLevelList();
         foreach(var level in allLevels)
         {
@@ -194,6 +187,7 @@ public class MasterController : MonoBehaviour
 
     public void UnpauseGame()
     {
+        Time.timeScale =1f;
         RemoveScene("Pause_Menu");
         if(gameController!=null)
         {

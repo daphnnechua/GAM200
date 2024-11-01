@@ -116,7 +116,7 @@ public class Plate : MonoBehaviour
             if(currentRecipe!=null && orderOfInterest.recipeID == currentRecipe.recipeID)
             {
                 //add reward
-                Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
+                // Debug.Log("Recipe matches! Submitted:" + currentRecipe.recipeName + " Order:" + orderOfInterest.recipeName);
 
                 //play successful order sfx
 
@@ -127,7 +127,7 @@ public class Plate : MonoBehaviour
             else
             {
                 //deduct points
-                Debug.Log("Submitted is not matching!");
+                // Debug.Log("Submitted is not matching!");
 
                 //play failed order sfx
 

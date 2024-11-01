@@ -23,14 +23,17 @@ public class PlayerMovement : PlayerScript, InputReceiver
     public bool canMove = true;
     private float radius =5;
     private float semiCircleAngle = 90f;
+
+    public bool isCutting = false;
     void Start()
     {
         anim = GetComponent<Animator>(); 
+
     }
 
     void Update()
     {
-        PlayerAnimation();
+        UpdatePlayerAnimations();
         
     }
 
@@ -249,7 +252,15 @@ public class PlayerMovement : PlayerScript, InputReceiver
     }
 
     //setting up player animation
-    private void PlayerAnimation()
+
+    #region player animations
+
+    private void UpdatePlayerAnimations()
+    {
+        PlayerMovementAnimation();
+        PlayerCuttingAnimation();
+    }
+    private void PlayerMovementAnimation()
     {
         if(isMoving)
         {
@@ -326,8 +337,21 @@ public class PlayerMovement : PlayerScript, InputReceiver
 
             }
         }
-
         
     }
+
+    private void PlayerCuttingAnimation()
+    {
+        if(isCutting)
+        {
+            anim.SetBool("Cutting", true);
+        }
+        else 
+        {
+            anim.SetBool("Cutting", false);
+        }
+    }
+
+    #endregion player animations
 }
 

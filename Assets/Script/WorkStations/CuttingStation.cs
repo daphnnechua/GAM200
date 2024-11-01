@@ -9,7 +9,7 @@ public class CuttingStation : MonoBehaviour
     [SerializeField] public float cutTimer = 1f;
     private GameObject ingredientObj;
 
-    Rigidbody2D rb;
+    Rigidbody2D rb; 
 
     private GameObject player;
 
@@ -39,6 +39,7 @@ public class CuttingStation : MonoBehaviour
             {
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 playerMovement.canMove = false;
+                playerMovement.isCutting = true;
                 CutIngredient();
             }
             
@@ -47,6 +48,7 @@ public class CuttingStation : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             playerMovement.canMove = true;
+            playerMovement.isCutting = false;
         }
         if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
         {
@@ -64,7 +66,7 @@ public class CuttingStation : MonoBehaviour
         }
         if (ingredientObj != null)
         {
-            Debug.Log(cutTimer);
+            
             ingredientManager.prepProgress += Time.deltaTime;
             ingredientManager.UpdateCuttingProgressBar(this, cutTimer);
 
@@ -84,6 +86,7 @@ public class CuttingStation : MonoBehaviour
     {
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         playerMovement.canMove = true;
+        playerMovement.isCutting = false;
         
         if (ingredientObj != null)
         {

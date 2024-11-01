@@ -21,5 +21,5 @@ MonoBehaviour:
   canFry: 0
   canBoil: 1
   isReady: 0
-  imageName: Food Assets/Ingredients/shrimp
+  imageName: Food Assets/Plates/Salad/shrimp
   plateTyping: null
