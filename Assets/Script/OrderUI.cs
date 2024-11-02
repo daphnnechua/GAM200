@@ -17,7 +17,7 @@ public class OrderUI : MonoBehaviour
     // private GameObject recipeImage;
     // private GameObject requiredIngredientsRoot;
 
-    private Dictionary<Guid, Coroutine> activeShakeEffects = new Dictionary<Guid, Coroutine>();
+    private Dictionary<Guid, Coroutine> shakeEffects = new Dictionary<Guid, Coroutine>();
 
     private DialogueController dialogueController;
 
@@ -63,10 +63,10 @@ public class OrderUI : MonoBehaviour
         trackOrderUI.Clear();
         trackOrders.Clear();
 
-        foreach (var orderID in activeShakeEffects.Keys.ToList())
+        foreach (var e in shakeEffects.Keys.ToList())
         {
-            StopCoroutine(activeShakeEffects[orderID]);
-            activeShakeEffects.Remove(orderID);
+            StopCoroutine(shakeEffects[e]);
+            shakeEffects.Remove(e);
         }
 
         for(int i =0; i<currentOrders.Count; i++)
@@ -164,10 +164,10 @@ public class OrderUI : MonoBehaviour
                 else if(timer.value<=0.25f)
                 {
                     timer.fillRect.GetComponent<Image>().color = Color.red;
-                    if (!activeShakeEffects.ContainsKey(order.OrderId))
+                    if (!shakeEffects.ContainsKey(order.OrderId))
                     {
                         Coroutine shakeCoroutine = StartCoroutine(ShakeEffect(trackOrderUI[i], order.OrderId));
-                        activeShakeEffects[order.OrderId] = shakeCoroutine;
+                        shakeEffects[order.OrderId] = shakeCoroutine;
                     }
                 }
             }
@@ -210,7 +210,7 @@ public class OrderUI : MonoBehaviour
         }
 
         rt.localPosition = originalPosition;
-        activeShakeEffects.Remove(orderID);
+        shakeEffects.Remove(orderID);
     }
     
 }

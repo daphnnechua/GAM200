@@ -11,6 +11,10 @@ public class DroneStation : MonoBehaviour
     [SerializeField] public GameObject droneMenu;
     [SerializeField] private Button closeButton;
 
+    [SerializeField] private GameObject tutorialManual;
+
+    [SerializeField] private GameObject dialogueInterface;
+
     private GameObject player;
     public bool isinteracting;
     private TabController tabController;
@@ -44,17 +48,13 @@ public class DroneStation : MonoBehaviour
 
         if(!gameController.levelEnded && Input.GetKeyDown(KeyCode.J) && player.GetComponent<PickUpObjs>().IsDroneStation())
         {
-            MasterController masterController = FindObjectOfType<MasterController>();
-            masterController.canPause = false;
+            if(!tutorialManual.activeInHierarchy && !dialogueInterface.activeInHierarchy)
+            {
+                MasterController masterController = FindObjectOfType<MasterController>();
+                masterController.canPause = false;
 
-            droneMenu.SetActive(true);
-            isinteracting = true;
-            tabController = FindObjectOfType<TabController>();
-            tabController.UpdateTabVisuals(0);
-            
-            
-            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; //do not move while menu is open
-
+                OpenDroneMenu();
+            }
         }
         if(Input.GetKeyDown(KeyCode.Escape) && isinteracting)
         {
@@ -63,6 +63,19 @@ public class DroneStation : MonoBehaviour
             MasterController masterController = FindObjectOfType<MasterController>();
             masterController.canPause = true;
         }    
+
+    }
+
+    private void OpenDroneMenu()
+    {
+        droneMenu.SetActive(true);
+        isinteracting = true;
+        tabController = FindObjectOfType<TabController>();
+        tabController.UpdateTabVisuals(0);
+            
+            
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; //do not move while menu is open
+
     }
 
     private void CloseMenu()

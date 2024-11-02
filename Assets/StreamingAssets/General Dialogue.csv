@@ -21,7 +21,7 @@ D019;Yes.;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue imag
 D020;Ouch. No hesitation at all huh...;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
 D021;Do you even remember your way around the kitchen?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D022;Maybe? That's why I'm here now aren't I? To familiarise myself?;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D023;What do you mean by maybe?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D023;"What do you mean by ""maybe""?";Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D024;*Sigh*;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D025;Just to make sure that you're not going to burn the whole store down, do you want me to give you a crash course of the kitchen?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
 D026;(Hm...do I need a hand?);Waddles;TRUE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
@@ -36,8 +36,8 @@ D034;Here. Take this.;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_righ
 D035;This is a guidebook that I have consolidated specifically for you.;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
 D036;It essentially has everything you need to know.;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
 D037;At any point in time where you feel lost, you can use it!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
-D038;But first, take your time to digest everything in this book.;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D039;And also, practise makes perfect! Make use of the time that you have now to practise the things listed in the book!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D038;But first, take your time to digest everything in this book.;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
+D039;And also, practise makes perfect! Make use of the time that you have now to practise the things listed in the book!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
 D040;If you have anything that you don't understand, you can ask me anytime!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
 D041;Oh! I take it as you have something to talk about?;Puddles;TRUE;null;Tutorial;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
 D042;As you go about your day, orders from customers will slowly trickle in.;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
@@ -47,151 +47,164 @@ D045;Trust me, you don't want that to happen.;Puddles;FALSE;P003;Tutorial;dialog
 D046;In the case where that happens, you will likely suffer from a small penalty, so do take extra care to do it right!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
 D047;Is there anything else you want to talk about?;Puddles;TRUE;P003;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D048;Haha. Very funny.;Puddles;FALSE;P007;Tutorial;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
-D049;Well...;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D050;You know cutting boards?;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D051;Our store just takes it a notch higher.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D052;Instead of manual cutting, it's all automated.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D053;Provided that you operate the main controller that is.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D054;Simply load up as many cutting stations as you like with ingredients, and then operate the main controller.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D055;And viola! All the ingredients that was loaded up is cut at the same time!;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D056;Efficient, huh!;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D057;Is there anything else you want to talk about?;Puddles;TRUE;P005;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D058;The ingredients?;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D059;Our ingredients are very obviously limited.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D060;Keep using them, and our ingredients stock will run out, you see.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D061;So yes. You have to continuously replenish them throughout the day.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D062;Quite inefficient, if you ask me.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D063;I asked mom and dad countless times to just bulk order their ingredients, but they said they wanted them fresh.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D064;They're the boss here, so we just have to deal with it I guess.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D065;Is there anything else you want to talk about?;Puddles;TRUE;P004;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D066;Ah yes, our store's literal lifeline.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D067;Why? It's in charge of replenishing our ingredients.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D068;As you know, our ingredients are limited, so we have to replenish them constantly.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D069;And this is where our friendly neighbourhood drone comes in.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D070;You can basically tell it to retrieve new ingredients for you while you work.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D071;But cut it some slack would you?;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D072;There's only one of it here, so it can only help you to retrieve a few ingredients per trip.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D073;It's getting pretty old too, so there's bound to be some wear and tear.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D074;With each restocking trip it does, it gets abit more...worn out.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D075;Good news is that mom and dad are aware.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D076;The not so good news is that this issue is still very much here.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D077;For now, mom and dad has installed a tracker for how worn out the drone gets.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D078;It looks like a progress bar of sorts, and the nore filled it gets, the more worn out the drone is, I guess;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D079;Leave it be, and it will eventually break down.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D080;So, to prevent that, you have to constantly perform maintenance on it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D081;Anyways, it shouldn't be too tall of a task for you. The maintenance is quite simple, to be honest.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D082;Even I can do it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D083;Is there anything else you want to talk about?;Puddles;TRUE;P006;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D084;*Yawn*;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D085;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D086;Oh, wow.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D087;Hey, big sis!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D088;I wouldn't know how you did today, considering that I was out all day, but...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D089;I guess the you're not as bad as I thought, considering that the kitchen isn't on fire!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D090;What can I say? I'm a natural in everything I do!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D091;Haha. Sure thing.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D092;Anyways, I should probably tell you that mom and dad's orders are here.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D093;What?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D094;What orders?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D095;Don't tell me you forgot when you're the one who helped them order it!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D096;Haha...oops?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D097;*Sigh*;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D098;Does new ingredients and cooking equipment ring a bell to you?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D099;Oh yeah!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D100;I can't believe you...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D101;Anyways, can you pass me your manual for a sec?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D102;Sure thing!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;TRUE;FALSE
-D103;Hm...and...done!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D104;Here! I updated your manual!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
-D105;You can now look up information about the new ingredients and cooking equipment!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
-D106;But really...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D107;Will you really be okay in the next few days?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D108;How about making use of the time now to get used to the new ingredients and cooking equipment?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D109;(New ingredients and equipment, huh...);Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D110;(Do I need to familiarise myself with them?);Waddles;TRUE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D111;Sure thing!;Waddles;FALSE;P009;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D112;Nah, I'm fine!;Waddles;FALSE;P010;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;TRUE
-D113;I'll stay and watch to make sure that you don't burn down the kitchen.;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D114;If you want to talk, feel free to approach me!;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D115;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
-D116;Ah, yes. The new cooking equipments.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D117;New cooking equipment means being able to cook more things.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D118;That pot in particular is meant to be used for cooking soup.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D119;Simply put 3 prepared ingredients in the pot and then put the pot on the stove.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D120;After a while, you'll get soup! Simple, right?;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D121;Is there anything else you want to talk about?;Puddles;TRUE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D122;Ah, that.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D123;Now, instead of having one plate for all, we now have specialized plates and bowls for our food.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D124;For instance, the salad belongs in the salad bowl, and of course, the soup belongs to the soup bowl.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D125;Makes thing much clearer and easier to differentiate.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D126;Is there anything else you want to talk about?;Puddles;TRUE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D127;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_01;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
-D128;*Yawn*;Puddles;FALSE;P008;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D129;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D130;Hey, lil bro!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D131;It's me again! Along with new stuff!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D132;"""New stuff""? Don't tell me...";Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D133;Yep! New ingredients and cooking equipment!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D134;...;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D135;Haha! What's with that face!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D136;Couldn't they arrive after mom and dad comes back?;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D137;I'm barely managing as it is!;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D138;Woah! What's this?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D139;You're gonna chicken out?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D140;It's only been 2 days!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D141;Well, no.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D142;But it is getting a little tiring.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D143;Now you know how hard mom and dad has to work everyday!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D144;Doesn't that make you want to help out more often?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D145;Hm. No, not really.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D146;...;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D147;Anyways, there's quite abit of stuff outside, so if you want to practise using them again, you have to help me out!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D148;(Do I want to practise?);Waddles;TRUE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D149;Alright, alright.;Waddles;FALSE;P013;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D150;Alright! Let's go now!;Puddles;FALSE;P013;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D151;Haha. You're on your on with this one.;Waddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D152;...You cheeky brat!;Puddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D153;Haha! See you later!;Waddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D154;Wait! Before you go, give me your manual.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D155;Huh?;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D156;Oh, here.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;TRUE;FALSE
-D157;Hm...okay!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D158;Here. Have it back.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D159;I took stock of the new stuff outside just now and updated your manual according to them.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
-D160;Now you can look it up in your manual!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;TRUE
-D161;That should be the last of them!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D162;Now that eveything's out of the way...;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D163;You can now practise using the new ingredients and cooking equipment as much as you want!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D164;I'll leave you to your own devices, but as per usual, I'll be right here if you want to chat!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D165;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
-D166;The frying pan?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D167;Well, like its name suggests, it literally is your average frying pan.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D168;It fries specific ingredients such as the new ingredient, the meat.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D169;Simply put 1 ingredient in the frying pan and pop it on the stove.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D170;After a while, and viola! The ingredient is cooked.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D171;Isn't that simple?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D172;Is there anything else you want to talk about?;Puddles;TRUE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D173;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_02;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
-D174;*Yawn*;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D175;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D176;Hey, lil bro!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D177;Hm?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D178;Just wanted to check up on how you're doing, since it's been a few days since mom and dad has left the store to you.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D179;Oh! I'm doing quite fine actually!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D180;It's actually not as dull and boring as I initially thought!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D181;I could get used to this!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D182;Really? Then you should help around more hm?;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D183;Haha. No thanks.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D184;...;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
-D185;Anyways, what brings you here, big sis?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D186;More orders again?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D187;Nope.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D188;Oh, thank god.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D189;Anymore and I'll actually get psychological trauma from just hearing the word trauma.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D190;Haha! Good news then.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D191;I just got a call from mom and dad.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D192;They're at the airport now.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D193;Yay! They're finally back!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D194;With souvenirs, I hope!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D195;Let's go!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
-D196;Ah! Wait up!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;TRUE
+D049;As of now, you only need to worry about making salads.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
+D050;Our store's menu consists of 3 different types of salads: salad, tomato salad and shrimp salad.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
+D051;Simply cut the required ingredients on a chopping board, and place them in a salad plate.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
+D052;And viola! You got yourself a salad that is ready to be served to customers!;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
+D053;Sounds simple enough right?;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
+D054;Is there anything else you want to talk about?;Puddles;TRUE;P005;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D055;The ingredients?;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D056;Our ingredients are very obviously limited.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D057;Keep using them, and our ingredients stock will run out, you see.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D058;So yes. You have to continuously replenish them throughout the day.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D059;Quite inefficient, if you ask me.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D060;I asked mom and dad countless times to just bulk order their ingredients, but they said they wanted them fresh.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D061;They're the boss here, so we just have to deal with it I guess.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D062;Is there anything else you want to talk about?;Puddles;TRUE;P004;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D063;Ah yes, our store's literal lifeline.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D064;Why? It's in charge of replenishing our ingredients.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D065;As you know, our ingredients are limited, so we have to replenish them constantly.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D066;And this is where our friendly neighbourhood drone comes in.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D067;You can basically tell it to retrieve new ingredients for you while you work.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D068;But cut it some slack would you?;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D069;There's only one of it here, so it can only help you to retrieve a few ingredients per trip.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D070;It's getting pretty old too, so there's bound to be some wear and tear.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D071;With each restocking trip it does, it gets abit more...worn out.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D072;Good news is that mom and dad are aware.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D073;The not so good news is that this issue is still very much here.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D074;For now, mom and dad has installed a tracker for how worn out the drone gets.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D075;It looks like a progress bar of sorts, and the nore filled it gets, the more worn out the drone is, I guess;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D076;Leave it be, and it will eventually break down.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D077;So, to prevent that, you have to constantly perform maintenance on it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D078;Anyways, it shouldn't be too tall of a task for you. The maintenance is quite simple, to be honest.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D079;Even I can do it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D080;Is there anything else you want to talk about?;Puddles;TRUE;P006;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D081;*Yawn*;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D082;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
+D083;Oh, wow.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D084;Hey, big sis!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D085;I wouldn't know how you did today, considering that I was out all day, but...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D086;I guess the you're not as bad as I thought, considering that the kitchen isn't on fire!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D087;What can I say? I'm a natural in everything I do!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D088;Haha. Sure thing.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D089;Anyways, I should probably tell you that mom and dad's orders are here.;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D090;What?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D091;What orders?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D092;Don't tell me you forgot when you're the one who helped them order it!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D093;Haha...oops?;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D094;*Sigh*;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D095;Does new ingredients and cooking equipment ring a bell to you?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D096;Oh yeah!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D097;I can't believe you...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D098;Anyways, can you pass me your manual for a sec?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D099;Sure thing!;Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;TRUE;FALSE
+D100;Hm...and...done!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D101;Here! I updated your manual!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D102;You can now look up information about the new ingredients and cooking equipment!;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D103;But really...;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D104;Will you really be okay in the next few days?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D105;How about making use of the time now to get used to the new ingredients and cooking equipment?;Puddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D106;(New ingredients and equipment, huh...);Waddles;FALSE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D107;(Do I need to familiarise myself with them?);Waddles;TRUE;null;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D108;Sure thing!;Waddles;FALSE;P009;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D109;Nah, I'm fine!;Waddles;FALSE;P010;cutscene_02;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;TRUE
+D110;I'll stay and watch to make sure that you don't burn down the kitchen.;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D111;If you want to talk, feel free to approach me!;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
+D112;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
+D113;Ah, yes. The new cooking equipments.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D114;New cooking equipment means being able to cook more things.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D115;That pot in particular is meant to be used for cooking soup.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D116;Simply put 3 prepared ingredients in the pot and then put the pot on the stove.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D117;After a while, you'll get soup! Simple, right?;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D118;Is there anything else you want to talk about?;Puddles;TRUE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D119;Ah, that.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D120;Now, instead of having one plate for all, we now have specialized plates and bowls for our food.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D121;For instance, the salad belongs in the salad bowl, and of course, the soup belongs to the soup bowl.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D122;Makes thing much clearer and easier to differentiate.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D123;Is there anything else you want to talk about?;Puddles;TRUE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D124;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_01;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
+D125;*Yawn*;Puddles;FALSE;P008;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D126;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
+D127;Oh, you mean the soup?;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D128;It's quite a simple process, really.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D129;First, you take the required ingredients to the cutting station and chop them up.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D130;Then, put all of them into an empty pot.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D131;Pop it on a stove for some time, and after it's done cooking, pour the soup into a soup bowl.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D132;And viola! You got yourself a soup that is ready for consumption!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D133;Got that down?;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r3;FALSE;TRUE;FALSE
+D134;Is there anything else you want to talk about?;Puddles;TRUE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D135;Hey, lil bro!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D136;It's me again! Along with new stuff!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D137;"""New stuff""? Don't tell me...";Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D138;Yep! New ingredients and cooking equipment!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D139;...;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D140;Haha! What's with that face!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D141;Couldn't they arrive after mom and dad comes back?;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D142;I'm barely managing as it is!;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D143;Woah! What's this?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D144;You're gonna chicken out?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D145;It's only been 2 days!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D146;Well, no.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D147;But it is getting a little tiring.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D148;Now you know how hard mom and dad has to work everyday!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D149;Doesn't that make you want to help out more often?;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D150;Hm. No, not really.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D151;...;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D152;Anyways, there's quite abit of stuff outside, so if you want to practise using them again, you have to help me out!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D153;(Do I want to practise?);Waddles;TRUE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D154;Alright, alright.;Waddles;FALSE;P013;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D155;Alright! Let's go now!;Puddles;FALSE;P013;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D156;Haha. You're on your on with this one.;Waddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D157;...You cheeky brat!;Puddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D158;Haha! See you later!;Waddles;FALSE;P014;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D159;Wait! Before you go, give me your manual.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D160;Huh?;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D161;Oh, here.;Waddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;TRUE;FALSE
+D162;Hm...okay!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D163;Here. Have it back.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D164;I took stock of the new stuff outside just now and updated your manual according to them.;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;FALSE
+D165;Now you can look it up in your manual!;Puddles;FALSE;null;cutscene_03;dialogue images/waddles_1;dialogue images/puddles_1;journal/journalbookasset;FALSE;FALSE;TRUE
+D166;That should be the last of them!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D167;Now that eveything's out of the way...;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D168;You can now practise using the new ingredients and cooking equipment as much as you want!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D169;I'll leave you to your own devices, but as per usual, I'll be right here if you want to chat!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
+D170;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
+D171;The frying pan?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D172;Well, like its name suggests, it literally is your average frying pan.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D173;It fries specific ingredients such as the new ingredient, the meat.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D174;Simply put 1 ingredient in the frying pan and pop it on the stove.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D175;After a while, and viola! The ingredient is cooked.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D176;Isn't that simple?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D177;Is there anything else you want to talk about?;Puddles;TRUE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D178;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_02;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
+D179;*Yawn*;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D180;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
+D181;Oh, you mean the burger?;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D182;It takes quite aa while to make, so listen carefully!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D183;First, you take the required ingredients to the cutting station and chop them up. Remember that the bread does not need to be cut!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D184;Put the chopped meat into an emtpy frying pan.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D185;Pop it on a stove for some time.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D186;After it's done cooking, transfer it into a burger plate, along with all other required ingredients.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D187;And viola! You got yourself a soup that is ready for consumption!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D188;Is there anything else you want to talk about?;Puddles;TRUE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D189;Hey, lil bro!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D190;Hm?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D191;Just wanted to check up on how you're doing, since it's been a few days since mom and dad has left the store to you.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D192;Oh! I'm doing quite fine actually!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D193;It's actually not as dull and boring as I initially thought!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D194;I could get used to this!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D195;Really? Then you should help around more hm?;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D196;Haha. No thanks.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D197;...;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D198;Anyways, what brings you here, big sis?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D199;More orders again?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
+D200;Nope.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D201;Oh, thank god.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D202;Anymore and I'll actually get psychological trauma from just hearing the word trauma.;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D203;Haha! Good news then.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D204;I just got a call from mom and dad.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D205;They're at the airport now.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D206;Yay! They're finally back!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D207;With souvenirs, I hope!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D208;Let's go!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
+D209;Ah! Wait up!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;TRUE

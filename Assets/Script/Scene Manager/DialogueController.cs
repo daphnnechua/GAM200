@@ -18,6 +18,8 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private Button puddlesButton;
 
+    [SerializeField] private Button tutorialManaul;
+
 
     [SerializeField] private TextMeshProUGUI skipTutorialText;
 
@@ -40,6 +42,13 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private Image rightSpeaker;
 
     [SerializeField] private GameObject gameCountdownTimer;
+    [SerializeField] private GameObject pointsPanel;
+
+    [SerializeField] private string levelType;
+
+    [SerializeField] private GameObject droneMenu;
+
+    [SerializeField] private GameObject tutorialManualInterface;
 
     public bool dialogueOpen;
 
@@ -62,16 +71,27 @@ public class DialogueController : MonoBehaviour
     private bool endOfDialogue = false;
     void Start()
     {
-        if(gameCountdownTimer!=null)
+        if(levelType!="Normal")
         {
-            gameCountdownTimer.SetActive(false);
-        }
-        OpenDialogue();
+            if(gameCountdownTimer!=null)
+            {
+                gameCountdownTimer.SetActive(false);
+            }
+            OpenDialogue();
 
-        if(puddlesButton!=null)
+            pointsPanel.SetActive(false);
+
+            if(puddlesButton!=null)
+            {
+                puddlesButton.onClick.AddListener(()=>ReOpenDialogue());
+                puddlesButton.gameObject.SetActive(false);
+            }
+        }
+        else
         {
-            puddlesButton.onClick.AddListener(()=>ReOpenDialogue());
-            puddlesButton.gameObject.SetActive(false);
+            dialogueInterface.SetActive(false);
+            dialogueOpen = false;
+
         }
 
     }
@@ -89,9 +109,17 @@ public class DialogueController : MonoBehaviour
         {
             dialogueOpen=false;
 
-            if(gameController!=null && gameController.gameStart && puddlesButton!=null)
+            if(gameController!=null && gameController.gameStart)
             {
-                puddlesButton.gameObject.SetActive(true);
+                if(puddlesButton !=null)
+                {
+                    puddlesButton.gameObject.SetActive(true);
+                }
+                if(tutorialManaul!=null)
+                {
+                    tutorialManaul.gameObject.SetActive(true);
+                }
+                
             }
         }
         else
@@ -101,6 +129,24 @@ public class DialogueController : MonoBehaviour
             if(puddlesButton!=null)
             {
                 puddlesButton.gameObject.SetActive(false);
+            }
+            if(tutorialManaul!=null)
+            {
+                tutorialManaul.gameObject.SetActive(false);
+            }
+        }
+
+        if(puddlesButton!=null)
+        {
+            if(puddlesButton.gameObject.activeInHierarchy && !dialogueInterface.activeInHierarchy)
+            {
+                if(!droneMenu.activeInHierarchy && !tutorialManualInterface.activeInHierarchy)
+                {
+                    if(Input.GetKeyDown(KeyCode.T))
+                    {
+                        ReOpenDialogue();
+                    }
+                }
             }
         }
 
@@ -122,44 +168,46 @@ public class DialogueController : MonoBehaviour
 
     public void ReOpenDialogue() //for interaction with npc
     {
-
-        masterController = FindObjectOfType<MasterController>();
-        masterController.canPause = true;
-        // the whole game
-
-        skipDialogueButton.onClick.RemoveAllListeners();
-        declineSkip.onClick.RemoveAllListeners();
-        confirmSkip.onClick.RemoveAllListeners();
-
-        skipDialogueButton.onClick.AddListener(() => OpenSkipDialoguePrompt());
-        declineSkip.onClick.AddListener(() => CloseSkipDialoguePrompt());
-        confirmSkip.onClick.AddListener(() => SkipDialogue());
-
-        confirmTutorial.onClick.AddListener(()=> OpenTutorialForNextScene());
-        declineTutorial.onClick.AddListener(()=> OpenLevelForNextScene());
-
-        foreach (var button in responseButtons)
+        if(!droneMenu.activeInHierarchy && !tutorialManualInterface.activeInHierarchy)
         {
-            button.SetActive(false);
-        }
+            masterController = FindObjectOfType<MasterController>();
+            masterController.canPause = true;
+            // the whole game
 
-        tutorialManual.SetActive(false);
+            skipDialogueButton.onClick.RemoveAllListeners();
+            declineSkip.onClick.RemoveAllListeners();
+            confirmSkip.onClick.RemoveAllListeners();
 
-        tutorialPrompt.SetActive(false);
-        
-        dialogueInterface.SetActive(true);
-        skipDialoguePrompt.SetActive(false);
+            skipDialogueButton.onClick.AddListener(() => OpenSkipDialoguePrompt());
+            declineSkip.onClick.AddListener(() => CloseSkipDialoguePrompt());
+            confirmSkip.onClick.AddListener(() => SkipDialogue());
 
+            confirmTutorial.onClick.AddListener(()=> OpenTutorialForNextScene());
+            declineTutorial.onClick.AddListener(()=> OpenLevelForNextScene());
 
-        skipDialogueButton.gameObject.SetActive(false); //set to active at specific triggers
+            foreach (var button in responseButtons)
+            {
+                button.SetActive(false);
+            }
 
-        if(generalDialogues[nextGeneralDialogue].isDialogueSelection)
-        {
+            tutorialManual.SetActive(false);
+
+            tutorialPrompt.SetActive(false);
             
-            PlayerResponseButton();
-            dialogueBy.text = generalDialogues[nextGeneralDialogue].dialogueBy;
-            StopAllCoroutines();
-            StartCoroutine(TypewriterEffect(generalDialogues[nextGeneralDialogue].dialogue, dialogue));
+            dialogueInterface.SetActive(true);
+            skipDialoguePrompt.SetActive(false);
+
+
+            skipDialogueButton.gameObject.SetActive(false); //set to active at specific triggers
+
+            if(generalDialogues[nextGeneralDialogue].isDialogueSelection)
+            {
+                
+                PlayerResponseButton();
+                dialogueBy.text = generalDialogues[nextGeneralDialogue].dialogueBy;
+                StopAllCoroutines();
+                StartCoroutine(TypewriterEffect(generalDialogues[nextGeneralDialogue].dialogue, dialogue));
+            }
         }
 
     }
@@ -327,23 +375,18 @@ public class DialogueController : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         if(gameController!=null && !gameController.gameStart)
         {
-            gameController.StartGame(); //start the game
+            gameController.toStartGame = true; //start the game
         }
         else if(gameController!=null && gameController.gameStart) //game has already been started
         {
             Time.timeScale = 1f; //resume game upon closing dialogue
         }
         canInteract = true;
+        pointsPanel.SetActive(true);
     }
 
     public void NextDialogue() //this handles the dialogue progression
     {
-        if (isTyping) 
-        {
-            skipTyping = true;
-            return;
-        }
-        
         foreach(var e in responseButtons)
         {
             if(e.activeInHierarchy)
@@ -352,11 +395,16 @@ public class DialogueController : MonoBehaviour
             }
         }
 
+        if (isTyping) 
+        {
+            skipTyping = true;
+            return;
+        }
+        
         ToggleSkipButton();
 
         if(nextGeneralDialogue < generalDialogues.Count) //check if dialogue is not at the end of list
         {
-
             if(generalDialogues[nextGeneralDialogue].repeatDialogue)
             {
                 // Debug.Log("current dialogue end. reopen dialogue to continue");
@@ -375,7 +423,6 @@ public class DialogueController : MonoBehaviour
 
             if(generalDialogues[nextGeneralDialogue-1].toCloseDialogue && !generalDialogues[nextGeneralDialogue].toCloseDialogue)
             {                
-                Debug.Log("toclosedialogue is true");
                 CloseDialogue();
                 return;
             }
@@ -547,41 +594,50 @@ public class DialogueController : MonoBehaviour
         color.a = 1f;
         fadeToBlack.color = color;
 
-        MasterController masterController = FindObjectOfType<MasterController>();
-        if(masterController !=null)
+        if(generalDialogues[nextGeneralDialogue-1].optionResponseID != "P008")
         {
-            Levels levelToLoad = Game.GetLevel();
-
-            if(levelToLoad != null) //the player has gone through tutorial prompt before
+            MasterController masterController = FindObjectOfType<MasterController>();
+            if(masterController !=null)
             {
-                int indexOfToLoad = Game.GetLevelList().IndexOf(levelToLoad);
+                Levels levelToLoad = Game.GetLevel();
 
-                Levels currentLevel = Game.GetLevelByName(currentSceneName);
-                int indexOfCurrentLevel = Game.GetLevelList().IndexOf(currentLevel);
-
-                if(indexOfToLoad <= indexOfCurrentLevel) //this cutscene did not set a new level to load
+                if(levelToLoad != null) //the player has gone through tutorial prompt before
                 {
-                    Levels nextLevel = Game.GetLevelList()[indexOfCurrentLevel+1]; //load the level after this cutscene
+                    int indexOfToLoad = Game.GetLevelList().IndexOf(levelToLoad);
+
+                    Levels currentLevel = Game.GetLevelByName(currentSceneName);
+                    int indexOfCurrentLevel = Game.GetLevelList().IndexOf(currentLevel);
+
+                    if(indexOfToLoad <= indexOfCurrentLevel) //this cutscene did not set a new level to load
+                    {
+                        Levels nextLevel = Game.GetLevelList()[indexOfCurrentLevel+1]; //load the level after this cutscene
+                        masterController.LoadScene(nextLevel.levelName);
+
+                        // Debug.Log($"this cutscene did not set a new level to load. loading: {nextLevel.levelName}");
+                    }
+                    else
+                    {
+                        masterController.LoadScene(levelToLoad.levelName); //cutscene did set a new level to load --> tutorial
+                        // Debug.Log($"cutscene did set a new level to load. loading: {levelToLoad.levelName}");
+                    }
+                }
+                else //player has not gone through tutorial prompt
+                {
+                    Levels currentLevel = Game.GetLevelByName(currentSceneName);
+                    int indexOfCurrentLevel = Game.GetLevelList().IndexOf(currentLevel);
+                    Levels nextLevel = Game.GetLevelList()[indexOfCurrentLevel+1];
                     masterController.LoadScene(nextLevel.levelName);
 
-                    // Debug.Log($"this cutscene did not set a new level to load. loading: {nextLevel.levelName}");
+                    // Debug.Log($"loading: {nextLevel.levelName}");
                 }
-                else
-                {
-                    masterController.LoadScene(levelToLoad.levelName); //cutscene did set a new level to load --> tutorial
-                    // Debug.Log($"cutscene did set a new level to load. loading: {levelToLoad.levelName}");
-                }
-            }
-            else //player has not gone through tutorial prompt
-            {
-                Levels currentLevel = Game.GetLevelByName(currentSceneName);
-                int indexOfCurrentLevel = Game.GetLevelList().IndexOf(currentLevel);
-                Levels nextLevel = Game.GetLevelList()[indexOfCurrentLevel+1];
-                masterController.LoadScene(nextLevel.levelName);
-
-                // Debug.Log($"loading: {nextLevel.levelName}");
             }
         }
+        else //end of tutorial --> go to level completion page 
+        {
+            MasterController masterController = FindObjectOfType<MasterController>();
+            masterController.LoadEndOfLevelScene();
+        }
+
 
         //after completing, load in the next scene
         

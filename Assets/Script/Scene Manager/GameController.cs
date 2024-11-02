@@ -24,6 +24,8 @@ public class GameController : SceneController
     public DataManager dataManager;
 
     public bool toStartGame;
+
+    private bool hasCoroutineForStartGameBennStarted = false;
     
     // Start is called before the first frame update
     void Start()
@@ -51,14 +53,14 @@ public class GameController : SceneController
         //     }
         // }
 
-        // if(sceneType == "Normal")
-        // {
-        //     toStartGame = true;
-        // }
-        // else if(sceneType == "Tutorial" || sceneType == "Cutscene") //tutorial
-        // {
-        //     toStartGame = false;
-        // }
+        if(sceneType == "Normal")
+        {
+            toStartGame = true;
+        }
+        else if(sceneType == "Tutorial" || sceneType == "Cutscene") //tutorial
+        {
+            toStartGame = false;
+        }
 
     }
 
@@ -66,11 +68,11 @@ public class GameController : SceneController
     void Update()
     {
 
-        // if(toStartGame && !gameStart)
-        // {
-        //     StartGame();
-        //     gameStart = true;
-        // }
+        if(!hasCoroutineForStartGameBennStarted && toStartGame && !gameStart)
+        {
+            hasCoroutineForStartGameBennStarted = true;
+            StartGame();
+        }
         
     }
 

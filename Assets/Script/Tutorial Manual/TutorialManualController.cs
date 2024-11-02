@@ -8,6 +8,11 @@ public class TutorialManualController : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialManual;
     [SerializeField] private Button closeButton;
+
+    [SerializeField] private Button tutorialManualButton;
+
+    [SerializeField] private GameObject droneMenu;
+    [SerializeField] private GameObject dialogueInterface;
     public bool isInteracting = false;
 
     private GameObject player;
@@ -28,13 +33,34 @@ public class TutorialManualController : MonoBehaviour
 
         closeButton.onClick.AddListener(() => CloseManual());
 
+        tutorialManualButton.onClick.AddListener(() => OpenManual());
+
         tutorialManual.SetActive(false);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.H) && !masterController.pauseMenuOpen)
+        {
+            if(!droneMenu.activeInHierarchy && !dialogueInterface.activeInHierarchy)
+            {
+                OpenManual();
+            }
+            
+            
+        }
+        if(Input.GetKeyDown(KeyCode.Escape) && isInteracting)
+        {
+            CloseManual();
+        }
+
+    }
+
+    private void OpenManual()
+    {
+        if(!droneMenu.activeInHierarchy && !dialogueInterface.activeInHierarchy)
         {
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             player.GetComponent<PlayerMovement>().canMove = false;
@@ -44,13 +70,7 @@ public class TutorialManualController : MonoBehaviour
             tutorialManual.SetActive(true);
             tabController = FindObjectOfType<TabController>();
             tabController.UpdateTabVisuals(0);
-            
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && isInteracting)
-        {
-            CloseManual();
-        }
-
     }
 
     private void CloseManual()
