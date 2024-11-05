@@ -12,7 +12,9 @@ public class Recipe
     public string[] unlockedInScenes {get;}
     public string imageFilePath{get;}
 
-    public Recipe(string recipeID, string recipeName, string[] ingredientIDs, int reward, string[] unlockedInScenes, string imageFilePath)
+    public int penalty {get;}
+
+    public Recipe(string recipeID, string recipeName, string[] ingredientIDs, int reward, string[] unlockedInScenes, string imageFilePath, int penalty)
     {
         this.recipeID = recipeID;
         this.recipeName = recipeName;
@@ -21,5 +23,6 @@ public class Recipe
         this.reward = reward;
         this.unlockedInScenes = unlockedInScenes;
         this.imageFilePath = imageFilePath;
+        this.penalty = penalty;
     }
 }

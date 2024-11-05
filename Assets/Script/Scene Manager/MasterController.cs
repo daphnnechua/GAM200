@@ -17,6 +17,10 @@ public class MasterController : MonoBehaviour
 
     public string startMenuScene = "Start_Menu";
 
+    [SerializeField] private AudioClip cutsceneBGM;
+
+    [SerializeField] private AudioClip startMenuBGM;
+
     private List<string> allOpenSceneNames = new List<string>();
 
     public bool pauseMenuOpen = false;
@@ -31,16 +35,18 @@ public class MasterController : MonoBehaviour
 
         currentSceneName = startMenuScene;
         LoadScene(startMenuScene);
+
+        SoundFXManager.instance.PlayBackgroundMusic(startMenuBGM, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
         //debug purposes
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            RestartLevel();
-        }
+        // if(Input.GetKeyDown(KeyCode.R))
+        // {
+        //     RestartLevel();
+        // }
         if(Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             gameController = FindObjectOfType<GameController>();
@@ -66,12 +72,23 @@ public class MasterController : MonoBehaviour
         Scene sceneToLoad = SceneManager.GetSceneByName(aScene);
         if (sceneToLoad.isLoaded)
         {
-            Debug.LogWarning($"Scene '{aScene}' is already loaded. Skipping load.");
             return;
         }
         RemoveScene(currentSceneName);
 
         currentSceneName = aScene;
+
+        if(aScene!= startMenuScene)
+        {
+            Levels levelToLoad = Game.GetLevelByName(currentSceneName);
+            string levelType = levelToLoad.levelType;
+
+            if(levelType == "Cutscene")
+            {
+                SoundFXManager.instance.PlayBackgroundMusic(cutsceneBGM, 1);
+            }
+        }
+
         AsyncOperation loadSceneOp = SceneManager.LoadSceneAsync(aScene, LoadSceneMode.Additive);
         loadSceneOp.completed += (result) =>
         {
@@ -121,6 +138,8 @@ public class MasterController : MonoBehaviour
 
     public void RestartLevel()
     {
+        Time.timeScale = 1f;
+
         if (currentController != null)
         {   
             pauseMenuOpen = false;
@@ -150,6 +169,8 @@ public class MasterController : MonoBehaviour
 
     public void QuitToStart()
     {
+        Time.timeScale = 1f;
+        
         pauseMenuOpen = false;
         List<string> scenesToClose = new List<string>();
         foreach(string name in allOpenSceneNames)
@@ -163,8 +184,8 @@ public class MasterController : MonoBehaviour
 
         LoadScene(startMenuScene);
         
+        SoundFXManager.instance.PlayBackgroundMusic(startMenuBGM,1);
     }
-
     public void PauseGame()
     {
         Time.timeScale = 0f;

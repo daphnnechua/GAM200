@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : SceneController
 {
     [SerializeField] private GameObject startGameCountdown;
     public InputHandler inputHandler;
     public GameObject player;
-    private PointTracker pointTracker;
-
     public bool gameStart = false;
 
     public int points = 0;
@@ -17,19 +16,28 @@ public class GameController : SceneController
     public bool isPaused = true;
 
     public bool levelEnded = false;
-    private DroneMenuController droneMenuController;
-    private OrderManager orderManager;
+    [SerializeField] private DroneMenuController droneMenuController;
+    [SerializeField] private OrderManager orderManager;
+
+    [SerializeField] private AudioClip gameplayBGM;
+    [SerializeField] private AudioClip endLevelBGM;
+
+    [SerializeField] private GameObject fadeOverlay;
+
+    private float fadeDuration =1f;
+
+    private bool hasLoadEndOfLevelScene  = false;
 
     //testing purposes
-    public DataManager dataManager;
+    // public DataManager dataManager;
 
     public bool toStartGame;
 
-    private bool hasCoroutineForStartGameBennStarted = false;
+    [SerializeField] private bool hasCoroutineForStartGameBennStarted = false;
     
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         masterController = FindObjectOfType<MasterController>(); 
         masterController.canPause = true;
 
@@ -39,7 +47,6 @@ public class GameController : SceneController
 
         player = GameObject.FindWithTag("Player");
         inputHandler = FindObjectOfType<InputHandler>();
-        pointTracker = FindObjectOfType<PointTracker>();
         droneMenuController = FindObjectOfType<DroneMenuController>();
         orderManager = FindObjectOfType<OrderManager>();
 
@@ -56,6 +63,7 @@ public class GameController : SceneController
         if(sceneType == "Normal")
         {
             toStartGame = true;
+            startGameCountdown.SetActive(false);
         }
         else if(sceneType == "Tutorial" || sceneType == "Cutscene") //tutorial
         {
@@ -74,11 +82,24 @@ public class GameController : SceneController
             StartGame();
         }
         
+        //debug purposes
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            AddPoints(10);
+        }
+        if(Input.GetKeyDown(KeyCode.Backslash))
+        {
+            DeductPoints(10);
+        }
+        if(Input.GetKeyDown(KeyCode.RightShift))
+        {
+            EndOfLevel();
+        }
     }
 
     public void StartGame()
     {
-        StartCoroutine(StartGameCountdown());
+        StartCoroutine(EnterGame());
     }
 
     private IEnumerator StartGameCountdown()
@@ -120,11 +141,15 @@ public class GameController : SceneController
         }
         inputHandler.SetInputReceiver(player.GetComponent<PlayerMovement>());
 
+
+        SoundFXManager.instance.PlayBackgroundMusic(gameplayBGM, 1);
     }
 
     public void AddPoints(int reward)
     {
         points+=reward;
+
+        PointTracker pointTracker = FindObjectOfType<PointTracker>();
         pointTracker.UpdatePointsUI(points);
         // Debug.Log("Submitted correct order! Add:" + reward + " current points:" + points);
     }
@@ -132,6 +157,8 @@ public class GameController : SceneController
     public void DeductPoints(int deduct)
     {
         points-=deduct;
+
+        PointTracker pointTracker = FindObjectOfType<PointTracker>();
         pointTracker.UpdatePointsUI(points);
         // Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
 
@@ -139,7 +166,11 @@ public class GameController : SceneController
 
     public void EndOfLevel()
     {
-        Debug.Log("Level has ended");
+        if(hasLoadEndOfLevelScene)
+        {
+            Debug.LogWarning("end of level has already been loaded");
+            return;
+        }
 
         masterController.canPause = false;
 
@@ -151,8 +182,57 @@ public class GameController : SceneController
         droneMenuController.StopAllProcesses();
         orderManager.StopOrders();
 
+        StartCoroutine(FadeToBlack());
+
+        hasLoadEndOfLevelScene = true;
+
+    }
+
+    private IEnumerator EnterGame()
+    {
+        float elapsedTime = 0f;
+        Color color = fadeOverlay.GetComponent<Image>().color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(1 - (elapsedTime / fadeDuration));
+            fadeOverlay.GetComponent<Image>().color = color;
+            yield return null;
+        }
+
+        color.a = 0f;
+        fadeOverlay.GetComponent<Image>().color = color;
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartCoroutine(StartGameCountdown());
+
+    }
+
+    private IEnumerator FadeToBlack()
+    {
+        fadeOverlay.gameObject.transform.SetAsLastSibling();
+        float elapsedTime = 0f;
+        Color color = fadeOverlay.GetComponent<Image>().color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            fadeOverlay.GetComponent<Image>().color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeOverlay.GetComponent<Image>().color = color;
+
+        StartCoroutine(SoundFXManager.instance.FadeOutMusic(fadeDuration));
+        yield return new WaitForSeconds(fadeDuration);
+
         masterController.LoadEndOfLevelScene();
 
+        SoundFXManager.instance.PlayBackgroundMusic(endLevelBGM, 1);
     }
 
 }

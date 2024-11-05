@@ -77,7 +77,7 @@ public class BatteryMinigame : MonoBehaviour, IMinigame
             int successfulReplacments = 0;
             foreach(BatterySlots batterySlot in batterySlotsList)
             {
-                if(batterySlot.currentBattery!=null)
+                if(batterySlot.currentBattery!=null && batterySlot.currentBattery.batteryType!="Old")
                 {
                     successfulReplacments++;
                 }

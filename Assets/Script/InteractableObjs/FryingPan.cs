@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class FryingPan : MonoBehaviour
 {
+    public InteractableObjSO interactableObjSO;
     [SerializeField] private float cookingTime = 7f;
     private float prepProgress;
     public bool startedPrep = false;
@@ -39,6 +40,8 @@ public class FryingPan : MonoBehaviour
         stockStationManager = FindObjectOfType<StockStationManager>();
 
         GetComponent<Rigidbody2D>().isKinematic = true;
+
+        LoadPanGraphics();
     }
 
     // Update is called once per frame
@@ -84,7 +87,7 @@ public class FryingPan : MonoBehaviour
             if(!ingredientsInPan.Contains(ingredient) && ingredient.GetComponent<IngredientManager>().ingredientSO.canFry)
             {
                 ingredientIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
-                // LoadPanGraphics();
+                LoadPanGraphics();
                 SpawnPanUI();
                 isReadyToCook = true;
 
@@ -126,10 +129,10 @@ public class FryingPan : MonoBehaviour
             isReadyToCook = false;
             hasUndergonePrep = false;
 
-            // plateScript.LoadPlateGraphics();
+            plateScript.LoadPlateGraphics();
             plateScript.SpawnPlateUI();
             
-            // LoadPanGraphics();
+            LoadPanGraphics();
             SpawnPanUI();
         }
     }
@@ -137,7 +140,7 @@ public class FryingPan : MonoBehaviour
     {
         ingredientsInPan.Clear();
         ingredientIDs.Clear();
-        // LoadPanGraphics();
+        LoadPanGraphics();
         Destroy(panUI);
 
         Debug.Log($"pan reset! ingredients on plate: {ingredientsInPan.Count}, ids: {ingredientIDs.Count}");
@@ -186,46 +189,46 @@ public class FryingPan : MonoBehaviour
         }
     }
 
+    public void LoadPanGraphics()
+    {
+        List<PlateGraphics> panGraphicsList = Game.GetPlateGraphicsByPlateType(interactableObjSO.objType);
 
-    // private void LoadPanGraphics()
-    // {
-    //     List<PanGraphics> panGraphicsList = Game.GetPanGraphicsList();
+        if(ingredientIDs.Count <=0)
+        {
+            PlateGraphics emptyPot = Game.GetPlateGraphicsByIngredientIDs(panGraphicsList, "null");
 
-    //     if(ingredientIDs.Count <=0)
-    //     {
-    //         PanGraphics emptyPlate = Game.GetPanGraphicsByIngredientIDs("null");
-    //         string filePath = emptyPlate.imageFilePath;
-    //         AssetManager.LoadSprite(filePath, (Sprite sp) =>
-    //         {
-    //             this.GetComponent<SpriteRenderer>().sprite = sp;
-    //         });
-    //         return;
-    //     }
+            string filePath = emptyPot.imageFilePath;
+            AssetManager.LoadSprite(filePath, (Sprite sp) =>
+            {
+                this.GetComponent<SpriteRenderer>().sprite = sp;
+            });
+            return;
+        }
 
-    //     foreach (var p in panGraphicsList)
-    //     {
-    //         List<string> ingredientsNeeded = new List<string>(p.ingredientIDs);
-    //         List<string> currentIDs = new List<string>();
+        foreach (var p in panGraphicsList)
+        {
+            List<string> ingredientsNeeded = new List<string>(p.ingredientIDs);
+            List<string> currentIDs = new List<string>();
 
-    //         foreach(string ids in ingredientIDs)
-    //         {
-    //             currentIDs.Add(ids);
-    //         }
-    //         ingredientsNeeded.Sort();
-    //         currentIDs.Sort();
+            foreach(string ids in ingredientIDs)
+            {
+                currentIDs.Add(ids);
+            }
+            ingredientsNeeded.Sort();
+            currentIDs.Sort();
 
-    //         if (ingredientsNeeded.SequenceEqual(currentIDs))
-    //         {
-    //             string filePath = p.imageFilePath;
+            if (ingredientsNeeded.SequenceEqual(currentIDs))
+            {
+                string filePath = p.imageFilePath;
 
-    //             AssetManager.LoadSprite(filePath, (Sprite sp) =>
-    //             {
-    //                 this.GetComponent<SpriteRenderer>().sprite = sp;
-    //             });
-    //             break;
-    //         }
-    //     }    
-    // }
+                AssetManager.LoadSprite(filePath, (Sprite sp) =>
+                {
+                    this.GetComponent<SpriteRenderer>().sprite = sp;
+                });
+                break;
+            }
+        }    
+    }
 
     private void SpawnPanUI()
     {

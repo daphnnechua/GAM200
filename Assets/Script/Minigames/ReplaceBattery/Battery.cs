@@ -10,7 +10,7 @@ public class Battery : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     private BatteryMinigame batteryMinigame;
     private Vector3 resetPos;
     private RectTransform rectTransform;
-    [SerializeField] private string batteryType;
+    [SerializeField] public string batteryType;
     private BatterySlots currentSlot;
 
     private Canvas canvas;

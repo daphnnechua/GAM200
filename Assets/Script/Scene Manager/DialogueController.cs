@@ -77,7 +77,8 @@ public class DialogueController : MonoBehaviour
             {
                 gameCountdownTimer.SetActive(false);
             }
-            OpenDialogue();
+
+            StartCoroutine(FadeIn());
 
             pointsPanel.SetActive(false);
 
@@ -90,6 +91,10 @@ public class DialogueController : MonoBehaviour
         else
         {
             dialogueInterface.SetActive(false);
+            puddlesButton.gameObject.SetActive(false);
+
+            Debug.Log(puddlesButton.gameObject.activeInHierarchy);
+
             dialogueOpen = false;
 
         }
@@ -105,34 +110,37 @@ public class DialogueController : MonoBehaviour
         }
 
         GameController gameController =FindObjectOfType<GameController>();
-        if(!dialogueInterface.activeInHierarchy)
+        if(levelType == "Tutorial")
         {
-            dialogueOpen=false;
-
-            if(gameController!=null && gameController.gameStart)
+            if(!dialogueInterface.activeInHierarchy)
             {
-                if(puddlesButton !=null)
+                dialogueOpen=false;
+
+                if(gameController!=null && gameController.gameStart)
                 {
-                    puddlesButton.gameObject.SetActive(true);
+                    if(puddlesButton !=null)
+                    {
+                        puddlesButton.gameObject.SetActive(true);
+                    }
+                    if(tutorialManaul!=null)
+                    {
+                        tutorialManaul.gameObject.SetActive(true);
+                    }
+                    
+                }
+            }
+            else
+            {
+                dialogueOpen=true;
+                
+                if(puddlesButton!=null)
+                {
+                    puddlesButton.gameObject.SetActive(false);
                 }
                 if(tutorialManaul!=null)
                 {
-                    tutorialManaul.gameObject.SetActive(true);
+                    tutorialManaul.gameObject.SetActive(false);
                 }
-                
-            }
-        }
-        else
-        {
-            dialogueOpen=true;
-            
-            if(puddlesButton!=null)
-            {
-                puddlesButton.gameObject.SetActive(false);
-            }
-            if(tutorialManaul!=null)
-            {
-                tutorialManaul.gameObject.SetActive(false);
             }
         }
 
@@ -567,6 +575,28 @@ public class DialogueController : MonoBehaviour
         }
         
         isTyping = false; // Typing is done
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float elapsedTime = 0f;
+        Color color = fadeToBlack.color;
+
+        while (elapsedTime < fadeToBlackDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(1 - (elapsedTime / fadeToBlackDuration));
+            fadeToBlack.color = color;
+            yield return null;
+        }
+
+        color.a = 0f;
+        fadeToBlack.color = color;
+
+        yield return new WaitForSeconds(0.5f);
+
+        OpenDialogue();
+
     }
 
     private IEnumerator FadeToBlack()

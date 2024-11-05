@@ -191,4 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droneMenu: {fileID: 0}
   closeButton: {fileID: 0}
+  tutorialManual: {fileID: 0}
+  dialogueInterface: {fileID: 0}
   isinteracting: 0

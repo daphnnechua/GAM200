@@ -40,11 +40,11 @@ D038;But first, take your time to digest everything in this book.;Puddles;FALSE;
 D039;And also, practise makes perfect! Make use of the time that you have now to practise the things listed in the book!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;journal/journalbookasset;FALSE;TRUE;FALSE
 D040;If you have anything that you don't understand, you can ask me anytime!;Puddles;FALSE;null;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
 D041;Oh! I take it as you have something to talk about?;Puddles;TRUE;null;Tutorial;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
-D042;As you go about your day, orders from customers will slowly trickle in.;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D043;Our store's motto is to serve those who came first, and quickly too!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D044;Take too much time, or serve the wrong order, and the customer will get angry!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D045;Trust me, you don't want that to happen.;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D046;In the case where that happens, you will likely suffer from a small penalty, so do take extra care to do it right!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D042;As you go about your day, orders from customers will slowly trickle in.;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D043;Our store's motto is to serve those who came first, and quickly too!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D044;Take too much time, or serve the wrong order, and the customer will get angry!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D045;Trust me, you don't want that to happen.;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D046;In the case where that happens, you will likely suffer from a small penalty, so do take extra care to do it right!;Puddles;FALSE;P003;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
 D047;Is there anything else you want to talk about?;Puddles;TRUE;P003;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D048;Haha. Very funny.;Puddles;FALSE;P007;Tutorial;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
 D049;As of now, you only need to worry about making salads.;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
@@ -53,31 +53,31 @@ D051;Simply cut the required ingredients on a chopping board, and place them in 
 D052;And viola! You got yourself a salad that is ready to be served to customers!;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
 D053;Sounds simple enough right?;Puddles;FALSE;P005;Tutorial;dialogue images/puddles_1_right;null;journal/journal_r1;FALSE;TRUE;FALSE
 D054;Is there anything else you want to talk about?;Puddles;TRUE;P005;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D055;The ingredients?;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D056;Our ingredients are very obviously limited.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D057;Keep using them, and our ingredients stock will run out, you see.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D058;So yes. You have to continuously replenish them throughout the day.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D059;Quite inefficient, if you ask me.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D060;I asked mom and dad countless times to just bulk order their ingredients, but they said they wanted them fresh.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D061;They're the boss here, so we just have to deal with it I guess.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D055;The ingredients?;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D056;Our ingredients are very obviously limited.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D057;Keep using them, and our ingredients stock will run out, you see.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D058;So yes. You have to continuously replenish them throughout the day.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D059;Quite inefficient, if you ask me.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D060;I asked mom and dad countless times to just bulk order their ingredients, but they said they wanted them fresh.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
+D061;They're the boss here, so we just have to deal with it I guess.;Puddles;FALSE;P004;Tutorial;dialogue images/puddles_1_right;null;journal/journal_gameplay1;FALSE;TRUE;FALSE
 D062;Is there anything else you want to talk about?;Puddles;TRUE;P004;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D063;Ah yes, our store's literal lifeline.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D064;Why? It's in charge of replenishing our ingredients.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D065;As you know, our ingredients are limited, so we have to replenish them constantly.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D066;And this is where our friendly neighbourhood drone comes in.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D067;You can basically tell it to retrieve new ingredients for you while you work.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D068;But cut it some slack would you?;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D069;There's only one of it here, so it can only help you to retrieve a few ingredients per trip.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D070;It's getting pretty old too, so there's bound to be some wear and tear.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D071;With each restocking trip it does, it gets abit more...worn out.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D072;Good news is that mom and dad are aware.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D073;The not so good news is that this issue is still very much here.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D074;For now, mom and dad has installed a tracker for how worn out the drone gets.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D075;It looks like a progress bar of sorts, and the nore filled it gets, the more worn out the drone is, I guess;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D076;Leave it be, and it will eventually break down.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D077;So, to prevent that, you have to constantly perform maintenance on it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D078;Anyways, it shouldn't be too tall of a task for you. The maintenance is quite simple, to be honest.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D079;Even I can do it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D063;Ah yes, our store's literal lifeline.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D064;Why? It's in charge of replenishing our ingredients.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D065;As you know, our ingredients are limited, so we have to replenish them constantly.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D066;And this is where our friendly neighbourhood drone comes in.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D067;You can basically tell it to retrieve new ingredients for you while you work.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D068;But cut it some slack would you?;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D069;There's only one of it here, so it can only help you to retrieve a few ingredients per trip.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D070;It's getting pretty old too, so there's bound to be some wear and tear.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D071;With each restocking trip it does, it gets abit more...worn out.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D072;Good news is that mom and dad are aware.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D073;The not so good news is that this issue is still very much here.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D074;For now, mom and dad has installed a tracker for how worn out the drone gets.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D075;It looks like a progress bar of sorts, and the nore filled it gets, the more worn out the drone is, I guess;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D076;Leave it be, and it will eventually break down.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D077;So, to prevent that, you have to constantly perform maintenance on it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D078;Anyways, it shouldn't be too tall of a task for you. The maintenance is quite simple, to be honest.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
+D079;Even I can do it.;Puddles;FALSE;P006;Tutorial;dialogue images/puddles_1_right;null;journal/journal_drone1;FALSE;TRUE;FALSE
 D080;Is there anything else you want to talk about?;Puddles;TRUE;P006;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D081;*Yawn*;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D082;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
@@ -111,16 +111,16 @@ D109;Nah, I'm fine!;Waddles;FALSE;P010;cutscene_02;dialogue images/waddles_1;dia
 D110;I'll stay and watch to make sure that you don't burn down the kitchen.;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D111;If you want to talk, feel free to approach me!;Puddles;FALSE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
 D112;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_01;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
-D113;Ah, yes. The new cooking equipments.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D114;New cooking equipment means being able to cook more things.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D115;That pot in particular is meant to be used for cooking soup.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D116;Simply put 3 prepared ingredients in the pot and then put the pot on the stove.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D117;After a while, you'll get soup! Simple, right?;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D113;Ah, yes. The new cooking equipments.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D114;New cooking equipment means being able to cook more things.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D115;That pot in particular is meant to be used for cooking soup.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D116;Simply put 3 prepared ingredients in the pot and then put the pot on the stove.;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D117;After a while, you'll get soup! Simple, right?;Puddles;FALSE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
 D118;Is there anything else you want to talk about?;Puddles;TRUE;P011;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
-D119;Ah, that.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D120;Now, instead of having one plate for all, we now have specialized plates and bowls for our food.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D121;For instance, the salad belongs in the salad bowl, and of course, the soup belongs to the soup bowl.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
-D122;Makes thing much clearer and easier to differentiate.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;;FALSE;TRUE;FALSE
+D119;Ah, that.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D120;Now, instead of having one plate for all, we now have specialized plates and bowls for our food.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D121;For instance, the salad belongs in the salad bowl, and of course, the soup belongs to the soup bowl.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
+D122;Makes thing much clearer and easier to differentiate.;Puddles;FALSE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_station2;FALSE;TRUE;FALSE
 D123;Is there anything else you want to talk about?;Puddles;TRUE;P012;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D124;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_01;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
 D125;*Yawn*;Puddles;FALSE;P008;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
@@ -169,12 +169,12 @@ D167;Now that eveything's out of the way...;Puddles;FALSE;null;Mini_Tut_02;dialo
 D168;You can now practise using the new ingredients and cooking equipment as much as you want!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D169;I'll leave you to your own devices, but as per usual, I'll be right here if you want to chat!;Puddles;FALSE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
 D170;Hm? What is it?;Puddles;TRUE;null;Mini_Tut_02;dialogue images/puddles_1_right;null;null;TRUE;TRUE;FALSE
-D171;The frying pan?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
-D172;Well, like its name suggests, it literally is your average frying pan.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
-D173;It fries specific ingredients such as the new ingredient, the meat.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
-D174;Simply put 1 ingredient in the frying pan and pop it on the stove.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
-D175;After a while, and viola! The ingredient is cooked.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
-D176;Isn't that simple?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_stations;FALSE;TRUE;FALSE
+D171;The frying pan?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
+D172;Well, like its name suggests, it literally is your average frying pan.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
+D173;It fries specific ingredients such as the new ingredient, the meat.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
+D174;Simply put 1 ingredient in the frying pan and pop it on the stove.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
+D175;After a while, and viola! The ingredient is cooked.;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
+D176;Isn't that simple?;Puddles;FALSE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_station3;FALSE;TRUE;FALSE
 D177;Is there anything else you want to talk about?;Puddles;TRUE;P015;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D178;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_02;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
 D179;*Yawn*;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
@@ -208,3 +208,7 @@ D206;Yay! They're finally back!;Waddles;FALSE;null;cutscene_04;dialogue images/w
 D207;With souvenirs, I hope!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
 D208;Let's go!;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
 D209;Ah! Wait up!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;TRUE
+D210;Ah, the cutting station?;Puddles;FALSE;P016;Tutorial;dialogue images/puddles_1_right;null;journal/journal_station1;FALSE;TRUE;FALSE
+D211;Like what the name suggests, it literally is where you cut you ingredients in the kitchen.;Puddles;FALSE;P016;Tutorial;dialogue images/puddles_1_right;null;journal/journal_station1;FALSE;TRUE;FALSE
+D212;Simply put an ingredient on it, and chop away!;Puddles;FALSE;P016;Tutorial;dialogue images/puddles_1_right;null;journal/journal_station1;FALSE;TRUE;FALSE
+D213;Is there anything else you want to talk about?;Puddles;TRUE;P016;Tutorial;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE

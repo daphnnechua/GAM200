@@ -1,7 +1,2 @@
-minigameID;minigameName;minigameFilePath;
-MINI_01;Wire Task;Minigames/WireTask/WireTask;
-MINI_02;Bug Destroyer;Minigames/BugDestroyer/BugDestroyer;
-MINI_03;Numpad;Minigames/Numpad/Numpad;
-MINI_04;PasswordInput;Minigames/Password/Password;
-MINI_05;CopyPattern;Minigames/CopyPattern/CopyPattern;
-MINI_06;ReplaceBattery;Minigames/ReplaceBattery/ReplaceBattery;
+minigameID;minigameName;minigameFilePath
+MINI_06;ReplaceBattery;Minigames/ReplaceBattery/ReplaceBattery

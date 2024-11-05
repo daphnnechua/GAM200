@@ -77,15 +77,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1c73bdb2451f7a542a1471f924d4c2b3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.11, y: 1.11}
+  m_Size: {x: 5.08, y: 5.09}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &3161722671056237978
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97659ea91bf525a42bf0073daa61352d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableObjSO: {fileID: 11400000, guid: edc8d85ea3982fe41bcfebcab407f8f6, type: 2}
   cookingTime: 7
   startedPrep: 0
   progressBar: {fileID: 0}
@@ -170,7 +171,6 @@ MonoBehaviour:
   isDoneCooking: 0
   isHoldingFryingPan: 0
   onStove: 0
-  isHoldingPan: 0
 --- !u!58 &3350653973643347054
 CircleCollider2D:
   m_ObjectHideFlags: 0

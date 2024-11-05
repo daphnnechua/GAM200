@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,10 @@ public class StartMenuController : MonoBehaviour
 
     [SerializeField] private Button levelLoadOutCloseButton;
 
+    [SerializeField] private GameObject fadeOverlay;
+
+    private float fadeDuration = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +31,7 @@ public class StartMenuController : MonoBehaviour
         masterController = FindObjectOfType<MasterController>();
         masterController.canPause = false; //dont pause in start menu
 
-        startButton.onClick.AddListener(() => masterController.LoadScene(masterController.firstScene));
+        startButton.onClick.AddListener(() => StartButton());
         // settingButton.onClick.AddListener(() => masterController.LoadScene("StartMenu_Settings"));
         levelLoadout.onClick.AddListener(()=> OpenLevelLoadOut());
         quitButton.onClick.AddListener(() => Application.Quit());
@@ -36,7 +41,7 @@ public class StartMenuController : MonoBehaviour
         foreach(var e in levelLoadoutButtons)
         {
             string levelName = e.levelToLoad;
-            e.button.onClick.AddListener(() => masterController.LoadScene(levelName));
+            e.button.onClick.AddListener(() => LoadLevel(levelName));
 
             // e.button.onClick.AddListener(() => DebugLevelLoadout(levelName));
         }
@@ -71,10 +76,69 @@ public class StartMenuController : MonoBehaviour
         levelLoadoutInterface.SetActive(false);
     }
 
+    private IEnumerator FadeToBlackFromStart()
+    {
+        fadeOverlay.gameObject.transform.SetAsLastSibling();
+        float elapsedTime = 0f;
+        Color color = fadeOverlay.GetComponent<Image>().color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            fadeOverlay.GetComponent<Image>().color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeOverlay.GetComponent<Image>().color = color;
+
+        StartCoroutine(SoundFXManager.instance.FadeOutMusic(fadeDuration));
+        yield return new WaitForSeconds(fadeDuration);
+
+        masterController.LoadScene(masterController.firstScene);
+    }
+
+    private IEnumerator FadeToBlackFromLevelLoadOut(string levelName)
+    {
+        fadeOverlay.gameObject.transform.SetAsLastSibling();
+        float elapsedTime = 0f;
+        Color color = fadeOverlay.GetComponent<Image>().color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            fadeOverlay.GetComponent<Image>().color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeOverlay.GetComponent<Image>().color = color;
+
+        StartCoroutine(SoundFXManager.instance.FadeOutMusic(fadeDuration));
+        yield return new WaitForSeconds(fadeDuration);
+
+        masterController.LoadScene(levelName);
+    }
+
+    private void LoadLevel(string levelName)
+    {
+        StartCoroutine(FadeToBlackFromLevelLoadOut(levelName));
+    }
+
+    private void StartButton()
+    {
+        StartCoroutine(FadeToBlackFromStart());
+    }
+
+
     [System.Serializable]
     public class LevelButtons
     {
         public Button button;
         public string levelToLoad;
     }
+
+
 }

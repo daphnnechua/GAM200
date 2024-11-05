@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +23,8 @@ public class DataManager : MonoBehaviour
 
     public List<PlayerResponse> playerResponseList = new List<PlayerResponse>();
 
+    public List<Stars> starsList = new List<Stars>();
+
     public void LoadAllData() //called at the start of game 
     {
         LoadIngredients();
@@ -34,6 +37,7 @@ public class DataManager : MonoBehaviour
         LoadLevels();
         LoadGeneralDialogue();
         LoadPlayerResponse();
+        LoadStars();
     }
 
     #region Ingredients
@@ -147,8 +151,9 @@ public class DataManager : MonoBehaviour
             refData.reward = int.Parse(columnData[3]);
             refData.unlockedInScenes = columnData[4].Split('@');
             refData.imageFilePath = columnData[5];
+            refData.penalty = int.Parse(columnData[6]);
 
-            Recipe recipe = new Recipe(refData.recipeID, refData.recipeName, refData.ingredientIDs, refData.reward, refData.unlockedInScenes, refData.imageFilePath);
+            Recipe recipe = new Recipe(refData.recipeID, refData.recipeName, refData.ingredientIDs, refData.reward, refData.unlockedInScenes, refData.imageFilePath, refData.penalty);
 
             recipes.Add(recipe);
 
@@ -330,4 +335,32 @@ public class DataManager : MonoBehaviour
 
 
     #endregion dialogue
+
+    #region star scoring
+
+    public void LoadStars()
+    {
+        string filePath = Application.streamingAssetsPath + "/Stars.csv";
+        string [] fileData =  File.ReadAllLines(filePath);
+
+        for(int i =1 ; i<fileData.Length; i++)
+        {
+            string[] columnData = fileData[i].Split(new char[] {';'});
+
+            RefStars refData = new RefStars();
+            refData.levelName = columnData[0];
+            refData.levelType = columnData[1];
+            refData.availableStars = int.Parse(columnData[2]);
+            refData.pointsRequired = Array.ConvertAll(columnData[3].Split('@'), int.Parse);
+
+
+            Stars stars = new Stars(refData.levelName, refData.levelType, refData.availableStars, refData.pointsRequired);
+
+            starsList.Add(stars);
+
+            Game.SetStarsList(starsList);
+
+        }
+    }
+    #endregion star scoring
 }

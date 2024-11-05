@@ -21,6 +21,10 @@ public class LevelTimer : MonoBehaviour
     private OrderManager orderManager;
 
     private MasterController masterController;
+
+    private bool hasFadeOutStarted = false;
+
+    private bool hasLevelEndBeenInitiated = false;
     
     // Start is called before the first frame update
     void Start()
@@ -45,19 +49,36 @@ public class LevelTimer : MonoBehaviour
             if(timeLeft>0 && !isTimerFinished)
             {
                 timeLeft-= Time.deltaTime; //total time left in seconds
-                timeText.text = Timer(timeLeft); //set timer text
-                if(timeLeft<6)
+
+                if (timeLeft < 0) 
                 {
-                    timeText.color = Color.red;
+                    timeLeft = 0;
                 }
 
-            }
-            else if(timeLeft<= 0 && !isTimerFinished)
-            {
-                timeLeft = 0;
                 timeText.text = Timer(timeLeft); //set timer text
-                gameController.EndOfLevel(); //testing only. to remove
-                isTimerFinished = true;
+
+                if(timeLeft<=5)
+                {
+                    timeText.color = Color.red;
+
+                    if(!hasFadeOutStarted && timeLeft<=1)
+                    {
+                        StartCoroutine(SoundFXManager.instance.FadeOutMusic(1));
+                        hasFadeOutStarted = true;
+                    }
+                }
+                
+
+            }
+            else
+            {
+                if(!hasLevelEndBeenInitiated)
+                {
+                    timeText.text = Timer(0); //set timer text
+                    gameController.EndOfLevel();
+                    isTimerFinished = true;
+                    hasLevelEndBeenInitiated = true;
+                }
             }
             
 

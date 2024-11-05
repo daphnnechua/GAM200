@@ -6063,6 +6063,8 @@ MonoBehaviour:
   - {fileID: 1077591242}
   - {fileID: 1802860514}
   - {fileID: 1200450406}
+  puddlesButton: {fileID: 0}
+  tutorialManaul: {fileID: 0}
   skipTutorialText: {fileID: 408965485}
   tutorialManual: {fileID: 903240837}
   nextGeneralDialogue: 0
@@ -6077,6 +6079,10 @@ MonoBehaviour:
   leftSpeaker: {fileID: 461105661}
   rightSpeaker: {fileID: 790702199}
   gameCountdownTimer: {fileID: 0}
+  pointsPanel: {fileID: 0}
+  levelType: Cutscene
+  droneMenu: {fileID: 0}
+  tutorialManualInterface: {fileID: 0}
   dialogueOpen: 0
   toReturnToStartMenu: 0
   currentSceneName: cutscene_01
@@ -6587,7 +6593,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1441832980}
   - component: {fileID: 1441832979}
-  - component: {fileID: 1441832978}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6595,14 +6600,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1441832978
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441832977}
-  m_Enabled: 1
 --- !u!20 &1441832979
 Camera:
   m_ObjectHideFlags: 0

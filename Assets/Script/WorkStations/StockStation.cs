@@ -71,11 +71,11 @@ public class StockStationManager : MonoBehaviour
             }
 
             stockCount--;
-            Debug.Log("Remaining:"+ stockCount);
+            // Debug.Log("Remaining:"+ stockCount);
         }
         else
         {
-            Debug.Log(stockCount + " No more ingredients!");
+            // Debug.Log(stockCount + " No more ingredients!");
         }
         return newObj;
 

@@ -14,7 +14,7 @@ public class PageToggle : MonoBehaviour
 
     public int pageIndex = 0;
 
-    private bool toUpdatePageToggleButtons = true;
+    public bool toUpdatePageToggleButtons = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,12 @@ public class PageToggle : MonoBehaviour
 
         tutorialNext.onClick.AddListener(() => UpdateNextPage());
         tutorialPrevious.onClick.AddListener(() => UpdatePrevPage());
+
+        foreach(var page in pages)
+        {
+            page.SetActive(false);
+        }
+        pages[pageIndex].SetActive(true); //start at first page
     }
 
     // Update is called once per frame

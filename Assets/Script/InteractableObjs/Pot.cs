@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Pot : MonoBehaviour
 {
+    public InteractableObjSO interactableObjSO;
     [SerializeField] private float cookingTime = 5f;
     private float prepProgress;
     public bool startedPrep = false;
@@ -36,6 +38,8 @@ public class Pot : MonoBehaviour
         stockStationManager = FindObjectOfType<StockStationManager>();
 
         GetComponent<Rigidbody2D>().isKinematic = true;
+
+        LoadPotGraphics();
     }
 
     // Update is called once per frame
@@ -83,7 +87,7 @@ public class Pot : MonoBehaviour
             {
                 
                 ingredientIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
-                // LoadPotGraphics();
+                LoadPotGraphics();
                 SpawnPotUI();
                 isReadyToCook = true;
 
@@ -129,9 +133,9 @@ public class Pot : MonoBehaviour
             isReadyToCook = false;
             hasUndergonePrep = false;
 
-            // plateScript.LoadPlateGraphics();
+            plateScript.LoadPlateGraphics();
             plateScript.SpawnPlateUI();
-            // LoadPotGraphics();
+            LoadPotGraphics();
             SpawnPotUI();
         }
         else if(plateScript.interactableObjSO.objType != "soup_bowl")
@@ -144,7 +148,7 @@ public class Pot : MonoBehaviour
     {
         ingredientsInPot.Clear();
         ingredientIDs.Clear();
-        // LoadPotGraphics();
+        LoadPotGraphics();
         Destroy(potUI);
 
         Debug.Log($"pot reset! ingredients on plate: {ingredientsInPot.Count}, ids: {ingredientIDs.Count}");
@@ -194,45 +198,46 @@ public class Pot : MonoBehaviour
     }
 
 
-    // private void LoadPotGraphics()
-    // {
-    //     List<PotGraphics> potGraphicsList = Game.GetPotGraphicsList();
+    public void LoadPotGraphics()
+    {
+        List<PlateGraphics> potGraphicsList = Game.GetPlateGraphicsByPlateType(interactableObjSO.objType);
 
-    //     if(ingredientIDs.Count <=0)
-    //     {
-    //         PotGraphics emptyPlate = Game.GetPotGraphicsByIngredientIDs("null");
-    //         string filePath = emptyPlate.imageFilePath;
-    //         AssetManager.LoadSprite(filePath, (Sprite sp) =>
-    //         {
-    //             this.GetComponent<SpriteRenderer>().sprite = sp;
-    //         });
-    //         return;
-    //     }
+        if(ingredientIDs.Count <=0)
+        {
+            PlateGraphics emptyPot = Game.GetPlateGraphicsByIngredientIDs(potGraphicsList, "null");
 
-    //     foreach (var p in potGraphicsList)
-    //     {
-    //         List<string> ingredientsNeeded = new List<string>(p.ingredientIDs);
-    //         List<string> currentIDs = new List<string>();
+            string filePath = emptyPot.imageFilePath;
+            AssetManager.LoadSprite(filePath, (Sprite sp) =>
+            {
+                this.GetComponent<SpriteRenderer>().sprite = sp;
+            });
+            return;
+        }
 
-    //         foreach(string ids in ingredientIDs)
-    //         {
-    //             currentIDs.Add(ids);
-    //         }
-    //         ingredientsNeeded.Sort();
-    //         currentIDs.Sort();
+        foreach (var p in potGraphicsList)
+        {
+            List<string> ingredientsNeeded = new List<string>(p.ingredientIDs);
+            List<string> currentIDs = new List<string>();
 
-    //         if (ingredientsNeeded.SequenceEqual(currentIDs))
-    //         {
-    //             string filePath = p.imageFilePath;
+            foreach(string ids in ingredientIDs)
+            {
+                currentIDs.Add(ids);
+            }
+            ingredientsNeeded.Sort();
+            currentIDs.Sort();
 
-    //             AssetManager.LoadSprite(filePath, (Sprite sp) =>
-    //             {
-    //                 this.GetComponent<SpriteRenderer>().sprite = sp;
-    //             });
-    //             break;
-    //         }
-    //     }    
-    // }
+            if (ingredientsNeeded.SequenceEqual(currentIDs))
+            {
+                string filePath = p.imageFilePath;
+
+                AssetManager.LoadSprite(filePath, (Sprite sp) =>
+                {
+                    this.GetComponent<SpriteRenderer>().sprite = sp;
+                });
+                break;
+            }
+        }    
+    }
 
     private void SpawnPotUI()
     {

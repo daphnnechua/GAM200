@@ -21,6 +21,8 @@ public class TutorialManualController : MonoBehaviour
     private TabController tabController;
 
     private MasterController masterController;
+    
+    [SerializeField] private List<PageToggle> journalSections;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +72,12 @@ public class TutorialManualController : MonoBehaviour
             tutorialManual.SetActive(true);
             tabController = FindObjectOfType<TabController>();
             tabController.UpdateTabVisuals(0);
+
+            foreach(var e in journalSections)
+            {
+                e.pageIndex = 0;
+                e.toUpdatePageToggleButtons = true;
+            }
         }
     }
 

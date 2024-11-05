@@ -35,6 +35,9 @@ public static class Game
     private static PlayerResponse playerResponse;
     private static List<PlayerResponse> playerResponseList;
 
+    private static Stars stars;
+    private static List<Stars> starsList;
+
     #region ingredient related
     public static Ingredient GetIngredient()
     {
@@ -424,5 +427,33 @@ public static class Game
     }
 
     #endregion player response dialogue
+
+    #region level stars
+    public static Stars GetLevelStars()
+    {
+        return stars;
+    }
+
+    public static void SetLevelStars(Stars aStars)
+    {
+        stars = aStars;
+    }
+
+    public static void SetStarsList(List<Stars> aList)
+    {
+        starsList = aList;
+    }
+
+    public static List<Stars> GetLevelStarsList()
+    {
+        return starsList;
+    }
+
+    public static Stars GetLevelStarsByLevelName(string name)
+    {
+        return starsList.Find(i => i.levelName == name);
+    }
+    
+    #endregion level stars
 
 }

@@ -127,7 +127,8 @@ public class OrderManager : MonoBehaviour
             //play order failed sfx
             
             RemoveOrder();
-            gameController.DeductPoints(5);
+            Recipe currentRecipe = order.Recipe;
+            gameController.DeductPoints(currentRecipe.penalty);
         }
     }
 

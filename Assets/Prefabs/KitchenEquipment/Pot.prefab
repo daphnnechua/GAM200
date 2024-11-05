@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.75, y: 4.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -161,3 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2954f7cc919df3418f69cacfa1929dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableObjSO: {fileID: 11400000, guid: 5e3c33fb76fd9ef4a9a092d12077e8ff, type: 2}
+  cookingTime: 5
+  startedPrep: 0
+  progressBar: {fileID: 0}
+  ingredientIDs: []
+  isReadyToCook: 0
+  isDoneCooking: 0
+  onStove: 0
+  isHoldingPot: 0

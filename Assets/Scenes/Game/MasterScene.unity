@@ -123,6 +123,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &175834754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175834756}
+  - component: {fileID: 175834755}
+  - component: {fileID: 175834757}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &175834755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175834754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2764cc0e728f28f488329247108eada1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxPrefab: {fileID: 8543042227419769934, guid: d8ef965bb72de1c418fe1303dd8e45a7, type: 3}
+  bgmPrefab: {fileID: 8543042227419769934, guid: bb9577db8275e7440ac654ed3c46bb22, type: 3}
+  ambientPrefab: {fileID: 8543042227419769934, guid: 09d6c4d96219d5a4c999be99d283ce56, type: 3}
+--- !u!4 &175834756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175834754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &175834757
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175834754}
+  m_Enabled: 1
 --- !u!1 &751841287
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +228,8 @@ MonoBehaviour:
   firstScene: cutscene_01
   endLevelScene: End_Level
   startMenuScene: Start_Menu
+  cutsceneBGM: {fileID: 8300000, guid: 1a83772a9b74a3742a108efae761f440, type: 3}
+  startMenuBGM: {fileID: 8300000, guid: 1a83772a9b74a3742a108efae761f440, type: 3}
   pauseMenuOpen: 0
   canPause: 1
 --- !u!114 &751841291
@@ -191,3 +249,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 751841289}
+  - {fileID: 175834756}

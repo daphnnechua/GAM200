@@ -9,7 +9,7 @@ public class DroneMenuController : MonoBehaviour
 {
 
     #region handle restocking
-    private IEnumerator RestockTimer(RestockingController restockingController, List<string> ingredientIDList, GameObject timer)
+    private IEnumerator RestockTimer(RestockingController restockingController, List<string> ingredientIDList, GameObject timer, GameObject exclaimationPrefab)
     {
         float totalRestockTime = 2f * ingredientIDList.Count;
         float timeLeft = totalRestockTime;
@@ -28,14 +28,16 @@ public class DroneMenuController : MonoBehaviour
             yield return null;
         }
 
-        restockingController.RestockIngredients();
+        restockingController.restockCompleted = true;
+        GameObject droneExclaimation = Instantiate(exclaimationPrefab, GameObject.Find("droneUI").transform);
+        droneExclaimation.transform.position = restockingController.ExclaimationPos();
+        
         Destroy(timerInstance);
-        restockingController.droneAvailable = true;    
     }
 
-    public void SendDroneOut(RestockingController restockingController, List<string> ingredientIDList, GameObject timer)
+    public void SendDroneOut(RestockingController restockingController, List<string> ingredientIDList, GameObject timer, GameObject exclaimationPrefab)
     {
-        StartCoroutine(RestockTimer(restockingController, ingredientIDList, timer));
+        StartCoroutine(RestockTimer(restockingController, ingredientIDList, timer, exclaimationPrefab));
     }
 
     #endregion handle restocking
@@ -45,7 +47,7 @@ public class DroneMenuController : MonoBehaviour
         string retrieveText = "Retrieving";
         int dotCount = 0;
 
-        while (!restockingController.droneAvailable)
+        while (!restockingController.restockCompleted)
         {
             text.text = retrieveText + new string('.', dotCount);
             dotCount = (dotCount + 1) % 4; 

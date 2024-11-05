@@ -76,6 +76,7 @@ public class TabController : MonoBehaviour
                 if(i ==index)
                 {
                     // filePath = "UI/active_button1";
+                    tabImage[i].gameObject.transform.SetAsLastSibling();
                     tabImage[i].color = Color.white;
 
                     PageToggle pageToggle = pages[i].GetComponentInChildren<PageToggle>();

@@ -10,5 +10,7 @@ public class RefRecipe
     public int reward;
     public string[] unlockedInScenes;
     public string imageFilePath;
+
+    public int penalty;
     
 }

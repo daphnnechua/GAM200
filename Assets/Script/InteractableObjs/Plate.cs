@@ -132,7 +132,7 @@ public class Plate : MonoBehaviour
                 //play failed order sfx
 
                 orderManager.RemoveOrder();
-                gameController.DeductPoints(5);
+                gameController.DeductPoints(currentRecipe.penalty);
             }
         }
         Destroy(plateUI);
