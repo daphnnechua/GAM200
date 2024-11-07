@@ -14,6 +14,8 @@ public class LevelTimer : MonoBehaviour
 
     [SerializeField] private GameObject timerDisplay;
 
+    private GameObject player;
+
     public string endText;
     private bool isTimerFinished = false;
 
@@ -25,10 +27,20 @@ public class LevelTimer : MonoBehaviour
     private bool hasFadeOutStarted = false;
 
     private bool hasLevelEndBeenInitiated = false;
+
+    [SerializeField] private AudioClip timerRunningOutSound;
+
+    [SerializeField] private AudioClip outOfTimeSound;
+
+    [SerializeField] private AudioClip countdownSound;
+
+    private bool hasTimerWarningBeenPlayed = false;
+    private bool hasCountdownStarted = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         droneMenuController = FindObjectOfType<DroneMenuController>();
         orderManager = FindObjectOfType<OrderManager>();
         gameController = FindObjectOfType<GameController>();
@@ -44,6 +56,16 @@ public class LevelTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            timeLeft -= 10;
+        }
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            timeLeft +=10;
+        }
+
+
         if(timerDisplay.activeInHierarchy && gameController.gameStart)
         {
             if(timeLeft>0 && !isTimerFinished)
@@ -57,7 +79,19 @@ public class LevelTimer : MonoBehaviour
 
                 timeText.text = Timer(timeLeft); //set timer text
 
-                if(timeLeft<=5)
+                if(timeLeft<30 && !hasTimerWarningBeenPlayed)
+                {
+                    SoundFXManager.instance.PlaySound(timerRunningOutSound, transform, 1f);
+                    hasTimerWarningBeenPlayed = true;
+                }
+
+                if(timeLeft<10 && !hasCountdownStarted)
+                {
+                    StartCoroutine(Countdown());
+                    hasCountdownStarted = true;
+                }
+
+                if(timeLeft<5)
                 {
                     timeText.color = Color.red;
 
@@ -74,8 +108,9 @@ public class LevelTimer : MonoBehaviour
             {
                 if(!hasLevelEndBeenInitiated)
                 {
-                    timeText.text = Timer(0); //set timer text
-                    gameController.EndOfLevel();
+                    StartCoroutine(GameOver());
+
+                    timeText.text = Timer(0); //set timer text                    
                     isTimerFinished = true;
                     hasLevelEndBeenInitiated = true;
                 }
@@ -119,4 +154,27 @@ public class LevelTimer : MonoBehaviour
         return endText;
     }
     
+    private IEnumerator GameOver()
+    {
+        droneMenuController.StopAllProcesses();
+        orderManager.StopOrders();
+
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        player.GetComponent<PlayerMovement>().canMove = false;
+
+        SoundFXManager.instance.PlaySound(outOfTimeSound, transform, 1f);
+
+        yield return new WaitForSeconds(outOfTimeSound.length);
+
+        gameController.EndOfLevel();
+    }
+
+    private IEnumerator Countdown()
+    {
+        for(int i =0; i<10; i++)
+        {
+            SoundFXManager.instance.PlaySound(countdownSound, transform, 1f);
+            yield return new WaitForSeconds(1);
+        }
+    }
 }

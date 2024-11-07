@@ -232,8 +232,10 @@ public class DataManager : MonoBehaviour
             refData.stockStationName = columnData[1];
             refData.ingredientID = columnData[2];
             refData.imageFilePath = columnData[3];
+            refData.emptyImagePath = columnData[4];
+            refData.indicatorImage = columnData[5];
 
-            StockStation stockStations = new StockStation(refData.stockStationID, refData.stockStationName, refData.ingredientID, refData.imageFilePath);
+            StockStation stockStations = new StockStation(refData.stockStationID, refData.stockStationName, refData.ingredientID, refData.imageFilePath, refData.emptyImagePath, refData.indicatorImage);
 
             stockStationsList.Add(stockStations);
 

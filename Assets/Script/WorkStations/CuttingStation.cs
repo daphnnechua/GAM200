@@ -20,6 +20,12 @@ public class CuttingStation : MonoBehaviour
     private GameController gameController;
     public bool ingredientOnStation = true;
 
+    private bool startedCutting = false;
+
+    private bool isChoppingSoundPlaying = false;
+
+    [SerializeField] private AudioClip chopppingSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,25 +45,31 @@ public class CuttingStation : MonoBehaviour
             {
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 playerMovement.canMove = false;
-                playerMovement.isCutting = true;
                 CutIngredient();
             }
             
+        }
+        else
+        {
+            playerMovement.isCutting = false;
         }
         if(!gameController.levelEnded && Input.GetKeyUp(KeyCode.K))
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             playerMovement.canMove = true;
             playerMovement.isCutting = false;
+            startedCutting = false;
+            isChoppingSoundPlaying = false;
         }
-        if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
-        {
-            Debug.Log(ingredientObj.name + " cannot be cut!");
-        }
+        // if(ingredientObj && !ingredientObj.GetComponent<IngredientManager>().ingredientSO.canCut)
+        // {
+        //     Debug.Log(ingredientObj.name + " cannot be cut!");
+        // }
     }
 
     private void CutIngredient()
     {
+        playerMovement.isCutting = true;
         if(!ingredientManager.startedPrep)
         {
             //instantiate progress bar here
@@ -70,6 +82,13 @@ public class CuttingStation : MonoBehaviour
             ingredientManager.prepProgress += Time.deltaTime;
             ingredientManager.UpdateCuttingProgressBar(this, cutTimer);
 
+            if(!startedCutting && !isChoppingSoundPlaying)
+            {
+                SoundFXManager.instance.PlaySound(chopppingSound, transform, 0.5f);
+                startedCutting = true;
+                isChoppingSoundPlaying = true;
+            }
+
             // Check if cutting is complete
             if (ingredientManager.prepProgress >= cutTimer)
             {
@@ -80,7 +99,6 @@ public class CuttingStation : MonoBehaviour
         }
 
     }
-
     
     private void CompleteCutting()
     {
@@ -105,6 +123,8 @@ public class CuttingStation : MonoBehaviour
         }
         ingredientManager.prepProgress = 0f; //reset progress
         ingredientManager.startedPrep = false;
+        startedCutting = false;
+        isChoppingSoundPlaying = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -132,7 +152,7 @@ public class CuttingStation : MonoBehaviour
         AssetManager.LoadPrefab(prefabPath, (GameObject cutPrefab) =>
         {
 
-            GameObject cutIngredient = Instantiate(cutPrefab, ingredientObj.transform.position, ingredientObj.transform.rotation);
+            GameObject cutIngredient = Instantiate(cutPrefab, ingredientObj.transform.position, ingredientObj.transform.rotation, transform);
                 
             IngredientManager ingredientManager = cutIngredient.GetComponent<IngredientManager>();
             ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);

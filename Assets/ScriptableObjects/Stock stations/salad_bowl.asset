@@ -18,3 +18,6 @@ MonoBehaviour:
   prefab: {fileID: 7373545082658842854, guid: c2a9649ea497b62459f9d2e5ecb40048, type: 3}
   ingredientID: 
   prefabName: KitchenEquipment/salad_bowl
+  soundSfx:
+  - {fileID: 8300000, guid: 8ef7c8c79da3d8f49b305d24f88f22d1, type: 3}
+  - {fileID: 8300000, guid: 926412f906c190c4f94f060bc2e5f256, type: 3}

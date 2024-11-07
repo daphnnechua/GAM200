@@ -15,6 +15,8 @@ public class SoundFXManager : MonoBehaviour
     private AudioSource bgm;
     private AudioSource ambientSFX;
 
+    private Dictionary<string, AudioSource> activeSFX = new Dictionary<string, AudioSource>();
+
     private void Awake()
     {
         if (instance == null)
@@ -29,13 +31,53 @@ public class SoundFXManager : MonoBehaviour
     }
     public void PlaySound(AudioClip audioClip, Transform transform, float volume)
     {
+        if (activeSFX.ContainsKey(audioClip.name))
+        {
+            return;
+        }
+
+
         AudioSource audioSource = Instantiate(sfxPrefab, transform.position, Quaternion.identity);
         audioSource.clip = audioClip;
         audioSource.volume = volume;
         audioSource.Play();
 
+        activeSFX[audioClip.name] = audioSource;
+
         Destroy(audioSource.gameObject, audioClip.length);
+
+        StartCoroutine(RemoveSfx(audioClip.name, audioClip.length));    
     }
+
+    public AudioSource PlayStoppableSound(AudioClip audioClip, Transform transform, float volume)
+    {
+        if (activeSFX.ContainsKey(audioClip.name))
+        {
+            return activeSFX[audioClip.name];
+        }
+
+        AudioSource audioSource = Instantiate(sfxPrefab, transform.position, Quaternion.identity);
+        audioSource.clip = audioClip;
+        audioSource.volume = volume;
+        audioSource.Play();
+
+        activeSFX[audioClip.name] = audioSource;
+
+        Destroy(audioSource.gameObject, audioClip.length);
+        StartCoroutine(RemoveSfx(audioClip.name, audioClip.length));
+
+        return audioSource;    
+    }
+
+    public IEnumerator RemoveSfx(string soundName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (activeSFX.ContainsKey(soundName))
+        {
+            activeSFX.Remove(soundName);
+        }
+    }
+
     public void PlayBackgroundMusic(AudioClip audioClip, float volume)
     {
         if (bgm == null)
@@ -57,7 +99,7 @@ public class SoundFXManager : MonoBehaviour
     }
     public void StopBackgroundMusic()
     {
-        if (bgm.isPlaying)
+        if (bgm !=null && bgm.isPlaying)
         {
             bgm.Stop();
         }
@@ -86,7 +128,7 @@ public class SoundFXManager : MonoBehaviour
 
     public void StopAmbientSFX()
     {
-        if(ambientSFX.isPlaying)
+        if(ambientSFX!=null && ambientSFX.isPlaying)
         {
             ambientSFX.Stop();
         }

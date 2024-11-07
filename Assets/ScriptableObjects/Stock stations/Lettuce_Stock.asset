@@ -18,3 +18,5 @@ MonoBehaviour:
   prefab: {fileID: 8040750181862833215, guid: 04d03745dee9da3418d66a3d84dc5322, type: 3}
   ingredientID: INGR_1
   prefabName: Ingredients/Lettuce
+  soundSfx:
+  - {fileID: 8300000, guid: 33efedb915244414d991e7559c9dabb4, type: 3}

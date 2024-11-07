@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class TabController : MonoBehaviour
 {
     [SerializeField] private Button tutorialNext;
     [SerializeField] private Button tutorialPrevious;
+    public List<TextMeshProUGUI> tabText = new List<TextMeshProUGUI>();
+
     public List<Image> tabImage = new List<Image>();
     public List<GameObject> pages = new List<GameObject>();
 
@@ -17,6 +20,8 @@ public class TabController : MonoBehaviour
     private DroneStation droneStation;
 
     private TutorialManualController tutorialManualController;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
 
 
     // Start is called before the first frame update
@@ -38,27 +43,29 @@ public class TabController : MonoBehaviour
 
     public void UpdateTabVisuals(int index)
     {
+
         droneStation = FindObjectOfType<DroneStation>();
         tutorialManualController = FindObjectOfType<TutorialManualController>();
 
         if(droneStation.isinteracting)
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             isRestockingPage = (index == 0);
 
             // Set all pages inactive and update button images
             for (int i = 0; i < pages.Count; i++)
             {
                 pages[i].SetActive(i == index);
-                string filePath = "";
                 if(i ==index)
                 {
-                    filePath = "UI/active_button1";
+                    tabText[i].color = new Color(0, 147, 255);
                 }
                 else 
                 {
-                    filePath = "UI/inactive_button1";
+                    tabText[i].color = Color.white;
                 }
-                SetButtonImage(filePath, tabImage[i]);
             }
 
             MaintenanceManager maintenanceManager = FindObjectOfType<MaintenanceManager>();
@@ -69,6 +76,9 @@ public class TabController : MonoBehaviour
         }
         else if(tutorialManualController.isInteracting)
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+            
             for (int i = 0; i < pages.Count; i++)
             {
                 pages[i].SetActive(i == index);
@@ -95,12 +105,9 @@ public class TabController : MonoBehaviour
             }
             
         }
-    }
-    private void SetButtonImage(string filePath, Image image)
-    {
-        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        foreach (Button button in buttons)
         {
-            image.sprite = sp;
-        });
+            button.interactable = true;
+        }
     }
 }

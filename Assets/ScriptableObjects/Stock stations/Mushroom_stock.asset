@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a976bbd557d51644f8890037503544fa, type: 3}
+  m_Name: Mushroom_stock
+  m_EditorClassIdentifier: 
+  stationName: Mushroom_Stock_Station
+  objType: Ingredient
+  typing: Ingredient
+  prefab: {fileID: 8040750181862833215, guid: 20808ad291cbf4347b36d1f0893d6282, type: 3}
+  ingredientID: INGR_8
+  prefabName: Ingredients/Mushroom
+  soundSfx:
+  - {fileID: 8300000, guid: 33efedb915244414d991e7559c9dabb4, type: 3}

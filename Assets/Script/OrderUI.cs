@@ -148,7 +148,7 @@ public class OrderUI : MonoBehaviour
         {
             if(trackOrders[i] == order)
             {
-                GameObject childObj  = trackOrderUI[i].transform.Find("child").gameObject; 
+                GameObject childObj  = trackOrderUI[i].transform.Find("child").gameObject;  
                 Slider timer  = childObj.transform.Find("Timer").GetComponent<Slider>(); 
                 // float refBaseTimer = orderManager.baseExpiryTime;
                 timer.value = timeLeft/order.ExpiryTime;

@@ -26,7 +26,9 @@ public class Pot : MonoBehaviour
 
     private StockStationManager stockStationManager;
     private GameObject potUI;
-    [SerializeField] private bool onStove = false;
+    [SerializeField] private List<AudioClip> cookingSound;
+
+    private bool isCookingSoundPlayed = false;
 
     public bool isHoldingPot = false;
 
@@ -45,7 +47,7 @@ public class Pot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(onStove && isReadyToCook)
+        if(isOnStove() && isReadyToCook)
         {
             if(!hasUndergonePrep && ingredientIDs.Count == 3) //only start cooking when number of ingredients in pot is 3
             {
@@ -53,10 +55,11 @@ public class Pot : MonoBehaviour
             }
         }
 
+
         if(progressBar!=null)
         {
             progressBar.transform.position = ProgressBarPos();
-            if(onStove)
+            if(isOnStove())
             {
                 UpdateCookingProgressBar();
             }
@@ -76,6 +79,9 @@ public class Pot : MonoBehaviour
                 potUI.SetActive(true);
             }
         }
+
+        PlayCookingSound();
+
     }
 
     public void PlaceIngredientInPot(GameObject ingredient)
@@ -89,10 +95,14 @@ public class Pot : MonoBehaviour
                 ingredientIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
                 LoadPotGraphics();
                 SpawnPotUI();
-                isReadyToCook = true;
+
+                if(ingredientIDs.Count == 3)
+                {
+                    isReadyToCook = true;
+                }
 
                 Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
-                Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}. ingredient id: {ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID}");
+                // Debug.Log($"placed ingredient. ingredients in pot: {ingredientsInPot.Count}. ingredient id: {ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID}");
                 
             }
         }
@@ -111,7 +121,8 @@ public class Pot : MonoBehaviour
             }
             isReadyToCook = false;
             isDoneCooking = true;
-            Debug.Log("Soup is cooked!");
+            isCookingSoundPlayed = false;
+            // Debug.Log("Soup is cooked!");
         }
 
     }
@@ -126,8 +137,8 @@ public class Pot : MonoBehaviour
                 plateScript.ingredientsOnPlateIDs.Add(ingredientIDs[i]);
             }
             ingredientIDs.Clear();
-            Debug.Log("soup placed in plate");
-            Debug.Log(ingredientIDs.Count);
+            // Debug.Log("soup placed in plate");
+            // Debug.Log(ingredientIDs.Count);
 
             isDoneCooking = false;
             isReadyToCook = false;
@@ -138,10 +149,10 @@ public class Pot : MonoBehaviour
             LoadPotGraphics();
             SpawnPotUI();
         }
-        else if(plateScript.interactableObjSO.objType != "soup_bowl")
-        {
-            Debug.Log($"plate typing is not correct. current plate type trying to access: {plateScript.interactableObjSO.objType}");
-        }
+        // else if(plateScript.interactableObjSO.objType != "soup_bowl")
+        // {
+        //     Debug.Log($"plate typing is not correct. current plate type trying to access: {plateScript.interactableObjSO.objType}");
+        // }
     }
 
     public void TrashFoodInPot()
@@ -151,7 +162,7 @@ public class Pot : MonoBehaviour
         LoadPotGraphics();
         Destroy(potUI);
 
-        Debug.Log($"pot reset! ingredients on plate: {ingredientsInPot.Count}, ids: {ingredientIDs.Count}");
+        // Debug.Log($"pot reset! ingredients on plate: {ingredientsInPot.Count}, ids: {ingredientIDs.Count}");
     }
 
 
@@ -274,7 +285,6 @@ public class Pot : MonoBehaviour
                 {
                     Ingredient currentIngredient = Game.GetIngredientByID(ingredientIDs[0]);
 
-                    Debug.Log($"current ingredient: {currentIngredient.name}");
                     Debug.Log(currentIngredient.originalStateID);
 
                     Ingredient originalIngredient = Game.GetIngredientByOriginalID(currentIngredient.originalStateID);
@@ -298,19 +308,33 @@ public class Pot : MonoBehaviour
         return transform.position + new Vector3(0, 0.75f, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private bool isOnStove()
     {
-        if (other.CompareTag("Stove"))
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+        foreach (Collider2D collider in colliders)
         {
-            onStove = true;
+            if(collider.CompareTag("Stove"))
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void PlayCookingSound()
     {
-        if (other.CompareTag("Stove"))
+        if(isOnStove() && !isCookingSoundPlayed && !isDoneCooking && isReadyToCook)
         {
-            onStove = false;
+            int random = Random.Range(0, cookingSound.Count);
+
+            SoundFXManager.instance.PlaySound(cookingSound[random], transform, 0.5f);
+
+            isCookingSoundPlayed = true;
+        }
+        else if(!isOnStove())
+        {
+            isCookingSoundPlayed = false;
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StockStationManager : MonoBehaviour
 {
@@ -28,19 +29,37 @@ public class StockStationManager : MonoBehaviour
 
             if(stockCount <= 0)
             {
-                StockStation station = Game.GetStockStationByIngredientID("null"); //no more ingredients --> empty!
-                LoadStockStationImage(station.imageFilePath);
+                LoadStockStationImage(thisStation.emptyImagePath);
             }
 
 
             checkCount = stockCount;
         }
 
+
+
         if(stockSO.objType == "Ingredient")
         {
             //reflect stock count number
-            string count = $"{stockCount}";
-            uiPrefab.GetComponentInChildren<TextMeshProUGUI>().text = count;
+            TextMeshProUGUI text  = uiPrefab.GetComponentInChildren<TextMeshProUGUI>(true);
+
+            Image background = uiPrefab.GetComponentInChildren<Image>();
+
+            if(stockCount<=0)
+            {
+                string ingredientID = stockSO.ingredientID;
+                StockStation thisStation = Game.GetStockStationByIngredientID(ingredientID);
+                LoadImage(thisStation.indicatorImage, background);
+                text.gameObject.SetActive(false);
+            }
+            else
+            {
+                text.gameObject.SetActive(true);
+                string count = $"{stockCount}";
+                text.text = count;
+                LoadImage("Tables/foodstash stuff/board", background);
+            }
+
         }
     }
 
@@ -48,7 +67,6 @@ public class StockStationManager : MonoBehaviour
 
     public GameObject GetNewObj()
     {
-        
         GameObject newObj = null;
         if(stockCount>0)
         {
@@ -59,6 +77,10 @@ public class StockStationManager : MonoBehaviour
             {
                 IngredientManager ingredientManager = newObj.GetComponent<IngredientManager>();
                 ingredientManager.SetImage(ingredientManager.ingredientSO.imageName);
+
+                int random = Random.Range(0, stockSO.soundSfx.Count);
+
+                SoundFXManager.instance.PlaySound(stockSO.soundSfx[random], transform, 0.5f);
             }
             else
             {
@@ -68,6 +90,10 @@ public class StockStationManager : MonoBehaviour
 
                 PlateGraphics emptyPlate = Game.GetPlateGraphicsByIngredientIDs(currentPlateTypeGraphics, "null");
                 LoadPlateImage(emptyPlate.imageFilePath, newObj);
+
+                int random = Random.Range(0, stockSO.soundSfx.Count);
+
+                SoundFXManager.instance.PlaySound(stockSO.soundSfx[random], transform, 0.5f);
             }
 
             stockCount--;
@@ -85,11 +111,12 @@ public class StockStationManager : MonoBehaviour
     {
         if(stockSO.objType == "Ingredient")
         {
-            stockCount = 5;
+            stockCount = 3;
             checkCount = stockCount;
 
             //spawn stock station ui
-            uiPrefab = Instantiate(stockStationUIPrefab, GameObject.Find("StockStationUI").transform);
+            uiPrefab = Instantiate(stockStationUIPrefab, GameObject.Find("StockStationUI").transform);            
+
             uiPrefab.transform.position = UIPos();
         }
         else if(stockSO.objType == "Plate")
@@ -117,6 +144,15 @@ public class StockStationManager : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = sp;
         });
+    }
+
+    private void LoadImage(string path, Image image)
+    {
+        AssetManager.LoadSprite(path, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
+
     }
 
 

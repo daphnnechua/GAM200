@@ -29,6 +29,8 @@ public class WireTask : MonoBehaviour, IMinigame
     [SerializeField] private GameObject completionWindow;
     [SerializeField] private Button closeButton;
 
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     void Start()
     {
         overloadBar = FindObjectOfType<OverloadBar>();
@@ -111,8 +113,12 @@ public class WireTask : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -188,6 +194,9 @@ public class WireTask : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

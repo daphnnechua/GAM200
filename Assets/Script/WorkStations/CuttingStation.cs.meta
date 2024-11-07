@@ -3,7 +3,8 @@ guid: 9d0bdc22377658749991649a09234bdc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - chopppingSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

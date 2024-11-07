@@ -28,6 +28,8 @@ public class AnimatedSceneController : MonoBehaviour
 
     private float fadeDuration = 1f;
 
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,26 +52,33 @@ public class AnimatedSceneController : MonoBehaviour
         sceneTime -= Time.deltaTime;
         if(sceneTime<=0 && !hasStartedDialogue && !cutsceneSkipped)
         {
-            dialogueCanvas.SetActive(true);
-            dialogueController.OpenDialogue();
-            hasStartedDialogue = true;
+            StartCoroutine(SkipAnimatedCutscene());
         }
     }
 
     private void OpenSkipPrompt()
     {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
         skipCutscenePrompt.SetActive(true);
         playableDirector.Pause();
     }
 
     private void CloseSkipPrompt()
     {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+        
         skipCutscenePrompt.SetActive(false);
         playableDirector.Resume();
     }
 
     private void SkipCutscene()
     {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+        
         StartCoroutine(SkipAnimatedCutscene());
     }
     private IEnumerator SkipAnimatedCutscene()
@@ -78,6 +87,7 @@ public class AnimatedSceneController : MonoBehaviour
 
         playableDirector.time = playableDirector.duration;
         playableDirector.Evaluate(); 
+        playableDirector.Stop();
 
         yield return new WaitForSeconds(1f);
 

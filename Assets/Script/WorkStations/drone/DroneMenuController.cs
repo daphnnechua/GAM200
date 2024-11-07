@@ -8,6 +8,10 @@ using UnityEngine.UI;
 public class DroneMenuController : MonoBehaviour
 {
 
+    [SerializeField] private AudioClip droneArrival;
+
+    [SerializeField] private AudioClip droneTakeOff;
+
     #region handle restocking
     private IEnumerator RestockTimer(RestockingController restockingController, List<string> ingredientIDList, GameObject timer, GameObject exclaimationPrefab)
     {
@@ -20,6 +24,9 @@ public class DroneMenuController : MonoBehaviour
         Slider slider= timerInstance.GetComponent<Slider>();
         slider.value = 1;
 
+        SoundFXManager.instance.PlaySound(droneTakeOff, timerInstance.transform, 1f);
+
+
         while (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
@@ -31,6 +38,8 @@ public class DroneMenuController : MonoBehaviour
         restockingController.restockCompleted = true;
         GameObject droneExclaimation = Instantiate(exclaimationPrefab, GameObject.Find("droneUI").transform);
         droneExclaimation.transform.position = restockingController.ExclaimationPos();
+
+        SoundFXManager.instance.PlaySound(droneArrival, droneExclaimation.transform, 1f);
         
         Destroy(timerInstance);
     }

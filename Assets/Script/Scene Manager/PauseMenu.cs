@@ -15,6 +15,8 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject fadeOverlay;
 
+    [SerializeField] private List<AudioClip> clickButtonSounds;
+
     private float fadeDuration = 1f;
 
     // Start is called before the first frame update
@@ -22,13 +24,20 @@ public class PauseMenu : MonoBehaviour
     {
         masterController = FindObjectOfType<MasterController>();
 
-        resumeButton.onClick.AddListener(() => masterController.UnpauseGame());
+        resumeButton.onClick.AddListener(() => Unpause());
         restartButton.onClick.AddListener(() => Restart());
         quitButton.onClick.AddListener(() => StartMenu());
-        closeButton.onClick.AddListener(() => masterController.UnpauseGame());
+        closeButton.onClick.AddListener(() => Unpause());
 
     }
 
+    private void Unpause()
+    {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
+
+        masterController.UnpauseGame();
+    }
     private IEnumerator StartMenuFadeToBlack()
     {
         fadeOverlay.gameObject.transform.SetAsLastSibling();
@@ -54,6 +63,9 @@ public class PauseMenu : MonoBehaviour
 
     private void StartMenu()
     {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
+
         Time.timeScale = 1f;
         StartCoroutine(StartMenuFadeToBlack());
     }
@@ -83,6 +95,9 @@ public class PauseMenu : MonoBehaviour
 
     private void Restart()
     {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
+
         Time.timeScale = 1f;
         StartCoroutine(RestartFadeToBlack());
     }

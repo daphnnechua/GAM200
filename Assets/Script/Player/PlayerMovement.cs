@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerMovement : PlayerScript, InputReceiver
 {
     private GameController gameController;
+
+    private AudioClip currentSoundFx;
+
+    private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> footsteps;
     Rigidbody2D rb;
 
     Animator anim;
@@ -34,6 +39,7 @@ public class PlayerMovement : PlayerScript, InputReceiver
     void Update()
     {
         UpdatePlayerAnimations();
+        PlayFootsteps();
         
     }
 
@@ -54,6 +60,29 @@ public class PlayerMovement : PlayerScript, InputReceiver
         movePos = rb.position + oriPos*movementSpeed*Time.fixedDeltaTime; //player movement calculation
         rb.MovePosition(movePos); //move player
         UpdateFacingDirection();
+    }
+
+    private void PlayFootsteps()
+    {
+        if(isMoving)
+        {
+            if (audioSource == null || !audioSource.isPlaying)
+            {
+                int random = Random.Range(0, footsteps.Count);
+                audioSource = SoundFXManager.instance.PlayStoppableSound(footsteps[random], transform, 1f);
+                currentSoundFx = footsteps[random];
+            }
+        }
+        else
+        {
+            if(audioSource!=null)
+            {
+                audioSource.Stop();
+                Destroy(audioSource.gameObject);
+                StartCoroutine(SoundFXManager.instance.RemoveSfx(currentSoundFx.name, 0));
+            }
+        }
+
     }
 
     private void UpdateFacingDirection()

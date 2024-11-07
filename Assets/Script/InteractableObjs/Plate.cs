@@ -20,6 +20,8 @@ public class Plate : MonoBehaviour
 
     public bool isHoldingPlate = false;
 
+    [SerializeField] private List<AudioClip> plateSfx;
+
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
@@ -111,6 +113,8 @@ public class Plate : MonoBehaviour
     {
         if(readyToServe)
         {
+            gameController.ordersDelivered++;
+
             Recipe orderOfInterest = orderManager.GetCurrentOrder().Recipe;
 
             if(currentRecipe!=null && orderOfInterest.recipeID == currentRecipe.recipeID)
@@ -134,6 +138,8 @@ public class Plate : MonoBehaviour
                 orderManager.RemoveOrder();
                 gameController.DeductPoints(currentRecipe.penalty);
             }
+            int random = Random.Range(0, plateSfx.Count);
+            SoundFXManager.instance.PlaySound(plateSfx[random], transform, 0.5f);
         }
         Destroy(plateUI);
         Destroy(gameObject);

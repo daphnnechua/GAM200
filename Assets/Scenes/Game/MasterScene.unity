@@ -230,6 +230,11 @@ MonoBehaviour:
   startMenuScene: Start_Menu
   cutsceneBGM: {fileID: 8300000, guid: 1a83772a9b74a3742a108efae761f440, type: 3}
   startMenuBGM: {fileID: 8300000, guid: 1a83772a9b74a3742a108efae761f440, type: 3}
+  ambientSfx:
+  - {fileID: 8300000, guid: 10d7e5db7c8c0784eaa1fa3faee70ec2, type: 3}
+  - {fileID: 8300000, guid: 9dc9b1be04b710c4d9ba178b48f057b0, type: 3}
+  - {fileID: 8300000, guid: ab859f18cbc387f4594d8dd034fd5a89, type: 3}
+  - {fileID: 8300000, guid: 2c1ee95443d233948addc8704e28cdea, type: 3}
   pauseMenuOpen: 0
   canPause: 1
 --- !u!114 &751841291

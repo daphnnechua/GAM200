@@ -25,6 +25,10 @@ public class CopyPattern : MonoBehaviour, IMinigame
     private bool isTaskComplete =false;
     private bool isOpen = true;
 
+    [SerializeField] private List<AudioClip> beepSound;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,8 +43,12 @@ public class CopyPattern : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -106,14 +114,21 @@ public class CopyPattern : MonoBehaviour, IMinigame
             pattern.Add(availablePatternPos[i]);
         }
 
-        foreach (var img in patternBlocks)
-        {
-            img.color = new Color(95f, 95f, 95f); 
-        }
+        // foreach (var img in patternBlocks)
+        // {
+        //     SetImage("minigames/Minigames/PATTERN/grey", img);
+
+        //     Debug.Log("setting to grey");
+        //     // img.color = new Color(95f, 95f, 95f); 
+        // }
 
         foreach (int index in pattern)
         {
-            patternBlocks[index].color = Color.blue;
+            // patternBlocks[index].color = Color.blue;
+
+            SetImage("minigames/Minigames/PATTERN/teal", patternBlocks[index]);
+
+            Debug.Log("setting to teal");
         }
     }
 
@@ -123,21 +138,30 @@ public class CopyPattern : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+
         var clickedButton = padButtons[index];
         Image img = clickedButton.GetComponent<Image>();
-        if(img.color == Color.yellow)
+        if(buttonIndexClicks.Contains(index))
         {
-            img.color = Color.white;
-            numberPressed--;
-            if(buttonIndexClicks.Contains(index))
-            {
-                buttonIndexClicks.Remove(index);
-            }
-
+            SetImage("minigames/Minigames/PATTERN/grey", img);
+            buttonIndexClicks.Remove(index);
+            numberPressed --;
         }
+        // if(img.color == Color.yellow)
+        // {
+        //     img.color = Color.white;
+        //     numberPressed--;
+            
+
+        // }
         else
         {
-            img.color = Color.yellow;
+            // img.color = Color.yellow;
+
+            SetImage("minigames/Minigames/PATTERN/red", img);
             buttonIndexClicks.Add(index);
             numberPressed++;
         }
@@ -166,6 +190,14 @@ public class CopyPattern : MonoBehaviour, IMinigame
         Debug.Log("Task completed");
         StartCoroutine(CloseTimer());
 
+    }
+
+    private void SetImage(string filePath, Image image)
+    {
+        AssetManager.LoadSprite(filePath, (Sprite sp) =>
+        {
+            image.sprite = sp;
+        });
     }
 
 
@@ -200,6 +232,9 @@ public class CopyPattern : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

@@ -1,5 +1,8 @@
-stockStationID;name;ingredientID;imageFIlePath
-SS01;Empty stock station;null;stations/empty_stock
-SS02;Lettuce stock station;INGR_1;stations/cabbage_stock
-SS03;Tomato stock station;INGR_3;stations/tomato_stock
-SS04;Shrimp stock station;INGR_6;stations/shrimp_stock
+stockStationID;name;ingredientID;imageFIlePath;emptyStockFilePath;indicatorImagePath
+SS01;Lettuce stock station;INGR_1;Tables/foodstash stuff/lettucebox;Tables/foodstash stuff/emptybox;Tables/foodstash stuff/lettucelow
+SS02;Tomato stock station;INGR_3;Tables/foodstash stuff/tomatobox;Tables/foodstash stuff/emptybox;Tables/foodstash stuff/tomatolow
+SS03;Shrimp stock station;INGR_6;Tables/foodstash stuff/shrimpfridge;Tables/foodstash stuff/emptyfridge;Tables/foodstash stuff/shrimplow
+SS04;Mushroom stock station;INGR_8;Tables/foodstash stuff/mushroombox;Tables/foodstash stuff/emptybox;Tables/foodstash stuff/mushroomlow
+SS05;Cheese stock station;INGR_11;Tables/foodstash stuff/cheesefridge;Tables/foodstash stuff/emptyfridge;Tables/foodstash stuff/cheeselow
+SS06;Meat stock station;INGR_13;Tables/foodstash stuff/steakfridge;Tables/foodstash stuff/emptyfridge;Tables/foodstash stuff/steaklow
+SS07;Bread stock station;INGR_16;Tables/foodstash stuff/bunbox;Tables/foodstash stuff/emptybox;Tables/foodstash stuff/bunlow

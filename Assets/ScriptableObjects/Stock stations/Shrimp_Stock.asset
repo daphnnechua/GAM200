@@ -18,3 +18,5 @@ MonoBehaviour:
   prefab: {fileID: 3720659863476319673, guid: 0a8ef8323b6b43f4db3b6eb7877c0545, type: 3}
   ingredientID: INGR_6
   prefabName: Ingredients/Shrimp
+  soundSfx:
+  - {fileID: 8300000, guid: 33efedb915244414d991e7559c9dabb4, type: 3}

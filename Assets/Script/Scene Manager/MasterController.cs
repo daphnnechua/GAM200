@@ -21,6 +21,8 @@ public class MasterController : MonoBehaviour
 
     [SerializeField] private AudioClip startMenuBGM;
 
+    [SerializeField] private List<AudioClip> ambientSfx;
+
     private List<string> allOpenSceneNames = new List<string>();
 
     public bool pauseMenuOpen = false;
@@ -68,6 +70,9 @@ public class MasterController : MonoBehaviour
     #region scene loading/ unloading
     public void LoadScene(string aScene)
     {
+        SoundFXManager.instance.StopBackgroundMusic();
+        SoundFXManager.instance.StopAmbientSFX();
+        
         // string firstLevel = Game.GetLevelList()[0].levelName; //this is tutorial
         Scene sceneToLoad = SceneManager.GetSceneByName(aScene);
         if (sceneToLoad.isLoaded)
@@ -75,6 +80,8 @@ public class MasterController : MonoBehaviour
             return;
         }
         RemoveScene(currentSceneName);
+        
+        RemoveScene(endLevelScene);
 
         currentSceneName = aScene;
 
@@ -87,6 +94,9 @@ public class MasterController : MonoBehaviour
             {
                 SoundFXManager.instance.PlayBackgroundMusic(cutsceneBGM, 1);
             }
+
+            int random = Random.Range(0, ambientSfx.Count);
+            SoundFXManager.instance.PlayAmbientSFX(ambientSfx[random], 0.05f);
         }
 
         AsyncOperation loadSceneOp = SceneManager.LoadSceneAsync(aScene, LoadSceneMode.Additive);
@@ -109,22 +119,9 @@ public class MasterController : MonoBehaviour
             }
         };
         allOpenSceneNames.Add(aScene);
-    }
 
-    public void LoadNextLevel()
-    {
-        pauseMenuOpen = false;
-        RemoveScene(endLevelScene);
-        RemoveScene(currentSceneName);
-
-        Levels currentLevel = Game.GetLevelByName(currentSceneName);
-        int levelIndex = Game.GetLevelList().IndexOf(currentLevel);
-        levelIndex++;
-        
-        LoadScene(Game.GetLevelList()[levelIndex].levelName);
         
     }
-
     public void RemoveScene(string aScene)
     {
         Scene sceneToRemove = SceneManager.GetSceneByName(aScene);
@@ -185,6 +182,7 @@ public class MasterController : MonoBehaviour
         LoadScene(startMenuScene);
         
         SoundFXManager.instance.PlayBackgroundMusic(startMenuBGM,1);
+        SoundFXManager.instance.StopAmbientSFX();
     }
     public void PauseGame()
     {

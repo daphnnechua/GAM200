@@ -23,6 +23,8 @@ public class StartMenuController : MonoBehaviour
 
     private float fadeDuration = 1f;
 
+    [SerializeField] private List<AudioClip> clickButtonSfx;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,7 @@ public class StartMenuController : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                CloseLevelLoadOut();
+                levelLoadoutInterface.SetActive(false);
             }
         }
     }
@@ -68,11 +70,20 @@ public class StartMenuController : MonoBehaviour
 
     private void OpenLevelLoadOut()
     {
+        int index = Random.Range(0, clickButtonSfx.Count);
+
+        SoundFXManager.instance.PlaySound(clickButtonSfx[index], transform, 0.5f);
+
         levelLoadoutInterface.SetActive(true);
+
     }
 
     private void CloseLevelLoadOut()
     {
+        int index = Random.Range(0, clickButtonSfx.Count);
+
+        SoundFXManager.instance.PlaySound(clickButtonSfx[index], transform, 0.5f);
+
         levelLoadoutInterface.SetActive(false);
     }
 
@@ -124,11 +135,19 @@ public class StartMenuController : MonoBehaviour
 
     private void LoadLevel(string levelName)
     {
+        int index = Random.Range(0, clickButtonSfx.Count);
+
+        SoundFXManager.instance.PlaySound(clickButtonSfx[index], transform, 0.5f);
+
         StartCoroutine(FadeToBlackFromLevelLoadOut(levelName));
     }
 
     private void StartButton()
     {
+        int index = Random.Range(0, clickButtonSfx.Count);
+
+        SoundFXManager.instance.PlaySound(clickButtonSfx[index], transform, 0.5f);
+        
         StartCoroutine(FadeToBlackFromStart());
     }
 

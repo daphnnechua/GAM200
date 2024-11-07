@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 379874840032630016}
   - component: {fileID: 6391336664362368490}
   - component: {fileID: 8530640697803394973}
-  - component: {fileID: 4595918021456155112}
   - component: {fileID: 8958249095607898918}
   - component: {fileID: 8192911215735518232}
   - component: {fileID: 6386914980381960624}
+  - component: {fileID: 5187984723831532746}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -117,7 +117,84 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &4595918021456155112
+--- !u!114 &8958249095607898918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395706953312416387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b837f536c60c646ba9829e650df43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footsteps:
+  - {fileID: 8300000, guid: 780a52b83a004ef4eb7dc841b05bbeef, type: 3}
+  movementSpeed: 6
+  isFacingUp: 0
+  isFacingRight: 0
+  isFacingLeft: 0
+  isFacingDown: 0
+  isMoving: 0
+  canMove: 1
+  isCutting: 0
+--- !u!114 &8192911215735518232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395706953312416387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa2accdd053b1c249a1b2d136424cd57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPlacement: {fileID: 0}
+  pickUpMask:
+    serializedVersion: 2
+    m_Bits: 0
+  dir: {x: 0, y: 0, z: 0}
+  accessTable: 0
+  isCuttingStation: 0
+  isServingStation: 0
+  isTrashCan: 0
+  isStove: 0
+  isHoldingObj: 0
+  putdownIngredients:
+  - {fileID: 8300000, guid: 33efedb915244414d991e7559c9dabb4, type: 3}
+  potSfx:
+  - {fileID: 8300000, guid: 1e91a32a998c9684593b7c61bafc31dd, type: 3}
+  - {fileID: 8300000, guid: 9dc4579acf7475949ab92ef55d1493ae, type: 3}
+  plateSfx:
+  - {fileID: 8300000, guid: 8ef7c8c79da3d8f49b305d24f88f22d1, type: 3}
+  - {fileID: 8300000, guid: 803897f1c19accd45a5715faea1424ba, type: 3}
+  fryingPanSfx:
+  - {fileID: 8300000, guid: 1e91a32a998c9684593b7c61bafc31dd, type: 3}
+  - {fileID: 8300000, guid: 9dc4579acf7475949ab92ef55d1493ae, type: 3}
+--- !u!95 &6386914980381960624
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395706953312416387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09a1ef153ab864d4ab6172d8839f63e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &5187984723831532746
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,73 +226,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.006740749, y: -0.050000012}
   serializedVersion: 2
-  m_Radius: 0.45
---- !u!114 &8958249095607898918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2395706953312416387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b837f536c60c646ba9829e650df43c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 6
-  isFacingUp: 0
-  isFacingRight: 0
-  isFacingLeft: 0
-  isFacingDown: 0
-  isMoving: 0
-  canMove: 1
---- !u!114 &8192911215735518232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2395706953312416387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2accdd053b1c249a1b2d136424cd57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objPlacement: {fileID: 0}
-  pickUpMask:
-    serializedVersion: 2
-    m_Bits: 0
-  dir: {x: 0, y: 0, z: 0}
-  accessTable: 0
-  isCuttingStation: 0
-  isStockStation: 0
-  isServingStation: 0
-  isTrashCan: 0
-  isStove: 0
-  isHoldingObj: 0
---- !u!95 &6386914980381960624
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2395706953312416387}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 09a1ef153ab864d4ab6172d8839f63e5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Radius: 0.27147025
 --- !u!1 &3369984315330024828
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 3369984315330024828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.074, z: 0}
+  m_LocalPosition: {x: 0, y: 0.842, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

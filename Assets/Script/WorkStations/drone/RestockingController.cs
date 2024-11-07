@@ -18,6 +18,8 @@ public class RestockingController : MonoBehaviour
     [SerializeField] private List<GameObject> restockButtons = new List<GameObject>();
     [SerializeField] public List<GameObject> displayButtons = new List<GameObject>();
     [SerializeField] private Button confirmationButton;
+    [SerializeField] private List<Image> ingredientImages;
+    [SerializeField] private List<TextMeshProUGUI> ingredientNames;
 
     public List<string> selectedIngredientID = new List<string>();
     private bool restockButtonsActive = false;
@@ -37,7 +39,7 @@ public class RestockingController : MonoBehaviour
     private DroneMenuController droneMenuController;
 
     public bool restockCompleted = false;
-    
+    [SerializeField] private List<AudioClip> clickButtonSounds;
 
     // Start is called before the first frame update
     void Start()
@@ -124,10 +126,16 @@ public class RestockingController : MonoBehaviour
             selectedIngredientID.Add(ingredientID);
             // Debug.Log(ingredientID + " selected!");
             toUpdateDisplayButtons = true;
+
+            int random = Random.Range(0, clickButtonSounds.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         }
-        else if(!droneAvailable)
+        else if(!droneAvailable || selectedIngredientID.Count < maxRestockLimit)
         {
             Debug.Log("drone is busy");
+
+            int random = Random.Range(0, clickButtonSounds.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         }
     }
 
@@ -137,53 +145,63 @@ public class RestockingController : MonoBehaviour
         {
             selectedIngredientID.RemoveAt(index);
             toUpdateDisplayButtons = true;
+
         }
+
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
+
     }
 
     public void UpdateButtons()
     {
-        string restockBtnPath = "UI/RestockBtn";
-        
         List<string> ingredientIDs = new List<string>();
 
         if(!restockButtonsActive)
         {
-             AssetManager.LoadPrefab(restockBtnPath, (prefab) =>
+            for(int i =0; i<restockButtons.Count;i++)
+            { 
+                ingredientImages[i].gameObject.SetActive(false);
+                ingredientNames[i].gameObject.SetActive(false);
+
+                Image buttonImage = restockButtons[i].GetComponent<Image>();
+                SetButtonImage("drone menu/Drone Menu/blackbutton", buttonImage);
+            }
+
+            for(int i =0; i<allStockStations.Count;i++)
             {
-                if (prefab != null)
+                if(allStockStations[i].stockSO.objType == "Ingredient")
                 {
-                    for(int i =0; i<allStockStations.Count;i++)
-                    {
-                        if(allStockStations[i].stockSO.objType == "Ingredient")
-                        {
-                            GameObject restockButton = Instantiate(prefab, restockPos);
-                            restockButtons.Add(restockButton);
+                    ingredientIDs.Add(allStockStations[i].stockSO.ingredientID);
 
-                            ingredientIDs.Add(allStockStations[i].stockSO.ingredientID);
-
-                        }
-                    }
-
-                    // Debug.Log($"count for ingredient ids: {ingredientIDs.Count}");
-                    // Debug.Log($"count for restock buttons: {restockButtons.Count}");
-
-                    for(int i =0; i<ingredientIDs.Count;i++)
-                    {
-                        string currentIngredientID = ingredientIDs[i]; // Capture the current value
-                        // Debug.Log(currentIngredientID);
-
-                        if (!ingredientRestockButtons.ContainsKey(currentIngredientID))
-                        {
-                            Button button = restockButtons[i].GetComponent<Button>();
-                            ingredientRestockButtons.Add(currentIngredientID, button);
-
-                            button.onClick.AddListener(() => SelectIngredients(currentIngredientID));
-                        }
-
-                    }
-                    restockButtonsActive = true;
                 }
-            });
+            }
+            for(int i =0; i<ingredientIDs.Count;i++)
+            {
+                string currentIngredientID = ingredientIDs[i]; // Capture the current value
+
+                Ingredient ingredient = Game.GetIngredientByID(currentIngredientID);
+                string ingredientFilePath = ingredient.imageFilePath;
+
+                string name = ingredient.name;
+
+                Button button = restockButtons[i].GetComponent<Button>();
+
+                button.onClick.AddListener(() => SelectIngredients(currentIngredientID));
+
+                Image buttonImgae = restockButtons[i].GetComponent<Image>();
+                SetButtonImage("drone menu/Drone Menu/blueButton", buttonImgae);
+
+                ingredientImages[i].gameObject.SetActive(true);
+                ingredientNames[i].gameObject.SetActive(true);
+
+                SetButtonImage(ingredientFilePath, ingredientImages[i]);
+                
+                ingredientNames[i].text = name;
+                // Debug.Log(currentIngredientID);
+
+            }
+            restockButtonsActive = true;
         }
 
         if(toUpdateDisplayButtons)
@@ -198,6 +216,12 @@ public class RestockingController : MonoBehaviour
                 GameObject displayButton = Instantiate(displayBtnPrefab, displayPos);
                 displayButtons.Add(displayButton);
 
+                string name = Game.GetIngredientByID(selectedIngredientID[i]).name;
+
+                Image displayButtonImage = displayButtons[i].GetComponentInChildren<Image>();
+                string imagePath = Game.GetIngredientByID(selectedIngredientID[i]).imageFilePath;
+                SetButtonImage(imagePath, displayButtonImage);
+
                 int currentIndex = i;
                 displayButton.GetComponent<Button>().onClick.AddListener(() => RemoveSelectedIngredients(currentIndex));
             }
@@ -208,44 +232,6 @@ public class RestockingController : MonoBehaviour
 
     private void UpdateButtonVisuals()
     {
-        int restockBtnIndex = 0;
-
-        for(int i =0; i<allStockStations.Count;i++) //update button text for restock buttons
-        {
-            if(allStockStations[i].stockSO.objType == "Ingredient")
-            {
-                string id = allStockStations[i].stockSO.ingredientID;
-                string ingredientName = Game.GetIngredientByID(id).name;
-                // Debug.Log($"{i} index, {ingredientName}");
-                
-                TextMeshProUGUI restockButtonText = restockButtons[restockBtnIndex].GetComponentInChildren<TextMeshProUGUI>();
-                restockButtonText.text = ingredientName;
-
-                Image restockButtonImage = restockButtons[restockBtnIndex].transform.Find("Ingredient image").GetComponent<Image>();
-                string imagePath = Game.GetIngredientByID(id).imageFilePath;
-                SetButtonImage(imagePath, restockButtonImage);
-                
-                restockBtnIndex++;
-            }
-        }
-
-        if(displayButtons.Count>0)
-        {
-            for(int i =0; i< selectedIngredientID.Count;i++)
-            {
-                string name = Game.GetIngredientByID(selectedIngredientID[i]).name;
-                TextMeshProUGUI displayButtonText = displayButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-                displayButtonText.text = name;
-
-                Image displayButtonImage = displayButtons[i].transform.Find("Ingredient image").GetComponent<Image>();
-                string imagePath = Game.GetIngredientByID(selectedIngredientID[i]).imageFilePath;
-                SetButtonImage(imagePath, displayButtonImage);
-
-            }
-
-        }
-
-
         TextMeshProUGUI confirm = confirmationButton.GetComponentInChildren<TextMeshProUGUI>();
         if(selectedIngredientID.Count>0 && droneAvailable)
         {
@@ -276,16 +262,16 @@ public class RestockingController : MonoBehaviour
         if(selectedIngredientID.Count >0 && droneAvailable)
         {
             
-            SetButtonImage("UI/confirm_button_green", confirmBtnImage);
+            SetButtonImage("drone menu/Drone Menu/orangebutton", confirmBtnImage);
         }
         else
         {
-            SetButtonImage("UI/confirm_button 1", confirmBtnImage);
+            SetButtonImage("drone menu/Drone Menu/greybutton", confirmBtnImage);
         }
 
         if(restockCompleted)
         {
-            SetButtonImage("UI/confirm_button_green", confirmBtnImage);
+            SetButtonImage("drone menu/Drone Menu/orangebutton", confirmBtnImage);
 
             TextMeshProUGUI receiveText = confirmationButton.GetComponentInChildren<TextMeshProUGUI>();
             receiveText.text = $"Receive Stock ({selectedIngredientID.Count})";
@@ -298,10 +284,14 @@ public class RestockingController : MonoBehaviour
         {
             droneAvailable = false;
             droneMenuController.SendDroneOut(this, selectedIngredientID, timerCountdown, exclaimationPrefab);
+            int random = Random.Range(0, clickButtonSounds.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         }
         else if(!droneAvailable)
         {
             Debug.Log("drone is busy!");
+            int random = Random.Range(0, clickButtonSounds.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         }
     }
 
@@ -353,6 +343,9 @@ public class RestockingController : MonoBehaviour
 
         Image droneExclaimation = GameObject.Find("droneUI").GetComponentInChildren<Image>();
         Destroy(droneExclaimation.gameObject);
+
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
     }
 
     private void SetButtonImage(string filePath, Image image)

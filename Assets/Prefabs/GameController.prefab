@@ -48,14 +48,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
+  sceneType: 
+  startGameCountdown: {fileID: 0}
   inputHandler: {fileID: 0}
-  dataManager: {fileID: 0}
   player: {fileID: 0}
   gameStart: 0
   points: 0
   isGameLoopActive: 0
   isPaused: 1
   levelEnded: 0
+  droneMenuController: {fileID: 0}
+  orderManager: {fileID: 0}
+  gameplayBGM: {fileID: 8300000, guid: 936bd324031680648acea93285a14702, type: 3}
+  endLevelBGM: {fileID: 8300000, guid: 0af8c313d93fbfe41b82014577e91d43, type: 3}
+  fadeOverlay: {fileID: 0}
+  toStartGame: 0
+  hasCoroutineForStartGameBennStarted: 0
+  failedOrderSfx: {fileID: 8300000, guid: e797d945271e00f49943c8909f0b7083, type: 3}
+  correctOrderSfx: {fileID: 8300000, guid: 73fe078c5e9501144b9806413c286f88, type: 3}
 --- !u!114 &6500044771601651013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +82,7 @@ MonoBehaviour:
   baseExpiryTime: 45
   toUpdateOrderUI: 0
   orderUI: {fileID: 0}
+  newOrderSfx: []
 --- !u!114 &8601595962475290681
 MonoBehaviour:
   m_ObjectHideFlags: 0

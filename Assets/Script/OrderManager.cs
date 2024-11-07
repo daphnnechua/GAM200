@@ -20,6 +20,8 @@ public class OrderManager : MonoBehaviour
     public bool toUpdateOrderUI = false;
 
     public OrderUI orderUI;
+
+    [SerializeField] private List<AudioClip> newOrderSfx;
     
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,10 @@ public class OrderManager : MonoBehaviour
     {
         if(activeOrders.Count < 5)
         {
+            int randomSfx = Random.Range(0, newOrderSfx.Count);
+
+            SoundFXManager.instance.PlaySound(newOrderSfx[randomSfx], transform, 0.25f);
+
             int random = Random.Range(0, Game.GetUnlockedRecipeListByScenes(gameController.sceneName).Count);
             // foreach(var e in Game.GetUnlockedRecipeListByScenes(gameController.sceneName))
             // {
@@ -80,6 +86,7 @@ public class OrderManager : MonoBehaviour
         // orderUI.UpdateUIStatus(0, uiColor); //to remove! testing purposes only 
 
         activeOrders.RemoveAt(0); //always remove he first order!
+
         toUpdateOrderUI = true;
     }
 

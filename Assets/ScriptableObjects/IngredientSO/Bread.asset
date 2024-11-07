@@ -17,7 +17,7 @@ MonoBehaviour:
   prevStateID: null
   ingredientID: INGR_16
   ingredientName: Bread
-  canCut: 1
+  canCut: 0
   canFry: 0
   canBoil: 0
   isReady: 0

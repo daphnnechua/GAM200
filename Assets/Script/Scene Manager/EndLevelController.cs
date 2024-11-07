@@ -12,12 +12,13 @@ public class EndLevelController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI levelPoints;
 
+    [SerializeField] private TextMeshProUGUI ordersServed;
+
+    [SerializeField] private TextMeshProUGUI ordersFailed;
+
     [SerializeField] private List<Image> starImages;
 
     [SerializeField] private List<TextMeshProUGUI> starPoints;
-
-    [SerializeField] private TextMeshProUGUI levelEndHeader;
-
 
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextLevelButton;
@@ -25,10 +26,14 @@ public class EndLevelController : MonoBehaviour
 
     [SerializeField] private GameObject fadeOverlay;
 
+    [SerializeField] private Image endLevelBackground;
+
     private float fadeDuration = 1f;
     private bool canProceedToNextLevel = false;
 
     private int starsAccumulated = 0;
+    
+    [SerializeField] private List<AudioClip> clickButtonSounds;
 
     // Start is called before the first frame update
     void Start()
@@ -93,15 +98,12 @@ public class EndLevelController : MonoBehaviour
             starImages[i].gameObject.SetActive(true);
         }
 
-        foreach(var e in starImages)
-        {
-            e.color = Color.gray; //change to star image later
-        }
-
         if(!canProceedToNextLevel)
         {
             nextLevelButton.gameObject.SetActive(false);
-            levelEndHeader.text = "Level Failed!";
+
+            ordersServed.text  = $"Orders Delivered: {gameController.ordersDelivered}";
+            ordersFailed.text = $"Orders Failed: {gameController.ordersFailed}";
 
             levelPoints.text = $"Total: {gameController.points}";
 
@@ -109,31 +111,54 @@ public class EndLevelController : MonoBehaviour
             {
                 starPoints[i].text = pointsRequired[i].ToString();
             }
+
+            string filePath = "end screens/DAYFAILED";
+            SetImage(filePath, endLevelBackground);
             
         }
         else
         {
-            
+            ordersServed.text  = $"Orders Delivered: {gameController.ordersDelivered}";
+            ordersFailed.text = $"Orders Failed: {gameController.ordersFailed}";
 
-            levelPoints.text = $"Total: {gameController.points}";
+            levelPoints.text = $"TOTAL: {gameController.points}";
 
             if(gameController.sceneType == "Tutorial")
             {
-                levelEndHeader.text = "Tutorial Complete!";
+                string filePath = "end screens/TUTORIAL";
+                SetImage(filePath, endLevelBackground);
+
+                string acquiredStar = "end screens/star";
                 for(int i =0; i<numberOfStars;i++)
                 {
-                    starImages[i].color = Color.white; //change to star image later
+                    SetImage(acquiredStar, starImages[i]);
                 }
                 
             }
             else if(gameController.sceneType == "Normal")
             {
-                levelEndHeader.text = "Level Complete!";
+                if(gameController.sceneName == "Level_1")
+                {
+                    string filePath = "end screens/DAY1";
+                    SetImage(filePath, endLevelBackground);
+                }
+                else if(gameController.sceneName == "Level_2")
+                {
+                    string filePath = "end screens/DAY2";
+                    SetImage(filePath, endLevelBackground);
+                }
+                else if(gameController.sceneName == "Level_3")
+                {
+                    string filePath = "end screens/DAY1";
+                    SetImage(filePath, endLevelBackground);
+                }
+
                 if(starsAccumulated > 0)
                 {
+                    string acquiredStar = "end screens/star";
                     for(int i =0; i<starsAccumulated;i++)
                     {
-                        starImages[i].color = Color.white; //change to star image later
+                        SetImage(acquiredStar, starImages[i]);
                     }
                 }
             }
@@ -147,7 +172,7 @@ public class EndLevelController : MonoBehaviour
 
     }
 
-    private void SetStarImage(string filePath, Image image)
+    private void SetImage(string filePath, Image image)
     {
         AssetManager.LoadSprite(filePath, (Sprite sp) =>
         {
@@ -180,6 +205,8 @@ public class EndLevelController : MonoBehaviour
 
     private void Restart()
     {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         StartCoroutine(RestartFadeToBlack());
     }
 
@@ -202,12 +229,20 @@ public class EndLevelController : MonoBehaviour
 
         StartCoroutine(SoundFXManager.instance.FadeOutMusic(fadeDuration));
         yield return new WaitForSeconds(fadeDuration);
-        masterController.LoadNextLevel();
+
+        Levels currentLevel = Game.GetLevelByName(gameController.sceneName);
+        int current = Game.GetLevelList().IndexOf(currentLevel);
+
+        Levels nextLevel = Game.GetLevelList()[current + 1];
+
+        masterController.LoadScene(nextLevel.levelName);
 
     }
 
     private void NextLevel()
     {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         StartCoroutine(NextLevelFadeToBlack());
     }
 
@@ -236,6 +271,8 @@ public class EndLevelController : MonoBehaviour
 
     private void StartMenu()
     {
+        int random = Random.Range(0, clickButtonSounds.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSounds[random], transform, 1f);
         StartCoroutine(StartMenuFadeToBlack());
     }
 

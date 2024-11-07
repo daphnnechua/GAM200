@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05b9a74694387c846a8abd61c32e8182, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80c4f94d84a96cf428398ad23fe8e3fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88,7 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689d322b5a3e07d4b9f9978bcf836029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 100
-  maxSpeed: 500
   thisTransform: {fileID: 0}
   canvasRt: {fileID: 0}
+  beepSound:
+  - {fileID: 8300000, guid: 666144d7161ca78408771228c1f3ff84, type: 3}
+  - {fileID: 8300000, guid: f7db912d1832ee347b2fc262d760ed54, type: 3}

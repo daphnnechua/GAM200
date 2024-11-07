@@ -7,6 +7,8 @@ public class Trash : MonoBehaviour
     private Plate plate;
     private FryingPan fryingPan;
     private Pot pot;
+
+    [SerializeField] private List<AudioClip> trashSound;
     public void TrashIngredient(GameObject Obj)
     {
         if(Obj!=null && Obj.CompareTag("Ingredient"))
@@ -29,6 +31,9 @@ public class Trash : MonoBehaviour
             pot = Obj.GetComponent<Pot>();
             pot.TrashFoodInPot();
         }
+
+        int random = Random.Range(0, trashSound.Count);
+        SoundFXManager.instance.PlaySound(trashSound[random], transform, 0.5f);
     }
 
 }

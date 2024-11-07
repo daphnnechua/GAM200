@@ -16,6 +16,8 @@ public class PageToggle : MonoBehaviour
 
     public bool toUpdatePageToggleButtons = true;
 
+    [SerializeField] List<AudioClip> clickButtonSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,10 @@ public class PageToggle : MonoBehaviour
 
     private void UpdateNextPage()
     {
+
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
         pageIndex++;
 
         foreach(var page in pages)
@@ -60,6 +66,9 @@ public class PageToggle : MonoBehaviour
 
     private void UpdatePrevPage()
     {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+        
         pageIndex --;
 
         foreach(var page in pages)

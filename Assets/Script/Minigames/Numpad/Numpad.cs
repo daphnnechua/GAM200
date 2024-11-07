@@ -32,6 +32,9 @@ public class Numpad : MonoBehaviour, IMinigame
     private DroneStation droneStation;
 
     private bool incorrectInput;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
+    [SerializeField] private List<AudioClip> beepSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,8 +48,12 @@ public class Numpad : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -118,6 +125,10 @@ public class Numpad : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+        
         if(buttonsPressed<10)
         {
             if(firstClick)
@@ -142,6 +153,10 @@ public class Numpad : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+
         if(nextNumber!=11)
         {
             displayText.text = "INCORRECT. TRY AGAIN.";
@@ -170,6 +185,10 @@ public class Numpad : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+
         if(numberPressed.Count-1>=0)
         {
             int lastNumberIndex = numberPressed.Count-1;
@@ -239,6 +258,9 @@ public class Numpad : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

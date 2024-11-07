@@ -18,3 +18,5 @@ MonoBehaviour:
   prefab: {fileID: 3720659863476319673, guid: cb16c2e307e3c0f46ac2c36359845694, type: 3}
   ingredientID: INGR_3
   prefabName: Ingredients/Tomato
+  soundSfx:
+  - {fileID: 8300000, guid: 33efedb915244414d991e7559c9dabb4, type: 3}

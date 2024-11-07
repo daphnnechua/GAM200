@@ -9,11 +9,17 @@ public class StockStation
     public string ingredientID {get;}
     public string imageFilePath {get;}
 
-    public StockStation(string stockStationID, string stockStationName, string ingredientID, string imageFilePath)
+    public string emptyImagePath;
+    public string indicatorImage;
+
+
+    public StockStation(string stockStationID, string stockStationName, string ingredientID, string imageFilePath, string emptyImagePath, string indicatorImage)
     {
         this.stockStationID = stockStationID;
         this.stockStationName = stockStationName;
         this.ingredientID = ingredientID;
         this.imageFilePath = imageFilePath;
+        this.emptyImagePath = emptyImagePath;
+        this.indicatorImage = indicatorImage;
     }
 }

@@ -21,6 +21,8 @@ public class MaintenanceManager : MonoBehaviour
 
     private int minigameIndex;
     public bool hasButtonBeenUpdated = false;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,8 @@ public class MaintenanceManager : MonoBehaviour
 
     private void OpenMinigame()
     {
+        int randomSoundFx = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[randomSoundFx], transform, 1f);
 
         // Debug.Log("Clicking");
         overloadBar = FindObjectOfType<OverloadBar>();
@@ -180,11 +184,11 @@ public class MaintenanceManager : MonoBehaviour
         string path = "";
         if(overloadBar.currentOverloadCount>0 && restockingController.droneAvailable)
         {
-            path = "UI/active_button1";
+            path = "drone menu/Drone Menu/orangebutton";
         }
         else
         {
-            path = "UI/inactive_button1";
+            path = "drone menu/Drone Menu/greybutton";
         }
         SetMaintenanceButtonImage(path, maintenanceButton.gameObject.GetComponent<Image>());
         

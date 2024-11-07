@@ -12,6 +12,10 @@ public class GameController : SceneController
     public bool gameStart = false;
 
     public int points = 0;
+
+    public int ordersDelivered =0;
+
+    public int ordersFailed =0;
     public bool isGameLoopActive = false;
     public bool isPaused = true;
 
@@ -34,6 +38,12 @@ public class GameController : SceneController
     public bool toStartGame;
 
     [SerializeField] private bool hasCoroutineForStartGameBennStarted = false;
+
+    [SerializeField] private AudioClip failedOrderSfx;
+
+    [SerializeField] private AudioClip correctOrderSfx;
+
+    [SerializeField] private AudioClip countdownSound;
     
     // Start is called before the first frame update
     void Start()
@@ -114,14 +124,17 @@ public class GameController : SceneController
             for (int i = 3; i > 0; i--)
             {
                 timerCountdown.text = i.ToString();
+                SoundFXManager.instance.PlaySound(countdownSound, transform, 1f);
                 yield return new WaitForSeconds(1f);
             }
 
+            SoundFXManager.instance.PlaySound(countdownSound, transform, 1f);
             timerCountdown.text = "Start!";
             yield return new WaitForSeconds(1f);
         }
         else if(sceneType == "Tutorial") //tutorial
         {
+            SoundFXManager.instance.PlaySound(countdownSound, transform, 1f);
             timerCountdown.text = "Tutorial Start!";
             yield return new WaitForSeconds(1f);
         }
@@ -151,6 +164,9 @@ public class GameController : SceneController
 
         PointTracker pointTracker = FindObjectOfType<PointTracker>();
         pointTracker.UpdatePointsUI(points);
+
+        SoundFXManager.instance.PlaySound(correctOrderSfx, transform, 0.5f);
+
         // Debug.Log("Submitted correct order! Add:" + reward + " current points:" + points);
     }
 
@@ -160,7 +176,11 @@ public class GameController : SceneController
 
         PointTracker pointTracker = FindObjectOfType<PointTracker>();
         pointTracker.UpdatePointsUI(points);
+
+        SoundFXManager.instance.PlaySound(failedOrderSfx, transform, 0.5f);
         // Debug.Log("Submitted wrong order! Deduct:" + deduct + " current points:" + points);
+
+        ordersFailed++;
 
     }
 
@@ -211,7 +231,7 @@ public class GameController : SceneController
     }
 
     private IEnumerator FadeToBlack()
-    {
+    {        
         fadeOverlay.gameObject.transform.SetAsLastSibling();
         float elapsedTime = 0f;
         Color color = fadeOverlay.GetComponent<Image>().color;
@@ -231,6 +251,8 @@ public class GameController : SceneController
         yield return new WaitForSeconds(fadeDuration);
 
         masterController.LoadEndOfLevelScene();
+
+        SoundFXManager.instance.StopAmbientSFX();
 
         SoundFXManager.instance.PlayBackgroundMusic(endLevelBGM, 1);
     }

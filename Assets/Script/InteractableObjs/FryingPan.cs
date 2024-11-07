@@ -32,6 +32,10 @@ public class FryingPan : MonoBehaviour
 
     [SerializeField] private bool onStove = false;
 
+    [SerializeField] private List<AudioClip> cookingSound;
+
+    private bool isCookingSoundPlayed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +57,8 @@ public class FryingPan : MonoBehaviour
             {
                 SpawnProgressBar();
             }
+
+
         }
 
         if(progressBar!=null)
@@ -78,6 +84,8 @@ public class FryingPan : MonoBehaviour
                 panUI.SetActive(true);
             }
         }
+
+        PlayCookingSound();
     }
 
     public void PlaceIngredientInPan(GameObject ingredient)
@@ -89,7 +97,11 @@ public class FryingPan : MonoBehaviour
                 ingredientIDs.Add(ingredient.GetComponent<IngredientManager>().ingredientSO.ingredientID);
                 LoadPanGraphics();
                 SpawnPanUI();
-                isReadyToCook = true;
+
+                if(ingredientIDs.Count == 1)
+                {
+                    isReadyToCook = true;
+                }
 
                 Destroy(ingredient); //no need for the ingredient anynmore --> destroy (prevent player from interacting with it again)
                 
@@ -107,14 +119,13 @@ public class FryingPan : MonoBehaviour
             ingredientIDs[0] = cookedIngredient.id;
             isReadyToCook = false;
             isDoneCooking = true;
-            Debug.Log("Meat is cooked!");
+            isCookingSoundPlayed = false;
         }
 
     }
 
     public void PlaceFoodInPlate(Plate plateScript)
     {
-        Debug.Log("Placing meat...");
         if(plateScript.ingredientsOnPlateIDs.Count ==0 && plateScript.interactableObjSO.objType == "burger_plate")
         {
             for(int i =0; i<ingredientIDs.Count;i++)
@@ -122,8 +133,6 @@ public class FryingPan : MonoBehaviour
                 plateScript.ingredientsOnPlateIDs.Add(ingredientIDs[i]);
             }
             ingredientIDs.Clear();
-            Debug.Log("meat placed in plate");
-            Debug.Log(ingredientIDs.Count);
 
             isDoneCooking = false;
             isReadyToCook = false;
@@ -143,7 +152,6 @@ public class FryingPan : MonoBehaviour
         LoadPanGraphics();
         Destroy(panUI);
 
-        Debug.Log($"pan reset! ingredients on plate: {ingredientsInPan.Count}, ids: {ingredientIDs.Count}");
     }
 
 
@@ -286,19 +294,33 @@ public class FryingPan : MonoBehaviour
         return transform.position + new Vector3(0, 0.75f, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private bool isOnStove()
     {
-        if (other.CompareTag("Stove"))
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+        foreach (Collider2D collider in colliders)
         {
-            onStove = true;
+            if(collider.CompareTag("Stove"))
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void PlayCookingSound()
     {
-        if (other.CompareTag("Stove"))
+        if(isOnStove() && !isCookingSoundPlayed && !isDoneCooking && isReadyToCook)
         {
-            onStove = false;
+            int random = Random.Range(0, cookingSound.Count);
+
+            SoundFXManager.instance.PlaySound(cookingSound[random], transform, 0.5f);
+
+            isCookingSoundPlayed = true;
+        }
+        else if(!isOnStove())
+        {
+            isCookingSoundPlayed = false;
         }
     }
 

@@ -24,6 +24,8 @@ public class TutorialManualController : MonoBehaviour
     
     [SerializeField] private List<PageToggle> journalSections;
 
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,12 @@ public class TutorialManualController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape) && isInteracting)
         {
-            CloseManual();
+            tutorialManual.SetActive(false);
+            isInteracting = false;
+            masterController.canPause = true;
+
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            player.GetComponent<PlayerMovement>().canMove = true;
         }
 
     }
@@ -64,6 +71,9 @@ public class TutorialManualController : MonoBehaviour
     {
         if(!droneMenu.activeInHierarchy && !dialogueInterface.activeInHierarchy)
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             player.GetComponent<PlayerMovement>().canMove = false;
 
@@ -83,6 +93,9 @@ public class TutorialManualController : MonoBehaviour
 
     private void CloseManual()
     {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
         tutorialManual.SetActive(false);
         isInteracting = false;
         masterController.canPause = true;

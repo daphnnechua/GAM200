@@ -15,6 +15,12 @@ public class DroneStation : MonoBehaviour
 
     [SerializeField] private GameObject dialogueInterface;
 
+    [SerializeField] private List<AudioClip> droneOpenSound;
+
+    [SerializeField] private List<AudioClip> droneCloseSound;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     private GameObject player;
     public bool isinteracting;
     private TabController tabController;
@@ -58,7 +64,13 @@ public class DroneStation : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape) && isinteracting)
         {
-            CloseMenu();
+            restockingController.ClearDisplayButtons();
+            isinteracting = false;
+            droneMenu.SetActive(false);
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            int random = Random.Range(0, droneCloseSound.Count);
+            SoundFXManager.instance.PlaySound(droneCloseSound[random], transform, 0.5f);
 
             MasterController masterController = FindObjectOfType<MasterController>();
             masterController.canPause = true;
@@ -76,6 +88,9 @@ public class DroneStation : MonoBehaviour
             
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; //do not move while menu is open
 
+        int random = Random.Range(0, droneOpenSound.Count);
+        SoundFXManager.instance.PlaySound(droneOpenSound[random], transform, 0.5f);
+
     }
 
     private void CloseMenu()
@@ -84,6 +99,12 @@ public class DroneStation : MonoBehaviour
         isinteracting = false;
         droneMenu.SetActive(false);
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        int randomDroneSound = Random.Range(0, droneCloseSound.Count);
+        SoundFXManager.instance.PlaySound(droneCloseSound[randomDroneSound], transform, 0.5f);
+
+        int randomClick = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[randomClick], transform, 1f);
     }
 
 

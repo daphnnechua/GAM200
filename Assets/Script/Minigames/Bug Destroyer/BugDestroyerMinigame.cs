@@ -25,6 +25,9 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
     private OverloadBar overloadBar;
     private MinigameController minigameController;
     private DroneStation droneStation;
+    
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,8 +42,12 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -143,6 +150,9 @@ public class BugDestroyerMinigame : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

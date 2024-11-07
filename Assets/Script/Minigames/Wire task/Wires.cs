@@ -16,6 +16,8 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
     public Color currentColor;
 
     public bool isCorrectMatch = false;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -84,6 +86,9 @@ public class Wires : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHan
         {
             return;
         }
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
         isDragging = true;
         wireTask.currentDragged = this;
         // Debug.Log(wireTask.currentDragged);

@@ -19,6 +19,8 @@ public class BatteryMinigame : MonoBehaviour, IMinigame
     public bool isTaskComplete = false;
     private bool isOpen = true;
 
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +35,12 @@ public class BatteryMinigame : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -132,6 +138,9 @@ public class BatteryMinigame : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

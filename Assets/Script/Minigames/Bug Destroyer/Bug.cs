@@ -6,12 +6,14 @@ using UnityEngine.EventSystems;
 public class Bug : MonoBehaviour, IPointerClickHandler
 {
     private float minSpeed = 300f;
-    private float maxSpeed = 700f;
+    private float maxSpeed = 600f;
     [SerializeField] private RectTransform thisTransform;
     [SerializeField] private RectTransform canvasRt;
     private Vector3 targetPos;
     private BugDestroyerMinigame bugDestroyerMinigame;
     private float speed;
+
+    [SerializeField] private List<AudioClip> beepSound;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,9 @@ public class Bug : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("bug destroyed");
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 1f);
         Destroy(gameObject);
     }
 }

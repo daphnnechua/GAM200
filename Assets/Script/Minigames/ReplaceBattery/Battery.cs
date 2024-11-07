@@ -17,6 +17,8 @@ public class Battery : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     private bool isFalling = false;
     private float dropSpeed = 1000f;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
     
     void Start()
     {
@@ -45,6 +47,9 @@ public class Battery : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(batteryMinigame.isTaskComplete) {return;}
+
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
 
         if(currentSlot!=null)
         {

@@ -34,6 +34,10 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
 
     private MinigameController minigameController;
     private OverloadBar overloadBar;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
+    [SerializeField] private List<AudioClip> beepSound;
+
     private DroneStation droneStation;
     // Start is called before the first frame update
     void Start()
@@ -47,8 +51,12 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
     {
         if(Input.GetKeyDown(KeyCode.Escape) && isOpen && !isTaskComplete)
         {
-            CloseWindow();
             droneMenu.SetActive(true);
+            Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
+            MinigameController minigameController = FindObjectOfType<MinigameController>();
+            minigameController.exitedWithoutCompletion = true;
+            droneStation.isinteracting = true;
+            Destroy(gameObject);
         }
     }
 
@@ -143,6 +151,9 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
             return;
         }
 
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+
         if(buttonsPressed<10)
         {
             if(firstClick)
@@ -168,6 +179,9 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
 
         if(pressedButtons.Count!=password.Count)
         {
@@ -214,6 +228,10 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
         {
             return;
         }
+
+        int random = Random.Range(0, beepSound.Count);
+        SoundFXManager.instance.PlaySound(beepSound[random], transform, 0.5f);
+
         if(pressedButtons.Count-1>=0)
         {
             int lastIndex = pressedButtons.Count-1;
@@ -281,6 +299,9 @@ public class PasswordMinigame : MonoBehaviour, IMinigame
         }
         else
         {
+            int random = Random.Range(0, clickButtonSound.Count);
+            SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
             droneMenu.SetActive(true);
             Debug.Log($"closing minigame! {overloadBar.minigamesToComplete-overloadBar.completedMinigames} more minigames to complete!");
             MinigameController minigameController = FindObjectOfType<MinigameController>();

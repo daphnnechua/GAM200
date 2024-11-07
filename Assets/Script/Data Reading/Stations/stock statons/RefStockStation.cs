@@ -8,4 +8,7 @@ public class RefStockStation
     public string stockStationName;
     public string ingredientID;
     public string imageFilePath;
+
+    public string emptyImagePath;
+    public string indicatorImage;
 }

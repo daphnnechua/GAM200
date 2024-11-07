@@ -119,18 +119,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.12062013}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.48, y: 1.72}
+    oldSize: {x: 1.184, y: 1.376}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 2.0676334}
+  m_Size: {x: 0.96, y: 1.6446584}
   m_EdgeRadius: 0
 --- !u!61 &9120923450117442267
 BoxCollider2D:
@@ -164,18 +164,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015110731, y: 0.14876533}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.48, y: 1.72}
+    oldSize: {x: 1.184, y: 1.376}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4504056, y: 1.4920697}
+  m_Size: {x: 1.1805024, y: 1.1450515}
   m_EdgeRadius: 0
 --- !u!114 &2362158485848429712
 MonoBehaviour:
@@ -193,4 +193,14 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   tutorialManual: {fileID: 0}
   dialogueInterface: {fileID: 0}
+  droneOpenSound:
+  - {fileID: 8300000, guid: d6928e519d4c8854ab8ac75ea775ab03, type: 3}
+  - {fileID: 8300000, guid: 52601f2ad602d404f869545b6b006323, type: 3}
+  droneCloseSound:
+  - {fileID: 8300000, guid: 31a68410ef2c50b46be55a3008efd699, type: 3}
+  clickButtonSound:
+  - {fileID: 8300000, guid: 68244a0a065c3a3439accfc584c820b3, type: 3}
+  - {fileID: 8300000, guid: faad9756cba1cba47abcd430d588f95b, type: 3}
+  - {fileID: 8300000, guid: 51c521444ebfc474e9136267566cb1b6, type: 3}
+  - {fileID: 8300000, guid: 32e7b3bb93f5f5c43ab9f2cce1a88aba, type: 3}
   isinteracting: 0

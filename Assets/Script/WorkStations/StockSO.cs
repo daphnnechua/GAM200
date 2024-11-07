@@ -15,4 +15,6 @@ public class StockSO : ScriptableObject
     public string ingredientID;
 
     public string prefabName;
+
+    public List<AudioClip> soundSfx;
 }
