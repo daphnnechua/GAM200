@@ -24,6 +24,8 @@ public class InputHandler : MonoBehaviour
         float verti = Input.GetAxis("Vertical");
         Vector2 movePos = new Vector2(hori, verti); 
 
+        Debug.Log(Input.GetAxis("Horizontal"));
+
         
         inputReceiver.Move(movePos);
 

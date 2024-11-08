@@ -72,8 +72,12 @@ public class DialogueController : MonoBehaviour
     private bool endOfDialogue = false;
 
     [SerializeField] private List<AudioClip> clickButtonSound;
+
+    private GameObject player;
     void Start()
-    {        
+    {   
+        player = GameObject.FindWithTag("Player");
+
         if(levelType!="Normal")
         {
             if(gameCountdownTimer!=null)
@@ -197,6 +201,11 @@ public class DialogueController : MonoBehaviour
     {
         if(!droneMenu.activeInHierarchy && !tutorialManualInterface.activeInHierarchy)
         {
+            if(player!=null)
+            {
+                player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                player.GetComponent<PlayerMovement>().canMove = false;
+            }
             int random = Random.Range(0, clickButtonSound.Count);
             SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
 
@@ -244,6 +253,12 @@ public class DialogueController : MonoBehaviour
 
     public void OpenDialogue()
     {
+        if(player!=null)
+        {
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            player.GetComponent<PlayerMovement>().canMove = false;
+        }
+
         StartCoroutine(FadeIn());
     }
 
@@ -430,6 +445,12 @@ public class DialogueController : MonoBehaviour
         {
             pointsPanel.SetActive(true);
         }
+
+        if(player!=null)
+        {
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            player.GetComponent<PlayerMovement>().canMove = true;
+        }
     }
 
     public void NextDialogue() //this handles the dialogue progression
@@ -554,14 +575,23 @@ public class DialogueController : MonoBehaviour
 
         responseOptions.Clear();
         responseOptions = questionPrompts;
-        responseOptions.Add(P007);
-        responseOptions.Add(P008);
+
+        if(P007!=null)
+        {
+            responseOptions.Add(P007);
+        }
+        if(P008!=null)
+        {
+            responseOptions.Add(P008);
+        }
 
         for(int i =0; i<responseOptions.Count; i++)
         {
             int index = i;
             responseButtons[i].SetActive(true);
             responseButtons[i].GetComponent<Button>().onClick.AddListener(() => SelectResponse(index));
+
+            Debug.Log(responseOptions[i].dialogue);
 
             if (responseOptions[i].dialogueType == "Tutorial_Initation")
             {

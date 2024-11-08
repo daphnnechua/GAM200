@@ -44,6 +44,10 @@ public class GameController : SceneController
     [SerializeField] private AudioClip correctOrderSfx;
 
     [SerializeField] private AudioClip countdownSound;
+
+    [SerializeField] private List<AudioClip> clickButtonSound;
+
+    [SerializeField] private GameObject endTutorialButton;
     
     // Start is called before the first frame update
     void Start()
@@ -70,6 +74,13 @@ public class GameController : SceneController
         //     }
         // }
 
+        if(endTutorialButton!=null)
+        {
+            endTutorialButton.GetComponent<Button>().onClick.AddListener(()=>EndTutorial());
+
+            endTutorialButton.SetActive(false);
+        }
+
         if(sceneType == "Normal")
         {
             toStartGame = true;
@@ -79,6 +90,8 @@ public class GameController : SceneController
         {
             toStartGame = false;
         }
+
+        player.GetComponent<PlayerMovement>().canMove = false;
 
     }
 
@@ -154,6 +167,12 @@ public class GameController : SceneController
         }
         inputHandler.SetInputReceiver(player.GetComponent<PlayerMovement>());
 
+        if(endTutorialButton!=null)
+        {
+            endTutorialButton.SetActive(true);
+        }
+        
+        player.GetComponent<PlayerMovement>().canMove = true;
 
         SoundFXManager.instance.PlayBackgroundMusic(gameplayBGM, 1);
     }
@@ -182,6 +201,14 @@ public class GameController : SceneController
 
         ordersFailed++;
 
+    }
+
+    private void EndTutorial()
+    {
+        int random = Random.Range(0, clickButtonSound.Count);
+        SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
+
+        EndOfLevel();
     }
 
     public void EndOfLevel()

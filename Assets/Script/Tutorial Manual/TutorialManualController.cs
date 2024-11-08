@@ -69,13 +69,14 @@ public class TutorialManualController : MonoBehaviour
 
     private void OpenManual()
     {
-        if(!droneMenu.activeInHierarchy && !dialogueInterface.activeInHierarchy)
+        if(!droneMenu.activeInHierarchy && !dialogueInterface.activeInHierarchy && gameController.gameStart)
         {
             int random = Random.Range(0, clickButtonSound.Count);
             SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
 
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             player.GetComponent<PlayerMovement>().canMove = false;
+            player.GetComponent<PlayerMovement>().isMoving = false;
 
             masterController.canPause = false;
             isInteracting = true;

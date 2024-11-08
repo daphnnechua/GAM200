@@ -53,6 +53,7 @@ public class AnimatedSceneController : MonoBehaviour
         if(sceneTime<=0 && !hasStartedDialogue && !cutsceneSkipped)
         {
             StartCoroutine(SkipAnimatedCutscene());
+            cutsceneSkipped= true;
         }
     }
 
