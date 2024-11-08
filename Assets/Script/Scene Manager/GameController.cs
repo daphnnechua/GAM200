@@ -91,8 +91,6 @@ public class GameController : SceneController
             toStartGame = false;
         }
 
-        player.GetComponent<PlayerMovement>().canMove = false;
-
     }
 
     // Update is called once per frame
@@ -172,7 +170,7 @@ public class GameController : SceneController
             endTutorialButton.SetActive(true);
         }
         
-        player.GetComponent<PlayerMovement>().canMove = true;
+
 
         SoundFXManager.instance.PlayBackgroundMusic(gameplayBGM, 1);
     }

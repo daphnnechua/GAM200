@@ -281,7 +281,7 @@ public static class Game
 
     public static StockStation GetStockStationByIngredientID(string id)
     {
-        return stockStationList.Find(i => i.ingredientID.Contains(id));
+        return stockStationList.Find(i => i.ingredientID== id);
     }
 
 

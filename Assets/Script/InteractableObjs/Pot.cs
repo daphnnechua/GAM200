@@ -201,7 +201,7 @@ public class Pot : MonoBehaviour
             if(prepProgress<=0) //finish cooking
             {
                 CookingComplete();
-                Debug.Log(ingredientIDs[0]);
+                // Debug.Log(ingredientIDs[0]);
                 Destroy(progressBar);
                 hasUndergonePrep = false;
             }

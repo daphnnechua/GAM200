@@ -149,7 +149,7 @@ public class EndLevelController : MonoBehaviour
                 }
                 else if(gameController.sceneName == "Level_3")
                 {
-                    string filePath = "end screens/DAY1";
+                    string filePath = "end screens/DAY3";
                     SetImage(filePath, endLevelBackground);
                 }
 

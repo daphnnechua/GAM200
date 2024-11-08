@@ -126,6 +126,7 @@ public class Plate : MonoBehaviour
 
                 orderManager.RemoveOrder();
                 orderManager.AddBonusTime();
+
                 gameController.AddPoints(currentRecipe.reward);
             }
             else
@@ -135,8 +136,11 @@ public class Plate : MonoBehaviour
 
                 //play failed order sfx
 
+                gameController.DeductPoints(5);
+
                 orderManager.RemoveOrder();
-                gameController.DeductPoints(currentRecipe.penalty);
+
+                
             }
             int random = Random.Range(0, plateSfx.Count);
             SoundFXManager.instance.PlaySound(plateSfx[random], transform, 0.5f);
@@ -223,7 +227,7 @@ public class Plate : MonoBehaviour
                     {
                         GameObject image = Instantiate(ingredientImages, plateUI.transform);
                         images.Add(image.GetComponent<Image>());
-                        Debug.Log(images[i]);
+                        // Debug.Log(images[i]);
                     }
                     for(int i =0; i<images.Count;i++)
                     {

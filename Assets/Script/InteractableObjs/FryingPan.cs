@@ -29,9 +29,6 @@ public class FryingPan : MonoBehaviour
     private GameObject panUI;
 
     public bool isHoldingFryingPan = false;
-
-    [SerializeField] private bool onStove = false;
-
     [SerializeField] private List<AudioClip> cookingSound;
 
     private bool isCookingSoundPlayed = false;
@@ -51,7 +48,7 @@ public class FryingPan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(onStove && isReadyToCook)
+        if(isOnStove() && isReadyToCook)
         {
             if(!hasUndergonePrep)
             {
@@ -64,7 +61,7 @@ public class FryingPan : MonoBehaviour
         if(progressBar!=null)
         {
             progressBar.transform.position = ProgressBarPos();
-            if(onStove)
+            if(isOnStove())
             {
                 UpdateCookingProgressBar();
             }
@@ -120,6 +117,8 @@ public class FryingPan : MonoBehaviour
             isReadyToCook = false;
             isDoneCooking = true;
             isCookingSoundPlayed = false;
+
+            LoadPanGraphics();
         }
 
     }
@@ -163,6 +162,8 @@ public class FryingPan : MonoBehaviour
             AssetManager.LoadPrefab("UI/Progress bar", (GameObject prefab) =>
             {
                 progressBar= Instantiate(prefab, GameObject.Find("Canvas").transform);
+
+                Debug.Log($"spanwed {progressBar}");
                 progressBar.transform.SetAsFirstSibling();
 
                 Slider slider = progressBar.GetComponent<Slider>();
