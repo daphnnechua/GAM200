@@ -125,7 +125,7 @@ public class FryingPan : MonoBehaviour
 
     public void PlaceFoodInPlate(Plate plateScript)
     {
-        if(plateScript.ingredientsOnPlateIDs.Count ==0 && plateScript.interactableObjSO.objType == "burger_plate")
+        if(plateScript.ingredientsOnPlateIDs.Count <3 && plateScript.interactableObjSO.objType == "burger_plate")
         {
             for(int i =0; i<ingredientIDs.Count;i++)
             {

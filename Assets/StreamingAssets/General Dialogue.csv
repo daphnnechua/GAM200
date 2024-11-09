@@ -9,7 +9,7 @@ D007;Hehe.;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue ima
 D008;?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
 D009;You're talking to this store's stand-in manager.;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
 D010;Huh?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
-D011;Wait what? You're kidding.;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
+D011;Wait, what? You're kidding.;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
 D012;Nope.;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_2;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
 D013;You? Being in charge of the store?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D014;Hey! What's with that look on your face!;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
@@ -21,7 +21,7 @@ D019;Yes.;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue imag
 D020;Ouch. No hesitation at all huh...;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
 D021;Do you even remember your way around the kitchen?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D022;Maybe? That's why I'm here now aren't I? To familiarise myself?;Waddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;TRUE;FALSE
-D023;"What do you mean by ""maybe""?";Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
+D023;Maybe? What do you mean by maybe?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D024;*Sigh*;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_2;null;FALSE;FALSE;FALSE
 D025;Just to make sure that you're not going to burn the whole store down, do you want me to give you a crash course of the kitchen?;Puddles;FALSE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
 D026;(Hm...do I need a hand?);Waddles;TRUE;null;cutscene_01;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
@@ -179,14 +179,14 @@ D177;Is there anything else you want to talk about?;Puddles;TRUE;P015;Mini_Tut_0
 D178;Haha. Very funny.;Puddles;FALSE;P007;Mini_Tut_02;dialogue images/puddles_2_right;null;null;FALSE;TRUE;TRUE
 D179;*Yawn*;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D180;Yeah...it's getting late too. I'll head back to my room first. 'Night!;Puddles;FALSE;P008;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;TRUE
-D181;Oh, you mean the burger?;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D182;It takes quite aa while to make, so listen carefully!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D183;First, you take the required ingredients to the cutting station and chop them up. Remember that the bread does not need to be cut!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D184;Put the chopped meat into an emtpy frying pan.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D185;Pop it on a stove for some time.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D186;After it's done cooking, transfer it into a burger plate, along with all other required ingredients.;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D187;And viola! You got yourself a soup that is ready for consumption!;Puddles;FALSE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
-D188;Is there anything else you want to talk about?;Puddles;TRUE;P005;Mini_Tut_01;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
+D181;Oh, you mean the burger?;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D182;It takes quite aa while to make, so listen carefully!;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D183;First, you take the required ingredients to the cutting station and chop them up. Remember that the bread does not need to be cut!;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D184;Put the chopped meat into an emtpy frying pan.;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D185;Pop it on a stove for some time.;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D186;After it's done cooking, transfer it into a burger plate, along with all other required ingredients.;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D187;And viola! You got yourself a soup that is ready for consumption!;Puddles;FALSE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;journal/journal_r2;FALSE;TRUE;FALSE
+D188;Is there anything else you want to talk about?;Puddles;TRUE;P005;Mini_Tut_02;dialogue images/puddles_1_right;null;null;FALSE;TRUE;FALSE
 D189;Hey, lil bro!;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE
 D190;Hm?;Waddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;TRUE;FALSE
 D191;Just wanted to check up on how you're doing, since it's been a few days since mom and dad has left the store to you.;Puddles;FALSE;null;cutscene_04;dialogue images/waddles_1;dialogue images/puddles_1;null;FALSE;FALSE;FALSE

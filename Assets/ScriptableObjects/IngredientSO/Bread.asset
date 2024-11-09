@@ -20,6 +20,6 @@ MonoBehaviour:
   canCut: 0
   canFry: 0
   canBoil: 0
-  isReady: 0
+  isReady: 1
   imageName: Food Assets/Plates/burger/bun
   plateTyping: burger_plate

@@ -105,6 +105,9 @@ public class DroneStation : MonoBehaviour
 
         int randomClick = Random.Range(0, clickButtonSound.Count);
         SoundFXManager.instance.PlaySound(clickButtonSound[randomClick], transform, 1f);
+
+        MasterController masterController = FindObjectOfType<MasterController>();
+        masterController.canPause = true;
     }
 
 

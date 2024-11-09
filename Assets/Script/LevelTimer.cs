@@ -87,13 +87,14 @@ public class LevelTimer : MonoBehaviour
 
                 if(timeLeft<10 && !hasCountdownStarted)
                 {
+                    timeText.color = Color.red;
                     StartCoroutine(Countdown());
                     hasCountdownStarted = true;
                 }
 
                 if(timeLeft<5)
                 {
-                    timeText.color = Color.red;
+                    
 
                     if(!hasFadeOutStarted && timeLeft<=1)
                     {

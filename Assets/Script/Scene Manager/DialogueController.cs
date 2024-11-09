@@ -190,8 +190,8 @@ public class DialogueController : MonoBehaviour
         generalDialogues = Game.GetGeneralDialoguesByScene(currentSceneName);
         playerResponses = Game.GetPlayerResponsesInScene(currentSceneName);
 
-
-        // for(int i =0; i<generalDialogues.Count;i++)
+        // Debug.Log(playerResponses[0].dialogue);
+                // for(int i =0; i<generalDialogues.Count;i++)
         // {
         //     Debug.Log(generalDialogues[i].dialogue);
         // }
@@ -241,7 +241,6 @@ public class DialogueController : MonoBehaviour
 
             if(generalDialogues[nextGeneralDialogue].isDialogueSelection)
             {
-                
                 PlayerResponseButton();
                 dialogueBy.text = generalDialogues[nextGeneralDialogue].dialogueBy;
                 StopAllCoroutines();
@@ -286,7 +285,7 @@ public class DialogueController : MonoBehaviour
 
         InitializeDialogues();
 
-        Debug.Log(generalDialogues[nextGeneralDialogue].dialogue);
+        // Debug.Log(generalDialogues[nextGeneralDialogue].dialogue);
 
         skipDialogueButton.onClick.RemoveAllListeners();
         declineSkip.onClick.RemoveAllListeners();
@@ -455,7 +454,8 @@ public class DialogueController : MonoBehaviour
 
     public void NextDialogue() //this handles the dialogue progression
     {
-
+        // Debug.Log(nextGeneralDialogue);
+        // Debug.Log($"is player response? {generalDialogues[nextGeneralDialogue].isDialogueSelection}");
         foreach (var e in responseButtons)
         {
             // Debug.Log($"Button: {e.name}, Active in hierarchy: {e.activeInHierarchy}");
@@ -490,19 +490,19 @@ public class DialogueController : MonoBehaviour
                 StartCoroutine(TypewriterEffect(generalDialogues[nextGeneralDialogue].dialogue, dialogue));
                 return;
             }
-
-            if(generalDialogues[nextGeneralDialogue-1].toCloseDialogue && !generalDialogues[nextGeneralDialogue].toCloseDialogue)
+            
+            if(nextGeneralDialogue-1>=0 && generalDialogues[nextGeneralDialogue-1].toCloseDialogue && !generalDialogues[nextGeneralDialogue].toCloseDialogue)
             {                
                 CloseDialogue();
                 return;
             }
             
-            if(generalDialogues[nextGeneralDialogue-1].optionResponseID == "P007" && generalDialogues[nextGeneralDialogue].optionResponseID != "P007")
+            if(nextGeneralDialogue-1>=0 && generalDialogues[nextGeneralDialogue-1].optionResponseID == "P007" && generalDialogues[nextGeneralDialogue].optionResponseID != "P007")
             {
                 CloseDialogue();
                 return;
             }
-            if(generalDialogues[nextGeneralDialogue-1].optionResponseID == "P008" && generalDialogues[nextGeneralDialogue].optionResponseID != "P008")
+            if(nextGeneralDialogue-1>=0 && generalDialogues[nextGeneralDialogue-1].optionResponseID == "P008" && generalDialogues[nextGeneralDialogue].optionResponseID != "P008")
             {
                 CloseDialogue();
                 return;
@@ -550,6 +550,8 @@ public class DialogueController : MonoBehaviour
     {
         responseOptions = Game.GetPlayerResponsesByTriggerID(generalDialogues[nextGeneralDialogue].dialogueID);
 
+        // Debug.LogWarning($"current dialgoue: {generalDialogues[nextGeneralDialogue].dialogueID}");
+
         List<PlayerResponse> questionPrompts = new List<PlayerResponse>();
         PlayerResponse P007 = null;
         PlayerResponse P008 = null;
@@ -560,8 +562,8 @@ public class DialogueController : MonoBehaviour
             {
                 P007 = responseOptions[i];
 
-                Debug.Log(P007.playerDialogueID);
-                Debug.Log(Game.GetDialogueByResponseID(P007.playerDialogueID)[0].dialogue);
+                // Debug.Log(P007.playerDialogueID);
+                // Debug.Log(Game.GetDialogueByResponseID(P007.playerDialogueID)[0].dialogue);
             }
             else if (responseOptions[i].playerDialogueID == "P008")
             {
@@ -589,9 +591,11 @@ public class DialogueController : MonoBehaviour
         {
             int index = i;
             responseButtons[i].SetActive(true);
+
+            // Debug.LogWarning($"this button is it active? {responseButtons[i].activeInHierarchy}");
             responseButtons[i].GetComponent<Button>().onClick.AddListener(() => SelectResponse(index));
 
-            Debug.Log(responseOptions[i].dialogue);
+            // Debug.Log(responseOptions[i].dialogue);
 
             if (responseOptions[i].dialogueType == "Tutorial_Initation")
             {
@@ -622,6 +626,8 @@ public class DialogueController : MonoBehaviour
 
         response = responseOptions[index];
 
+        // Debug.Log(response.dialogue);
+
         if(response.dialogueType == "Tutorial_Initation" && !isTutorialInitiationInputCompleted)
         {
             SetNextScene(response);
@@ -636,7 +642,23 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            GeneralDialogue nextDialogue = Game.GetDialogueByResponseID(response.playerDialogueID)[0]; //first dialogue of this response
+            string responseID = response.playerDialogueID;
+            List<GeneralDialogue> listOfResponse = Game.GetDialogueByResponseID(responseID);
+
+            List<GeneralDialogue> currentResponseList = new List<GeneralDialogue>();
+            for(int i =0; i<listOfResponse.Count; i++)
+            {
+                if(listOfResponse[i].sceneName == currentSceneName)
+                {
+                    currentResponseList.Add(listOfResponse[i]);
+                }
+            }
+            // for(int i =0; i<listOfResponse.Count;i++)
+            // {
+            //     Debug.LogWarning($"scene name: {currentResponseList[i].sceneName}");
+            // }
+
+            GeneralDialogue nextDialogue = currentResponseList[0]; //first dialogue of this response
             //setting next line of dialogue in response to what was selected 
             nextGeneralDialogue = generalDialogues.IndexOf(nextDialogue);
             dialogueBy.text = nextDialogue.dialogueBy;
@@ -790,6 +812,8 @@ public class DialogueController : MonoBehaviour
     #region skip dialogue
     private void OpenSkipDialoguePrompt()
     {
+        canInteract = false;
+
         int random = Random.Range(0, clickButtonSound.Count);
         SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
 
@@ -801,6 +825,8 @@ public class DialogueController : MonoBehaviour
 
     private void CloseSkipDialoguePrompt()
     {
+        canInteract = true;
+        
         int random = Random.Range(0, clickButtonSound.Count);
         SoundFXManager.instance.PlaySound(clickButtonSound[random], transform, 1f);
 

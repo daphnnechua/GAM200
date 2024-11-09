@@ -157,8 +157,6 @@ public class DataManager : MonoBehaviour
 
             recipes.Add(recipe);
 
-            Debug.Log(recipes[0].penalty);
-
             Game.SetRecipeList(recipes);
 
         }
