@@ -106,6 +106,7 @@ MonoBehaviour:
   plateSfx:
   - {fileID: 8300000, guid: 8ef7c8c79da3d8f49b305d24f88f22d1, type: 3}
   - {fileID: 8300000, guid: 803897f1c19accd45a5715faea1424ba, type: 3}
+  wrongPlateSfx: {fileID: 8300000, guid: 8b5c8044efc433440b6e81f51685f9e8, type: 3}
 --- !u!50 &7037139967899283996
 Rigidbody2D:
   serializedVersion: 4

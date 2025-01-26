@@ -2,7 +2,7 @@ recipeID;recipeName;ingredientIDs;reward;availableInScenes;imageFilePath;penalty
 REC_1;Salad;INGR_2;10;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/Salad/plate_lettuce;5
 REC_2;Tomato salad;INGR_2@INGR_4;10;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/Salad/plate_lettucetomato;5
 REC_3;Shrimp Salad;INGR_2@INGR_4@INGR_7;15;Tutorial@Level_1@Level_2@Level_3;Food Assets/Plates/Salad/plate_lettucetomatoshrimp;7
-REC_4;Tomato Soup;INGR_5@INGR_5@INGR_5;20;Mini_Tut_01@Level_2@Level_3;Food Assets/Plates/soup/tomatosoup;10
-REC_5;Mushroom Soup;INGR_10@INGR_10@INGR_10;20;Mini_Tut_01@Level_2@Level_3;Food Assets/Plates/soup/mushroomsoup;10
+REC_4;Tomato Soup;INGR_5;20;Mini_Tut_01@Level_2@Level_3;Food Assets/Plates/soup/tomatosoup;10
+REC_5;Mushroom Soup;INGR_10;20;Mini_Tut_01@Level_2@Level_3;Food Assets/Plates/soup/mushroomsoup;10
 REC_6;Burger;INGR_16@INGR_15;20;Mini_Tut_02@Level_3;Food Assets/Plates/burger/burgerplate;10
 REC_7;Cheese Burger;INGR_16@INGR_15@INGR_12;25;Mini_Tut_02@Level_3;Food Assets/Plates/burger/cheeseburgerplate;12

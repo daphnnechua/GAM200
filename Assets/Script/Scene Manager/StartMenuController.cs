@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StartMenuController : MonoBehaviour
@@ -24,6 +25,7 @@ public class StartMenuController : MonoBehaviour
     private float fadeDuration = 1f;
 
     [SerializeField] private List<AudioClip> clickButtonSfx;
+    [SerializeField] private AudioClip hoverSfx;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,11 @@ public class StartMenuController : MonoBehaviour
 
             // e.button.onClick.AddListener(() => DebugLevelLoadout(levelName));
         }
+
+        PlayHoverSound(startButton);
+        PlayHoverSound(levelLoadout);
+        PlayHoverSound(quitButton);
+        PlayHoverSound(quitButton);
 
     }
 
@@ -151,6 +158,16 @@ public class StartMenuController : MonoBehaviour
         StartCoroutine(FadeToBlackFromStart());
     }
 
+    private void PlayHoverSound(Button button)
+    {
+        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerEnter
+        };
+        entry.callback.AddListener((eventData) => SoundFXManager.instance.PlaySound(hoverSfx, transform, 1));
+        trigger.triggers.Add(entry);
+    }
 
     [System.Serializable]
     public class LevelButtons

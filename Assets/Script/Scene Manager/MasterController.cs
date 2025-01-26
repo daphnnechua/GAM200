@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MasterController : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class MasterController : MonoBehaviour
     [SerializeField] private AudioClip startMenuBGM;
 
     [SerializeField] private List<AudioClip> ambientSfx;
+
+    [SerializeField] private AudioClip openPauseMenu;
+    [SerializeField]private AudioClip closePauseMenu;
 
     private List<string> allOpenSceneNames = new List<string>();
 
@@ -193,6 +197,7 @@ public class MasterController : MonoBehaviour
             if(level.levelName == currentSceneName)
             {
                 SceneManager.LoadSceneAsync("Pause_Menu", LoadSceneMode.Additive);
+                SoundFXManager.instance.PlaySound(openPauseMenu, transform, 1);
                 allOpenSceneNames.Add("Pause_Menu");
                 if(gameController!=null)
                 {
@@ -211,6 +216,7 @@ public class MasterController : MonoBehaviour
         if(gameController!=null)
         {
             gameController.isPaused = false;
+            SoundFXManager.instance.PlaySound(closePauseMenu, transform, 1);
         }
         pauseMenuOpen = false;
     }

@@ -1,7 +1,7 @@
 levelName;levelType;availableStars;pointsRequired
 Tutorial;Tutorial;1;0
-Level_1;Normal;3;20@50@75
+Level_1;Normal;3;25@50@75
 Mini_Tut_01;Tutorial;1;0
-Level_2;Normal;3;30@55@80
+Level_2;Normal;3;50@75@90
 Mini_Tut_02;Tutorial;1;0
-Level_3;Normal;3;40@60@90
+Level_3;Normal;3;60@80@90

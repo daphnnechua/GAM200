@@ -2262,6 +2262,7 @@ MonoBehaviour:
   clickButtonSfx:
   - {fileID: 8300000, guid: 32e7b3bb93f5f5c43ab9f2cce1a88aba, type: 3}
   - {fileID: 8300000, guid: 68244a0a065c3a3439accfc584c820b3, type: 3}
+  hoverSfx: {fileID: 8300000, guid: a77aaca4e8c860a4d8f971be805d8817, type: 3}
 --- !u!1 &1816146974
 GameObject:
   m_ObjectHideFlags: 0

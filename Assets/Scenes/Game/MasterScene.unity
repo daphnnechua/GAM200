@@ -236,6 +236,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9dc9b1be04b710c4d9ba178b48f057b0, type: 3}
   - {fileID: 8300000, guid: ab859f18cbc387f4594d8dd034fd5a89, type: 3}
   - {fileID: 8300000, guid: 2c1ee95443d233948addc8704e28cdea, type: 3}
+  openPauseMenu: {fileID: 8300000, guid: c606924f1f5cd6141802c3e4c768993d, type: 3}
+  closePauseMenu: {fileID: 8300000, guid: 98b0bde99530eea459df2fc48b59d55d, type: 3}
   pauseMenuOpen: 0
   canPause: 1
 --- !u!114 &751841291

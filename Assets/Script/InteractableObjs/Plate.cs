@@ -22,6 +22,8 @@ public class Plate : MonoBehaviour
 
     [SerializeField] private List<AudioClip> plateSfx;
 
+    [SerializeField] private AudioClip wrongPlateSfx;
+
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
@@ -63,6 +65,7 @@ public class Plate : MonoBehaviour
             else
             {
                 Debug.Log("plate typing does not match!");
+                SoundFXManager.instance.PlaySound(wrongPlateSfx, transform, 1);
             }
             
         }
